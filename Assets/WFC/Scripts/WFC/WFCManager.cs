@@ -61,6 +61,7 @@ public class WFCManager : MonoBehaviour
 
     private List<TimeSpan> listResultTime = new List<TimeSpan>();
     private bool launchOnce = false;
+    private float timeBeforeLaunch = 1.0f;
 
     //---------------------------------------
 
@@ -311,13 +312,19 @@ public class WFCManager : MonoBehaviour
 
         if (Input.GetButtonDown("Generate"))
         {
-            if(!gaLaunched)
+            if (!gaLaunched)
+            {
                 launchOnce = true;
+                timeBeforeLaunch = 0.5f;
+                gameObject.SendMessage("PreStartGeneration");
+            }
         }
 
-        if (launchOnce)
+        timeBeforeLaunch -= Time.deltaTime;
+        if (launchOnce && timeBeforeLaunch <= 0)
         {
-            launchOnce = false; 
+            launchOnce = false;
+            gameObject.SendMessage("StartGeneration");
 
             //Si on lance le GA
             if (gaParameters && gaParameters.launchGA)
@@ -389,5 +396,17 @@ public class WFCManager : MonoBehaviour
     {
         Debug.Log("Level Generated");
         
+    }
+
+    public void StartGeneration()
+    {
+        Debug.Log("Start Generation");
+
+    }
+
+    public void PreStartGeneration()
+    {
+        Debug.Log("Start Generation in "+timeBeforeLaunch);
+
     }
 }

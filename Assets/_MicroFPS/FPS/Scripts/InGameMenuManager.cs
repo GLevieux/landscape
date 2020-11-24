@@ -79,7 +79,7 @@ public class InGameMenuManager : MonoBehaviour
 
         if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
         {
-            if (EventSystem.current.currentSelectedGameObject == null)
+            if (EventSystem.current && EventSystem.current.currentSelectedGameObject == null)
             {
                 EventSystem.current.SetSelectedGameObject(null);
                 lookSensitivitySlider.Select();

@@ -40,11 +40,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 20000
   updateMode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 2
   updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 100
     min: 0
   includeSunInBaking:
     m_OverrideState: 0
@@ -92,12 +92,12 @@ MonoBehaviour:
     min: 0
   aerosolDensity:
     m_OverrideState: 0
-    m_Value: 0.01192826
+    m_Value: 0.525
     min: 0
     max: 1
   aerosolTint:
-    m_OverrideState: 1
-    m_Value: {r: 0.62144, g: 0.9080918, b: 0.990566, a: 1}
+    m_OverrideState: 0
+    m_Value: {r: 0.8113208, g: 0.23815753, b: 0, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -106,8 +106,8 @@ MonoBehaviour:
     m_Value: 8289.296
     min: 0
   aerosolAnisotropy:
-    m_OverrideState: 1
-    m_Value: 0.831
+    m_OverrideState: 0
+    m_Value: 0.779
     min: -1
     max: 1
   numberOfBounces:
@@ -116,8 +116,8 @@ MonoBehaviour:
     min: 1
     max: 10
   groundTint:
-    m_OverrideState: 1
-    m_Value: {r: 0.8490566, g: 0.18823424, b: 0.21921028, a: 1}
+    m_OverrideState: 0
+    m_Value: {r: 0.7264151, g: 0.01027944, b: 0.057099093, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 0
@@ -160,14 +160,14 @@ MonoBehaviour:
     min: 0
     max: 1
   horizonTint:
-    m_OverrideState: 1
-    m_Value: {r: 0.3254717, g: 0.95430136, b: 1, a: 1}
+    m_OverrideState: 0
+    m_Value: {r: 0, g: 0.0013723373, b: 1, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 0
   zenithTint:
-    m_OverrideState: 1
-    m_Value: {r: 0.4281865, g: 0.40396938, b: 0.9622642, a: 1}
+    m_OverrideState: 0
+    m_Value: {r: 0.6886792, g: 0.035733357, b: 0.54166436, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 0
@@ -336,6 +336,7 @@ MonoBehaviour:
   - {fileID: -3305224281371206947}
   - {fileID: -7402913827213794053}
   - {fileID: -5829968630481342358}
+  - {fileID: 6968382544093300946}
 --- !u!114 &6775376097864012941
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -354,8 +355,80 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 4
   skyAmbientMode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   fogType:
     m_OverrideState: 1
     m_Value: 3
+--- !u!114 &6968382544093300946
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d08ce26990eb1a4a9177b860541e702, type: 3}
+  m_Name: Exposure
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  mode:
+    m_OverrideState: 1
+    m_Value: 1
+  meteringMode:
+    m_OverrideState: 0
+    m_Value: 2
+  luminanceSource:
+    m_OverrideState: 0
+    m_Value: 1
+  fixedExposure:
+    m_OverrideState: 0
+    m_Value: 0
+  compensation:
+    m_OverrideState: 0
+    m_Value: 0
+  limitMin:
+    m_OverrideState: 0
+    m_Value: -10
+  limitMax:
+    m_OverrideState: 0
+    m_Value: 20
+  curveMap:
+    m_OverrideState: 0
+    m_Value:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -10
+        value: -10
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 20
+        value: 20
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  adaptationMode:
+    m_OverrideState: 0
+    m_Value: 1
+  adaptationSpeedDarkToLight:
+    m_OverrideState: 0
+    m_Value: 3
+    min: 0.001
+  adaptationSpeedLightToDark:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0.001
