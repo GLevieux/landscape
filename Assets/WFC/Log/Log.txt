@@ -1,0 +1,584 @@
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:2 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:3 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:4 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:5 - Fitness:6 - Assets:1 - NbAssets:6
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:6, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:5, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:5, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:4, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:7, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:4, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:4, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:5, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:8, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:0, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:0, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:5, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:8, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:2, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:5, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:4, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:4, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:3, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:0, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4635678
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:2 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:3 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:4 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:5 - Fitness:7 - Assets:1 - NbAssets:7
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:5, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:1, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:4, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:2, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:4, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:1, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:6, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:7, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:7, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:5, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:3, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:0, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:4, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:5, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:4, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:5, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:0, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:0, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4220342
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:5 - Assets:1 - NbAssets:5
+Generation:2 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:3 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:4 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:5 - Fitness:7 - Assets:1 - NbAssets:7
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:6, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:1, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:8, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:1, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:4, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:7, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:4, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:6, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:2, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:2, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:4, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:5, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:3, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:4, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:4, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:7, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:4, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:8, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:7, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:0, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:5, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:7, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4704892
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:5 - Assets:1 - NbAssets:5
+Generation:2 - Fitness:5 - Assets:1 - NbAssets:5
+Generation:3 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:4 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:5 - Fitness:6 - Assets:1 - NbAssets:6
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:8, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:0, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:6, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:7, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:8, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:8, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:4, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:5, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:1, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:5, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:0, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:9, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:5, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:1, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:2, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:4, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:5, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4462014
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:5 - Assets:1 - NbAssets:5
+Generation:2 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:3 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:4 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:5 - Fitness:7 - Assets:1 - NbAssets:7
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:8, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:9, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:7, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:6, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:2, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:0, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:2, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:4, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:4, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:4, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:3, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:9, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:9, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:9, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:0, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:1, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:8, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4818296
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:2 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:3 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:4 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:5 - Fitness:6 - Assets:1 - NbAssets:6
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:4, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:5, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:6, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:7, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:6, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:1, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:9, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:9, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:0, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:8, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:7, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:1, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:7, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:7, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:1, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4280729
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:5 - Assets:1 - NbAssets:5
+Generation:2 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:3 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:4 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:5 - Fitness:7 - Assets:1 - NbAssets:7
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:9, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:1, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:8, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:4, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:9, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:7, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:2, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:8, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:4, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:7, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:7, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:7, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:4, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:4, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:2, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:8, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4432971
+=====Start GA=====
+=====WFC Config=====
+GridSize is 15
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 10) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Full, nbInGrid: 4, NoBigtile
+2 is Wall, nbInGrid: 32, NoBigtile
+3 is Corner, nbInGrid: 4, NoBigtile
+4 is Big, nbInGrid: 1, BigTile => SubTile at 0/0
+5 is Big, nbInGrid: 1, BigTile => SubTile at 0/1
+6 is Big, nbInGrid: 1, BigTile => SubTile at 1/0
+7 is Big, nbInGrid: 1, BigTile => SubTile at 1/1
+8 is Mid, nbInGrid: 4, NoBigtile
+9 is Air, nbInGrid: 52, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GAWantedZoneFixed
+Population is (40, 60) 
+nbGeneration is 5
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is False
+nbZones is 25
+----
+Zone coverage size is 3
+* Assets Wanted (count: 1) are :
+4
+
+
+=====GA Generations=====
+Generation:1 - Fitness:6 - Assets:1 - NbAssets:6
+Generation:2 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:3 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:4 - Fitness:7 - Assets:1 - NbAssets:7
+Generation:5 - Fitness:7 - Assets:1 - NbAssets:7
+0: Zone at 0/0, size: 3/3, proba:50000, assetID:1, prefabTag:None
+1: Zone at 3/0, size: 3/3, proba:50000, assetID:4, prefabTag:None
+2: Zone at 6/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
+3: Zone at 9/0, size: 3/3, proba:50000, assetID:4, prefabTag:None
+4: Zone at 12/0, size: 3/3, proba:50000, assetID:1, prefabTag:None
+5: Zone at 0/3, size: 3/3, proba:50000, assetID:7, prefabTag:None
+6: Zone at 3/3, size: 3/3, proba:50000, assetID:4, prefabTag:None
+7: Zone at 6/3, size: 3/3, proba:50000, assetID:4, prefabTag:None
+8: Zone at 9/3, size: 3/3, proba:50000, assetID:1, prefabTag:None
+9: Zone at 12/3, size: 3/3, proba:50000, assetID:1, prefabTag:None
+10: Zone at 0/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
+11: Zone at 3/6, size: 3/3, proba:50000, assetID:0, prefabTag:None
+12: Zone at 6/6, size: 3/3, proba:50000, assetID:5, prefabTag:None
+13: Zone at 9/6, size: 3/3, proba:50000, assetID:7, prefabTag:None
+14: Zone at 12/6, size: 3/3, proba:50000, assetID:5, prefabTag:None
+15: Zone at 0/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+16: Zone at 3/9, size: 3/3, proba:50000, assetID:5, prefabTag:None
+17: Zone at 6/9, size: 3/3, proba:50000, assetID:6, prefabTag:None
+18: Zone at 9/9, size: 3/3, proba:50000, assetID:7, prefabTag:None
+19: Zone at 12/9, size: 3/3, proba:50000, assetID:8, prefabTag:None
+20: Zone at 0/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+21: Zone at 3/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+22: Zone at 6/12, size: 3/3, proba:50000, assetID:4, prefabTag:None
+23: Zone at 9/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
+24: Zone at 12/12, size: 3/3, proba:50000, assetID:1, prefabTag:None
+Genetic WFC, NbGeneration:5 => Time elapsed: 00:00:00.4763153
