@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public Transform EnemyPrefab;
-    public void LevelGenerated()
+    public void Start()
     {
         Instantiate<Transform>(EnemyPrefab, transform.position + Vector3.up, transform.rotation);
     }
