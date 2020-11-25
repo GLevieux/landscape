@@ -275,7 +275,7 @@ public class WFCManager : MonoBehaviour
             if (ga == null)
                 return;
 
-            if (Input.GetButtonDown("Fire3"))
+            if (Input.GetButtonDown("Generate"))
             {
                 ga.StopGA();
                 gaLaunched = false;
@@ -298,6 +298,8 @@ public class WFCManager : MonoBehaviour
                 }
 
                 debugText = "Generation time for GA: " + Mathf.Round((float)ga.getElapsedTime().TotalMilliseconds/100.0f)/10 + "s";
+
+                StartCoroutine(SendMessageEndOfFrame("LevelGenerated"));
 
                 if (nextWFC)
                 {
