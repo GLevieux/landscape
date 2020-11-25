@@ -9,7 +9,7 @@ public class FlagGenerateLevel : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             WFCManager manager = GetComponentInParent<WFCManager>();
-            manager.TryGenerateNewLevel();
+            manager.TryGenerateNewLevel();      
         }
     }
 }

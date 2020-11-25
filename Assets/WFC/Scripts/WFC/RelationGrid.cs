@@ -25,7 +25,7 @@ public class RelationGrid : MonoBehaviour
         static int idCounter = 0;
         public int id = 0;
         public Relation[] relations;
-        public float nbInGrid = 0;
+        public float nbInBaseGrid = 0;
         public float maxNb = 0;
         public float minNb = 0;
         public PrefabInstance pi = null;//access parameters (prefab, rotation, symetrical)
@@ -54,7 +54,7 @@ public class RelationGrid : MonoBehaviour
         override
         public string ToString()
         {
-            return id + " is " + pi.stringId + ", nbInGrid: " + nbInGrid + ", " + ((parent == null) ? "NoBigtile" : "BigTile => SubTile at " + parent.subpartPos[id].x+"/"+ parent.subpartPos[id].z);
+            return id + " is " + pi.stringId + ", nbInGrid: " + nbInBaseGrid + ", " + ((parent == null) ? "NoBigtile" : "BigTile => SubTile at " + parent.subpartPos[id].x+"/"+ parent.subpartPos[id].z);
         }
     }
 
@@ -435,7 +435,7 @@ public class RelationGrid : MonoBehaviour
 
                         UniqueTile ut = hashPrefabToUniqueTile[id];
 
-                        ut.nbInGrid+= multiplyNbInGrid;
+                        ut.nbInBaseGrid+= multiplyNbInGrid;
 
                         grid[offx, offz].linkedTile = ut;
 

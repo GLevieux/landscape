@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 566.2033, g: 344.52832, b: 276.89667, a: 1}
+  m_IndirectSpecularColor: {r: 566.2033, g: 344.5332, b: 276.8996, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -935,17 +935,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: WFCManagerBase
       objectReference: {fileID: 0}
-    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
-      propertyPath: relationGrids.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
-      propertyPath: relationGrids.Array.data[1].addNbTimes
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
-      propertyPath: relationGrids.Array.data[1].relationGrid
-      value: 
-      objectReference: {fileID: 6051803017836593869, guid: af609d349063f344fbd86603474d97dc, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}

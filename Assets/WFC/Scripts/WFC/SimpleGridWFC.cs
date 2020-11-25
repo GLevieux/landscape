@@ -135,7 +135,8 @@ public class SimpleGridWFC
     private int nbStepsToDo = 0;
     private int counterLoop;
     //Dictionary<UniqueTile, float> hashUTToFrequences = new Dictionary<UniqueTile, float>();//remplacer par array avec id uniquetile
-    float[] frequences;//in init()
+    float[] nbInGeneratedGrid;//in init(), combien il y'en a
+    float[] nbSlotsAvailable;//in init(), à combien d'endroit on peut encore le caser
 
     private bool restart = false;
     private int nbRestartMax = 10;
@@ -587,7 +588,7 @@ public class SimpleGridWFC
                     //if we limit to 1 already, then nbingrid must be updated
                     if(wanted.Count == 1)
                     {
-                        frequences[wanted[0].linkedTile.id]++;
+                        nbInGeneratedGrid[wanted[0].linkedTile.id]++;
                     }
                 }
                 else
@@ -645,16 +646,25 @@ public class SimpleGridWFC
         slotsToUpdate.Clear();
         counterLoop = config.maxLoops;
         //hashUTToFrequences.Clear();
-        frequences = new float[config.uniqueTilesInGrid.Count];
+        nbInGeneratedGrid = new float[config.uniqueTilesInGrid.Count];
+        nbSlotsAvailable = new float[config.uniqueTilesInGrid.Count];
+
         //foreach (UniqueTile ut in uniqueTilesInGrid)
         //    hashUTToFrequences[ut] = 0f;
 
         //Get max nbInGrid
-        
-        foreach(UniqueTile u in config.uniqueTilesInGrid)
+
+        //Force le nombre au min pour les probas ok
+        foreach (UniqueTile u in config.uniqueTilesInGrid)
         {
-            if (u.nbInGrid > maxNbInGrid)
-                maxNbInGrid = u.nbInGrid;
+            if (u.nbInBaseGrid < u.minNb)
+                u.nbInBaseGrid = u.minNb;
+        }
+
+        foreach (UniqueTile u in config.uniqueTilesInGrid)
+        {
+            if (u.nbInBaseGrid > maxNbInGrid)
+                maxNbInGrid = u.nbInBaseGrid;
         }
 
         
@@ -698,8 +708,11 @@ public class SimpleGridWFC
                     //}
                     //else
                     {
-                        for (int w = 0; w < 4; w++)//create all variants of rotation (4)
-                            grid[i, j].availables.Add(new Module(ut, w));
+                        for (int w = 0; w < 4; w++)
+                        {//create all variants of rotation (4)
+                            grid[i, j].availables.Add(new Module(ut, w)); 
+                            nbSlotsAvailable[ut.id]++;
+                        }
                     }
                 }
             }
@@ -788,44 +801,37 @@ public class SimpleGridWFC
             for (int j = 0; j < config.gridSize; j++)
             {
                 ListOptim<Module> tempAvailables = grid[i, j].availables;
-                float sumWeight = 0;
+                float sumProbas = 0;
 
                 //Sumweight
                 for (int k = 0; k < tempAvailables.size; k++)
                 {
                     Module m = tempAvailables.data[k];
-                    if (frequences[m.linkedTile.id] < m.linkedTile.maxNb && frequences[m.linkedTile.id] >= m.linkedTile.minNb)
-                        sumWeight += m.linkedTile.nbInGrid / (frequences[m.linkedTile.id] + 1);
-                    else
+                    float mNbInGenGrid = nbInGeneratedGrid[m.linkedTile.id];
+
+                    if (mNbInGenGrid < m.linkedTile.maxNb && mNbInGenGrid >= m.linkedTile.minNb)
                     {
-                        if (frequences[m.linkedTile.id] >= m.linkedTile.maxNb)
-                            sumWeight += 0;//0.000001f;
-                        if (frequences[m.linkedTile.id] < m.linkedTile.minNb)
-                            sumWeight += 10*maxNbInGrid;//0.000001f;
+                        m.probability = m.linkedTile.nbInBaseGrid / (mNbInGenGrid + 1);
                     }
-                        
+                    else if(mNbInGenGrid >= m.linkedTile.maxNb)
+                    {
+                        m.probability = 0;
+                    }
+                    else if (mNbInGenGrid < m.linkedTile.minNb)
+                    {
+                        m.probability = Mathf.Lerp(m.linkedTile.nbInBaseGrid / (mNbInGenGrid + 1), 
+                            maxNbInGrid, (m.linkedTile.minNb - mNbInGenGrid) / (nbSlotsAvailable[m.linkedTile.id] / 4.0f + 1));
+                    }
+                    sumProbas += m.probability;
                 }
 
-                //Normalisation by sumweight
-                if (sumWeight > 0)
+                //Normalisation des probas
+                if (sumProbas > 0)
                 {
                     for (int k = 0; k < tempAvailables.size; k++)
                     {
                         Module m = tempAvailables.data[k];
-                        /*if (frequences[m.linkedTile.id] < m.linkedTile.maxNb)
-                            m.probability = (m.linkedTile.nbInGrid / (frequences[m.linkedTile.id] + 1)) / sumWeight;
-                        else
-                            m.probability = 0;// 0.000001f / sumWeight;*/
-
-                        if (frequences[m.linkedTile.id] < m.linkedTile.maxNb && frequences[m.linkedTile.id] >= m.linkedTile.minNb)
-                            m.probability = (m.linkedTile.nbInGrid / (frequences[m.linkedTile.id] + 1)) / sumWeight;
-                        else
-                        {
-                            if (frequences[m.linkedTile.id] >= m.linkedTile.maxNb)
-                                m.probability = 0;// 0.000001f / sumWeight;
-                            if (frequences[m.linkedTile.id] < m.linkedTile.minNb)
-                                m.probability = (10 * maxNbInGrid) / sumWeight;//0.000001f;
-                        }
+                        m.probability /= sumProbas;
                     }
                 }
             }
@@ -896,7 +902,7 @@ public class SimpleGridWFC
                     {
                         Module m = tempAvailables.data[k];
 
-                        if (frequences[m.linkedTile.id] >= m.linkedTile.maxNb)
+                        if (nbInGeneratedGrid[m.linkedTile.id] >= m.linkedTile.maxNb)
                         {
                             continue;
                         }
@@ -948,10 +954,14 @@ public class SimpleGridWFC
 
         //compute entropies and update lowest
         List<Slot> candidatesWithMinEntropy = new List<Slot>();
-        for (int i = 0; i < config.gridSize; i++)
+        int StartI = RandomUtility.NextInt()% config.gridSize;
+        int StartJ = RandomUtility.NextInt()% config.gridSize;
+        for (int iCpt = 0; iCpt < config.gridSize; iCpt++)
         {
-            for (int j = 0; j < config.gridSize; j++)
+            for (int jCpt = 0; jCpt < config.gridSize; jCpt++)
             {
+                int i = (StartI + iCpt) % config.gridSize;
+                int j = (StartJ + jCpt) % config.gridSize;
                 //List<Module> tempAvailables = grid[i, j].availables;
 
                 ListOptim<Module> tempAvailables = grid[i, j].availables;
@@ -1105,7 +1115,7 @@ public class SimpleGridWFC
         //}
 
 
-        if (frequences[chosenModule.linkedTile.id] >= chosenModule.linkedTile.maxNb)
+        if (nbInGeneratedGrid[chosenModule.linkedTile.id] >= chosenModule.linkedTile.maxNb)
         {
             Debug.Log("B O U M too much- > " + chosenModule.linkedTile.pi.stringId);
 
@@ -1113,8 +1123,13 @@ public class SimpleGridWFC
 
         //on compte (plus on choisit meme tile, moins normalement on la reprend)
         //hashUTToFrequences[chosenModule.linkedTile]++;
-        frequences[chosenModule.linkedTile.id]++;
-        
+        nbInGeneratedGrid[chosenModule.linkedTile.id]++;
+
+        //On enleve tout ceux qu'on vire des possibilités
+        for (int i= 0;i < candidateEntropy.availables.size; i++){
+            nbSlotsAvailable[candidateEntropy.availables.data[i].linkedTile.id]--;
+        }
+
         candidateEntropy.availables.Clear();
         candidateEntropy.availables.Add(chosenModule);
         //candidateEntropy.wasSelected = true;
@@ -1217,6 +1232,9 @@ public class SimpleGridWFC
                                 changedNeighboors[i] = true;
                                 currentNeighboors[i].availables.Remove(moduleN);
                                 j--;
+
+                                //Un possbilité de moins
+                                nbSlotsAvailable[moduleN.linkedTile.id]--;
 
                                 if (currentNeighboors[i].availables.size == 0)
                                 {

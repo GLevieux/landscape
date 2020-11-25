@@ -153,7 +153,7 @@ public class WFCManager : MonoBehaviour
         {
             UniqueTile cornerUT = new UniqueTile();
             cornerUT.pi = prefabBorder.GetComponent<PrefabInstance>();
-            cornerUT.nbInGrid = 0;//a verif si 0 = ok
+            cornerUT.nbInBaseGrid = 0;//a verif si 0 = ok
             dt.uniqueTilesInGrid.Add(cornerUT);
         }
         //il s'agit d'une tile à opti => ne pas prendre en compte pour les cases du milieu du wfc ? (supprimer liste)
