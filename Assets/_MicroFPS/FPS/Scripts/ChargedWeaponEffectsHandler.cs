@@ -97,7 +97,7 @@ public class ChargedWeaponEffectsHandler : MonoBehaviour
             spinningFrame.transform.localRotation *= Quaternion.Euler(0, spinningSpeed.GetValueFromRatio(m_ChargeRatio) * Time.deltaTime, 0);
         }
 
-        m_VelocityOverTimeModule.orbitalY = orbitY.GetValueFromRatio(m_ChargeRatio);
+        //m_VelocityOverTimeModule.orbitalY = orbitY.GetValueFromRatio(m_ChargeRatio);
         m_DiskOrbitParticle.transform.localScale = radius.GetValueFromRatio(m_ChargeRatio * 1.1f);
 
         // update sound's volume and pitch 

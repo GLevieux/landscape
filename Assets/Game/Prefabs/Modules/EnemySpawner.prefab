@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3880339663797769266}
   - component: {fileID: 3880339663797769267}
+  - component: {fileID: 4441040394492067464}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -45,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabTag: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 3880339663797769264}
   stringId: EnemySpawner
   doNotShowInCreatedLevel: 0
   minNb: 0
@@ -55,6 +56,19 @@ MonoBehaviour:
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0
+--- !u!114 &4441040394492067464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880339663797769264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e358db68a7462df47a84a6870d3b4d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 2015434656898269656, guid: 25a1b0efadb966e44889fce712c8ff8d, type: 3}
 --- !u!1001 &6924124289896109866
 PrefabInstance:
   m_ObjectHideFlags: 0
