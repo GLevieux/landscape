@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3244637863005952865}
   - component: {fileID: 7294581330870312988}
   - component: {fileID: 2198560843068879592}
+  - component: {fileID: 5410396137291205256}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -85,6 +86,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f80d6fe2d763964f89773dea56a56af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5410396137291205256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3244637863005952870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b7698ec50c85c44a849a968dc1d57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  compassMarkerPrefab: {fileID: 5587066761853311987, guid: 17f7957746eb62b4fa1ebe22ad280c34, type: 3}
+  textDirection: 
 --- !u!1001 &1233425921524401116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7b43b95f97e02e84d9db886d920dd39c, type: 2}
     - target: {fileID: 4330570192338997071, guid: 63cf729b85e67bb40b094dcd6646607d, type: 3}
       propertyPath: m_Radius
-      value: 2
+      value: 2.84
       objectReference: {fileID: 0}
     - target: {fileID: 4330570192338997071, guid: 63cf729b85e67bb40b094dcd6646607d, type: 3}
       propertyPath: m_IsTrigger

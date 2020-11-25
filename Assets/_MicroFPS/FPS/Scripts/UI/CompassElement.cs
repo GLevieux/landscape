@@ -10,7 +10,7 @@ public class CompassElement : MonoBehaviour
 
     Compass m_Compass;
 
-    /*void Awake()
+    void Awake()
     {
         m_Compass = FindObjectOfType<Compass>();
         DebugUtility.HandleErrorIfNullFindObject<Compass, CompassElement>(m_Compass, this);
@@ -24,5 +24,5 @@ public class CompassElement : MonoBehaviour
     void OnDestroy()
     {
         m_Compass.UnregisterCompassElement(transform);
-    }*/
+    }
 }

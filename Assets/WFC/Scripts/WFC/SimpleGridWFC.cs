@@ -667,7 +667,13 @@ public class SimpleGridWFC
                 maxNbInGrid = u.nbInBaseGrid;
         }
 
-        
+        foreach (UniqueTile u in config.uniqueTilesInGrid)
+        {
+            Debug.Log(u.id);
+            Debug.Log("Length "+nbSlotsAvailable.Length);
+        }
+
+
         //Init grid module
         grid = new Slot[config.gridSize, config.gridSize];
         for (int i = 0; i < config.gridSize; i++)
