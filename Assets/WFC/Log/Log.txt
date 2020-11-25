@@ -32,7 +32,7 @@ Generate borders is True
 =====GA Config=====
 Genetic Algorithm: GAWantedZoneFixed
 Population is (50, 100) 
-nbGeneration is 2
+nbGeneration is 30
 crossProbability is 0.5
 mutationProbability is 0.5
 all genes mutable is True
@@ -44,106 +44,7 @@ Zone coverage size is 3
 
 
 =====GA Generations=====
-Generation:1 - Fitness:45 - Assets:1 - NbAssets:45
-Generation:2 - Fitness:49 - Assets:1 - NbAssets:49
-0: Zone at 0/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
-1: Zone at 3/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
-2: Zone at 6/0, size: 3/3, proba:50000, assetID:2, prefabTag:None
-3: Zone at 9/0, size: 3/3, proba:50000, assetID:12, prefabTag:None
-4: Zone at 12/0, size: 3/3, proba:50000, assetID:9, prefabTag:None
-5: Zone at 15/0, size: 3/3, proba:50000, assetID:7, prefabTag:None
-6: Zone at 18/0, size: 3/3, proba:50000, assetID:9, prefabTag:None
-7: Zone at 21/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
-8: Zone at 24/0, size: 3/3, proba:50000, assetID:10, prefabTag:None
-9: Zone at 27/0, size: 3/3, proba:50000, assetID:3, prefabTag:None
-10: Zone at 0/3, size: 3/3, proba:50000, assetID:5, prefabTag:None
-11: Zone at 3/3, size: 3/3, proba:50000, assetID:13, prefabTag:None
-12: Zone at 6/3, size: 3/3, proba:50000, assetID:3, prefabTag:None
-13: Zone at 9/3, size: 3/3, proba:50000, assetID:11, prefabTag:None
-14: Zone at 12/3, size: 3/3, proba:50000, assetID:13, prefabTag:None
-15: Zone at 15/3, size: 3/3, proba:50000, assetID:13, prefabTag:None
-16: Zone at 18/3, size: 3/3, proba:50000, assetID:1, prefabTag:None
-17: Zone at 21/3, size: 3/3, proba:50000, assetID:13, prefabTag:None
-18: Zone at 24/3, size: 3/3, proba:50000, assetID:7, prefabTag:None
-19: Zone at 27/3, size: 3/3, proba:50000, assetID:0, prefabTag:None
-20: Zone at 0/6, size: 3/3, proba:50000, assetID:7, prefabTag:None
-21: Zone at 3/6, size: 3/3, proba:50000, assetID:2, prefabTag:None
-22: Zone at 6/6, size: 3/3, proba:50000, assetID:10, prefabTag:None
-23: Zone at 9/6, size: 3/3, proba:50000, assetID:11, prefabTag:None
-24: Zone at 12/6, size: 3/3, proba:50000, assetID:3, prefabTag:None
-25: Zone at 15/6, size: 3/3, proba:50000, assetID:0, prefabTag:None
-26: Zone at 18/6, size: 3/3, proba:50000, assetID:13, prefabTag:None
-27: Zone at 21/6, size: 3/3, proba:50000, assetID:3, prefabTag:None
-28: Zone at 24/6, size: 3/3, proba:50000, assetID:9, prefabTag:None
-29: Zone at 27/6, size: 3/3, proba:50000, assetID:6, prefabTag:None
-30: Zone at 0/9, size: 3/3, proba:50000, assetID:11, prefabTag:None
-31: Zone at 3/9, size: 3/3, proba:50000, assetID:13, prefabTag:None
-32: Zone at 6/9, size: 3/3, proba:50000, assetID:9, prefabTag:None
-33: Zone at 9/9, size: 3/3, proba:50000, assetID:9, prefabTag:None
-34: Zone at 12/9, size: 3/3, proba:50000, assetID:13, prefabTag:None
-35: Zone at 15/9, size: 3/3, proba:50000, assetID:4, prefabTag:None
-36: Zone at 18/9, size: 3/3, proba:50000, assetID:2, prefabTag:None
-37: Zone at 21/9, size: 3/3, proba:50000, assetID:13, prefabTag:None
-38: Zone at 24/9, size: 3/3, proba:50000, assetID:5, prefabTag:None
-39: Zone at 27/9, size: 3/3, proba:50000, assetID:12, prefabTag:None
-40: Zone at 0/12, size: 3/3, proba:50000, assetID:5, prefabTag:None
-41: Zone at 3/12, size: 3/3, proba:50000, assetID:5, prefabTag:None
-42: Zone at 6/12, size: 3/3, proba:50000, assetID:9, prefabTag:None
-43: Zone at 9/12, size: 3/3, proba:50000, assetID:2, prefabTag:None
-44: Zone at 12/12, size: 3/3, proba:50000, assetID:0, prefabTag:None
-45: Zone at 15/12, size: 3/3, proba:50000, assetID:5, prefabTag:None
-46: Zone at 18/12, size: 3/3, proba:50000, assetID:8, prefabTag:None
-47: Zone at 21/12, size: 3/3, proba:50000, assetID:13, prefabTag:None
-48: Zone at 24/12, size: 3/3, proba:50000, assetID:6, prefabTag:None
-49: Zone at 27/12, size: 3/3, proba:50000, assetID:12, prefabTag:None
-50: Zone at 0/15, size: 3/3, proba:50000, assetID:3, prefabTag:None
-51: Zone at 3/15, size: 3/3, proba:50000, assetID:10, prefabTag:None
-52: Zone at 6/15, size: 3/3, proba:50000, assetID:6, prefabTag:None
-53: Zone at 9/15, size: 3/3, proba:50000, assetID:4, prefabTag:None
-54: Zone at 12/15, size: 3/3, proba:50000, assetID:6, prefabTag:None
-55: Zone at 15/15, size: 3/3, proba:50000, assetID:11, prefabTag:None
-56: Zone at 18/15, size: 3/3, proba:50000, assetID:3, prefabTag:None
-57: Zone at 21/15, size: 3/3, proba:50000, assetID:12, prefabTag:None
-58: Zone at 24/15, size: 3/3, proba:50000, assetID:6, prefabTag:None
-59: Zone at 27/15, size: 3/3, proba:50000, assetID:9, prefabTag:None
-60: Zone at 0/18, size: 3/3, proba:50000, assetID:12, prefabTag:None
-61: Zone at 3/18, size: 3/3, proba:50000, assetID:11, prefabTag:None
-62: Zone at 6/18, size: 3/3, proba:50000, assetID:3, prefabTag:None
-63: Zone at 9/18, size: 3/3, proba:50000, assetID:9, prefabTag:None
-64: Zone at 12/18, size: 3/3, proba:50000, assetID:12, prefabTag:None
-65: Zone at 15/18, size: 3/3, proba:50000, assetID:13, prefabTag:None
-66: Zone at 18/18, size: 3/3, proba:50000, assetID:11, prefabTag:None
-67: Zone at 21/18, size: 3/3, proba:50000, assetID:3, prefabTag:None
-68: Zone at 24/18, size: 3/3, proba:50000, assetID:7, prefabTag:None
-69: Zone at 27/18, size: 3/3, proba:50000, assetID:12, prefabTag:None
-70: Zone at 0/21, size: 3/3, proba:50000, assetID:12, prefabTag:None
-71: Zone at 3/21, size: 3/3, proba:50000, assetID:9, prefabTag:None
-72: Zone at 6/21, size: 3/3, proba:50000, assetID:0, prefabTag:None
-73: Zone at 9/21, size: 3/3, proba:50000, assetID:12, prefabTag:None
-74: Zone at 12/21, size: 3/3, proba:50000, assetID:12, prefabTag:None
-75: Zone at 15/21, size: 3/3, proba:50000, assetID:9, prefabTag:None
-76: Zone at 18/21, size: 3/3, proba:50000, assetID:2, prefabTag:None
-77: Zone at 21/21, size: 3/3, proba:50000, assetID:0, prefabTag:None
-78: Zone at 24/21, size: 3/3, proba:50000, assetID:10, prefabTag:None
-79: Zone at 27/21, size: 3/3, proba:50000, assetID:13, prefabTag:None
-80: Zone at 0/24, size: 3/3, proba:50000, assetID:4, prefabTag:None
-81: Zone at 3/24, size: 3/3, proba:50000, assetID:1, prefabTag:None
-82: Zone at 6/24, size: 3/3, proba:50000, assetID:13, prefabTag:None
-83: Zone at 9/24, size: 3/3, proba:50000, assetID:8, prefabTag:None
-84: Zone at 12/24, size: 3/3, proba:50000, assetID:13, prefabTag:None
-85: Zone at 15/24, size: 3/3, proba:50000, assetID:4, prefabTag:None
-86: Zone at 18/24, size: 3/3, proba:50000, assetID:4, prefabTag:None
-87: Zone at 21/24, size: 3/3, proba:50000, assetID:2, prefabTag:None
-88: Zone at 24/24, size: 3/3, proba:50000, assetID:1, prefabTag:None
-89: Zone at 27/24, size: 3/3, proba:50000, assetID:0, prefabTag:None
-90: Zone at 0/27, size: 3/3, proba:50000, assetID:9, prefabTag:None
-91: Zone at 3/27, size: 3/3, proba:50000, assetID:13, prefabTag:None
-92: Zone at 6/27, size: 3/3, proba:50000, assetID:8, prefabTag:None
-93: Zone at 9/27, size: 3/3, proba:50000, assetID:8, prefabTag:None
-94: Zone at 12/27, size: 3/3, proba:50000, assetID:1, prefabTag:None
-95: Zone at 15/27, size: 3/3, proba:50000, assetID:4, prefabTag:None
-96: Zone at 18/27, size: 3/3, proba:50000, assetID:7, prefabTag:None
-97: Zone at 21/27, size: 3/3, proba:50000, assetID:8, prefabTag:None
-98: Zone at 24/27, size: 3/3, proba:50000, assetID:3, prefabTag:None
-99: Zone at 27/27, size: 3/3, proba:50000, assetID:4, prefabTag:None
-Genetic WFC, NbGeneration:2 => Time elapsed: 00:00:09.1404964
+Generation:1 - Fitness:34 - Assets:1 - NbAssets:34
+Generation:2 - Fitness:34 - Assets:1 - NbAssets:34
+Generation:3 - Fitness:36 - Assets:1 - NbAssets:36
+Generation:4 - Fitness:36 - Assets:1 - NbAssets:36
