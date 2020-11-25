@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6514815195942472441
 Transform:
@@ -73,7 +73,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6514815196036402146
 Transform:
@@ -209,6 +209,10 @@ PrefabInstance:
     - target: {fileID: 5304129861296154388, guid: ef7c80bab9af7c740b9d0e9f777a5d33, type: 3}
       propertyPath: m_Name
       value: PenteSmall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304129861296154388, guid: ef7c80bab9af7c740b9d0e9f777a5d33, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5304129861296154389, guid: ef7c80bab9af7c740b9d0e9f777a5d33, type: 3}
       propertyPath: m_Mesh
