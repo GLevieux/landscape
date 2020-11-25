@@ -48,6 +48,8 @@ public class WeaponController : MonoBehaviour
     public float delayBetweenShots = 0.5f;
     [Tooltip("Angle for the cone in which the bullets will be shot randomly (0 means no spread at all)")]
     public float bulletSpreadAngle = 0f;
+    [Tooltip("Angle for the cone in which the bullets will be shot randomly when aiming (0 means no spread at all)")]
+    public float bulletSpreadAngleAiming = 0f;
     [Tooltip("Amount of bullets per shot")]
     public int bulletsPerShot = 1;
     [Tooltip("Force that will push back the weapon after each shot")]
@@ -118,6 +120,8 @@ public class WeaponController : MonoBehaviour
 
     const string k_AnimAttackParameter = "Attack";
 
+    private PlayerWeaponsManager m_WeaponsManager;
+
     void Awake()
     {
         m_CurrentAmmo = maxAmmo;
@@ -125,6 +129,9 @@ public class WeaponController : MonoBehaviour
 
         m_ShootAudioSource = GetComponent<AudioSource>();
         DebugUtility.HandleErrorIfNullGetComponent<AudioSource, WeaponController>(m_ShootAudioSource, this, gameObject);
+
+        m_WeaponsManager = GetComponentInParent<PlayerWeaponsManager>();
+        DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, WeaponController>(m_WeaponsManager, this, gameObject);
 
         if (useContinuousShootSound)
         {
@@ -381,6 +388,9 @@ public class WeaponController : MonoBehaviour
     public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)
     {
         float spreadAngleRatio = bulletSpreadAngle / 180f;
+        if(m_WeaponsManager.isAiming)
+            spreadAngleRatio = bulletSpreadAngleAiming / 180f;
+
         Vector3 spreadWorldDirection = Vector3.Slerp(shootTransform.forward, UnityEngine.Random.insideUnitSphere, spreadAngleRatio);
 
         return spreadWorldDirection;
