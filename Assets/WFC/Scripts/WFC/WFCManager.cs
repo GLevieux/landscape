@@ -375,7 +375,7 @@ public class WFCManager : MonoBehaviour
 
                 currentWFC.show(true, this.transform.position, transform);
 
-                StartCoroutine(SendMessageNextFrame("LevelGenerated"));
+                StartCoroutine(SendMessageEndOfFrame("LevelGenerated"));
                 
 
                 if (nextWFC)
@@ -412,10 +412,9 @@ public class WFCManager : MonoBehaviour
 
     }
 
-    IEnumerator SendMessageNextFrame(string message)
+    IEnumerator SendMessageEndOfFrame(string message)
     {
         yield return new WaitForEndOfFrame();
         gameObject.SendMessage(message);
-
     }
 }
