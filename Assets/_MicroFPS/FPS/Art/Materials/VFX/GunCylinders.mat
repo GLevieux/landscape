@@ -167,7 +167,7 @@ Material:
     - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0.9607844, g: 0.5294118, b: 0.19607839, a: 1}
-    - _EmissiveColorLDR: {r: 0.9607844, g: 0.5294118, b: 0.19606933, a: 1}
+    - _EmissiveColorLDR: {r: 0.9607844, g: 0.5294118, b: 0.19606885, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _UnlitColor: {r: 0.9622642, g: 0.5295227, b: 0.19517623, a: 1}
     - _UnlitColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
