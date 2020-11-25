@@ -6793,17 +6793,17 @@ MonoBehaviour:
   ErrorMat: {fileID: 0}
   uniqueTilesInGrid:
   - id: 245
-    nbInBaseGrid: 0
+    nbInGrid: 4
     maxNb: 1000
     minNb: 0
     pi: {fileID: 4328153994932939023}
   - id: 246
-    nbInBaseGrid: 0
+    nbInGrid: 33
     maxNb: 1000
     minNb: 0
     pi: {fileID: 6130502416116463546}
   - id: 247
-    nbInBaseGrid: 0
+    nbInGrid: 64
     maxNb: 1000
     minNb: 0
     pi: {fileID: 1967457669233057503}
