@@ -921,15 +921,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.data[2].addNbTimes
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.data[3].addNbTimes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.data[2].relationGrid
       value: 
       objectReference: {fileID: 6051803017836593869, guid: 641af00ede12b8148b026a5676e62c7b, type: 3}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.data[3].relationGrid
+      value: 
+      objectReference: {fileID: 6051803017836593869, guid: 10008b87c5b48c34bacf659e9a2eb1ad, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
