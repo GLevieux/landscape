@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 227756733158073608}
   - component: {fileID: -5143554733879865508}
   m_Layer: 0
-  m_Name: WindowModule
+  m_Name: WindowModuleOLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 264381562131674432}
-  stringId: WindowModule
+  stringId: WindowModuleOLD
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
