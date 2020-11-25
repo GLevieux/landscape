@@ -216,6 +216,8 @@ public class WFCManager : MonoBehaviour
 
         gaParameters = GetComponent<GAParameters>();
         ga = GetComponent<GAScript>();
+
+        TryGenerateNewLevel();
     }
 
     
@@ -312,12 +314,7 @@ public class WFCManager : MonoBehaviour
 
         if (Input.GetButtonDown("Generate"))
         {
-            if (!gaLaunched)
-            {
-                launchOnce = true;
-                timeBeforeLaunch = 0.5f;
-                gameObject.SendMessage("PreStartGeneration");
-            }
+            TryGenerateNewLevel();
         }
 
         timeBeforeLaunch -= Time.deltaTime;
@@ -416,5 +413,15 @@ public class WFCManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         gameObject.SendMessage(message);
+    }
+
+    public void TryGenerateNewLevel()
+    {
+        if (!gaLaunched)
+        {
+            launchOnce = true;
+            timeBeforeLaunch = 0.5f;
+            gameObject.SendMessage("PreStartGeneration");
+        }
     }
 }

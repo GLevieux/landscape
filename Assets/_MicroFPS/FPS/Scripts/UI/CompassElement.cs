@@ -6,10 +6,11 @@ public class CompassElement : MonoBehaviour
     public CompassMarker compassMarkerPrefab;
     [Tooltip("Text override for the marker, if it's a direction")]
     public string textDirection;
+    
 
     Compass m_Compass;
 
-    void Awake()
+    /*void Awake()
     {
         m_Compass = FindObjectOfType<Compass>();
         DebugUtility.HandleErrorIfNullFindObject<Compass, CompassElement>(m_Compass, this);
@@ -23,5 +24,5 @@ public class CompassElement : MonoBehaviour
     void OnDestroy()
     {
         m_Compass.UnregisterCompassElement(transform);
-    }
+    }*/
 }
