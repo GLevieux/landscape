@@ -135,8 +135,9 @@ public class SimpleGridWFC
     private int nbStepsToDo = 0;
     private int counterLoop;
     //Dictionary<UniqueTile, float> hashUTToFrequences = new Dictionary<UniqueTile, float>();//remplacer par array avec id uniquetile
-    float[] nbInGeneratedGrid;//in init(), combien il y'en a
-    float[] nbSlotsAvailable;//in init(), à combien d'endroit on peut encore le caser
+    float[] unqTlNbInGeneratedGrid;//in init(), combien il y'en a
+    float[] unqTlNbSlotsAvailable;//in init(), à combien d'endroit on peut encore le caser
+    float[] unqTlProbas; //Chaque unique tile a la meme proba dans l'absolu, il faut juste normaliser ensuite pour chaque module
 
     private bool restart = false;
     private int nbRestartMax = 10;
@@ -588,7 +589,7 @@ public class SimpleGridWFC
                     //if we limit to 1 already, then nbingrid must be updated
                     if(wanted.Count == 1)
                     {
-                        nbInGeneratedGrid[wanted[0].linkedTile.id]++;
+                        unqTlNbInGeneratedGrid[wanted[0].linkedTile.id]++;
                     }
                 }
                 else
@@ -646,8 +647,9 @@ public class SimpleGridWFC
         slotsToUpdate.Clear();
         counterLoop = config.maxLoops;
         //hashUTToFrequences.Clear();
-        nbInGeneratedGrid = new float[config.uniqueTilesInGrid.Count];
-        nbSlotsAvailable = new float[config.uniqueTilesInGrid.Count];
+        unqTlNbInGeneratedGrid = new float[config.uniqueTilesInGrid.Count];
+        unqTlNbSlotsAvailable = new float[config.uniqueTilesInGrid.Count];
+        unqTlProbas = new float[config.uniqueTilesInGrid.Count];
 
         //foreach (UniqueTile ut in uniqueTilesInGrid)
         //    hashUTToFrequences[ut] = 0f;
@@ -670,7 +672,7 @@ public class SimpleGridWFC
         foreach (UniqueTile u in config.uniqueTilesInGrid)
         {
             Debug.Log(u.id);
-            Debug.Log("Length "+nbSlotsAvailable.Length);
+            Debug.Log("Length "+unqTlNbSlotsAvailable.Length);
         }
 
 
@@ -717,7 +719,7 @@ public class SimpleGridWFC
                         for (int w = 0; w < 4; w++)
                         {//create all variants of rotation (4)
                             grid[i, j].availables.Add(new Module(ut, w)); 
-                            nbSlotsAvailable[ut.id]++;
+                            unqTlNbSlotsAvailable[ut.id]++;
                         }
                     }
                 }
@@ -786,6 +788,8 @@ public class SimpleGridWFC
         }
     }
 
+
+    
     private bool searchMinEntropy()
     {
         //Debug.Log("Search min entropy");
@@ -800,7 +804,28 @@ public class SimpleGridWFC
         //on pourrait skip les calculs sur les tempAvailabes == 1 non ? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //if (tempAvailables.size <= 1)
         //    continue;
-
+        
+        //On calcule les probas par unique tile, car en fait la proba dépend pas de la case, que du tile (son min, son max, a quel point il est présent)
+        //Il faut juste ensuite normaliser pour chaque case de la grille
+        for(int i=0; i < unqTlProbas.Length; i++)
+        {
+            float mNbInGenGrid = unqTlNbInGeneratedGrid[i];
+            UniqueTile t = config.uniqueTilesInGrid[i];
+            if (mNbInGenGrid < t.maxNb && mNbInGenGrid >= t.minNb)
+            {
+                unqTlProbas[i] = t.nbInBaseGrid / (mNbInGenGrid + 1);
+            }
+            else if (mNbInGenGrid >= t.maxNb)
+            {
+                unqTlProbas[i] = 0;
+            }
+            else if (mNbInGenGrid < t.minNb)
+            {
+                unqTlProbas[i] = Mathf.Lerp(t.nbInBaseGrid / (mNbInGenGrid + 1),
+                    maxNbInGrid, (t.minNb - mNbInGenGrid) / (unqTlNbSlotsAvailable[i] / 4.0f + 1));
+            }            
+        }
+        
         //normaliser tiles probabilité selon présence dans grille de base (est-ce que ca recalcule inutilement pour ceux à 1 de count, je crois que oui !!!)
         for (int i = 0; i < config.gridSize; i++)
         {
@@ -813,21 +838,7 @@ public class SimpleGridWFC
                 for (int k = 0; k < tempAvailables.size; k++)
                 {
                     Module m = tempAvailables.data[k];
-                    float mNbInGenGrid = nbInGeneratedGrid[m.linkedTile.id];
-
-                    if (mNbInGenGrid < m.linkedTile.maxNb && mNbInGenGrid >= m.linkedTile.minNb)
-                    {
-                        m.probability = m.linkedTile.nbInBaseGrid / (mNbInGenGrid + 1);
-                    }
-                    else if(mNbInGenGrid >= m.linkedTile.maxNb)
-                    {
-                        m.probability = 0;
-                    }
-                    else if (mNbInGenGrid < m.linkedTile.minNb)
-                    {
-                        m.probability = Mathf.Lerp(m.linkedTile.nbInBaseGrid / (mNbInGenGrid + 1), 
-                            maxNbInGrid, (m.linkedTile.minNb - mNbInGenGrid) / (nbSlotsAvailable[m.linkedTile.id] / 4.0f + 1));
-                    }
+                    m.probability = unqTlProbas[m.linkedTile.id];
                     sumProbas += m.probability;
                 }
 
@@ -908,7 +919,7 @@ public class SimpleGridWFC
                     {
                         Module m = tempAvailables.data[k];
 
-                        if (nbInGeneratedGrid[m.linkedTile.id] >= m.linkedTile.maxNb)
+                        if (unqTlNbInGeneratedGrid[m.linkedTile.id] >= m.linkedTile.maxNb)
                         {
                             continue;
                         }
@@ -942,11 +953,6 @@ public class SimpleGridWFC
             }
         }
 
-
-
-
-
-
         /* for (int i = 0; i < gridSize; i++)
         {
                 for (int j = 0; j < gridSize; j++)
@@ -959,6 +965,7 @@ public class SimpleGridWFC
         }*/
 
         //compute entropies and update lowest
+        //On doit recalculer toutes les entropies car toutes les probas changent quand un asset est chosi (cause proba liée à fréquence des assets)
         List<Slot> candidatesWithMinEntropy = new List<Slot>();
         int StartI = RandomUtility.NextInt()% config.gridSize;
         int StartJ = RandomUtility.NextInt()% config.gridSize;
@@ -968,38 +975,21 @@ public class SimpleGridWFC
             {
                 int i = (StartI + iCpt) % config.gridSize;
                 int j = (StartJ + jCpt) % config.gridSize;
-                //List<Module> tempAvailables = grid[i, j].availables;
-
+                
                 ListOptim<Module> tempAvailables = grid[i, j].availables;
-
-                //if (tempAvailables.Count <= 1)
-                //    continue;
-
 
                 if (tempAvailables.size <= 1)//mettre ça aussi en haut non ????? eviter de recalculer proba sur une case avec un seul choix
                     continue;
 
-
-
-                //if (tempAvailables.size <= 1)//if(grid[i, j].wasSelected)////on skip ici ceux qui ont déjà ete "choisi", il faut calculer entropie pour ceux a qui il reste un choix
-                //    continue;
-
                 float entropy = 0.0f;
 
-
-
-                //foreach (Module m in tempAvailables)
-                //{
-                //    entropy += m.probability * Mathf.Log(m.probability);
-                //}
-
+                float equiprob = 1.0f/(float)tempAvailables.size;
                 for (int k = 0; k < tempAvailables.size; k++)
                 {
                     Module m = tempAvailables.data[k];
-                    entropy += m.probability * Mathf.Log(m.probability);//Mathf.Abs(0.5f - m.probability);//Mathf.Abs(0.5f - m.probability);//m.probability * Mathf.Log(m.probability);// Mathf.Abs(0.5f - m.probability);//;//ou Sum de abs(0.5 - p)
+                    //entropy += m.probability * Mathf.Log(m.probability);//Mathf.Abs(0.5f - m.probability);//Mathf.Abs(0.5f - m.probability);//m.probability * Mathf.Log(m.probability);// Mathf.Abs(0.5f - m.probability);//;//ou Sum de abs(0.5 - p)
+                    entropy -= System.Math.Abs(equiprob - m.probability);
                 }
-
-                entropy *= -1;
 
                 if (candidatesWithMinEntropy.Count == 0 || entropy < minEntropy - 0.01)
                 {
@@ -1009,7 +999,7 @@ public class SimpleGridWFC
                 }
                 else
                 {
-                    if (entropy <= minEntropy + 0.01 && entropy >= minEntropy - 0.01)
+                    if (entropy >= minEntropy - 0.01 && entropy <= minEntropy + 0.01)
                         candidatesWithMinEntropy.Add(grid[i, j]);
                 }
             }
@@ -1032,18 +1022,6 @@ public class SimpleGridWFC
 
         //float random = Random.Range(0.0f, 1.0f);
         float random = (float) RandomUtility.NextDouble();
-
-
-
-        //foreach (Module m in candidateEntropy.availables)
-        //{
-        //    random -= m.probability;
-        //    if (random <= 0)
-        //    {
-        //        chosenModule = m;
-        //        break;
-        //    }
-        //}
 
         for (int k = 0; k < candidateEntropy.availables.size; k++)
         {
@@ -1121,19 +1099,18 @@ public class SimpleGridWFC
         //}
 
 
-        if (nbInGeneratedGrid[chosenModule.linkedTile.id] >= chosenModule.linkedTile.maxNb)
+        if (unqTlNbInGeneratedGrid[chosenModule.linkedTile.id] >= chosenModule.linkedTile.maxNb)
         {
             Debug.Log("B O U M too much- > " + chosenModule.linkedTile.pi.stringId);
-
         }
 
         //on compte (plus on choisit meme tile, moins normalement on la reprend)
         //hashUTToFrequences[chosenModule.linkedTile]++;
-        nbInGeneratedGrid[chosenModule.linkedTile.id]++;
+        unqTlNbInGeneratedGrid[chosenModule.linkedTile.id]++;
 
         //On enleve tout ceux qu'on vire des possibilités
         for (int i= 0;i < candidateEntropy.availables.size; i++){
-            nbSlotsAvailable[candidateEntropy.availables.data[i].linkedTile.id]--;
+            unqTlNbSlotsAvailable[candidateEntropy.availables.data[i].linkedTile.id]--;
         }
 
         candidateEntropy.availables.Clear();
@@ -1240,7 +1217,7 @@ public class SimpleGridWFC
                                 j--;
 
                                 //Un possbilité de moins
-                                nbSlotsAvailable[moduleN.linkedTile.id]--;
+                                unqTlNbSlotsAvailable[moduleN.linkedTile.id]--;
 
                                 if (currentNeighboors[i].availables.size == 0)
                                 {
