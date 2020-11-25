@@ -388,7 +388,7 @@ public class WeaponController : MonoBehaviour
     public Vector3 GetShotDirectionWithinSpread(Transform shootTransform)
     {
         float spreadAngleRatio = bulletSpreadAngle / 180f;
-        if(m_WeaponsManager.isAiming)
+        if(m_WeaponsManager  && m_WeaponsManager.isAiming)
             spreadAngleRatio = bulletSpreadAngleAiming / 180f;
 
         Vector3 spreadWorldDirection = Vector3.Slerp(shootTransform.forward, UnityEngine.Random.insideUnitSphere, spreadAngleRatio);

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8920850587401739161}
   - component: {fileID: 8920850587401739166}
   - component: {fileID: 8920850587401739167}
+  - component: {fileID: 419427205}
+  - component: {fileID: 419427208}
   m_Layer: 0
   m_Name: WFCManagerBase
   m_TagString: Untagged
@@ -58,7 +60,7 @@ MonoBehaviour:
   - addNbTimes: 1
     relationGrid: {fileID: 6051803017836593869, guid: b6dd7646f20c9e8479a58bb795156a33, type: 3}
   wfcConfig:
-    gridSize: 15
+    gridSize: 30
     gridUnitSize: 2
     scaleSize: 1
     maxLoops: 10000
@@ -85,3 +87,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0301335efd22e084db230a89387993b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &419427205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920850587401739164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b775e20aec7d9f4f8f228aa04c4e1f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_navSurface: {fileID: 0}
+--- !u!114 &419427208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920850587401739164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc56c0b580668943a6546a827c7449b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: {fileID: 0}
+  mainDirectionalLight: {fileID: 0}

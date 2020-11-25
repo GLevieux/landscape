@@ -374,7 +374,9 @@ public class WFCManager : MonoBehaviour
                 debugText = "Avg generation time: " + Mathf.Round((float)res/100)/10 + "s";
 
                 currentWFC.show(true, this.transform.position, transform);
-                gameObject.SendMessage("LevelGenerated");
+
+                StartCoroutine(SendMessageNextFrame("LevelGenerated"));
+                
 
                 if (nextWFC)
                 {
@@ -407,6 +409,13 @@ public class WFCManager : MonoBehaviour
     public void PreStartGeneration()
     {
         Debug.Log("Start Generation in "+timeBeforeLaunch);
+
+    }
+
+    IEnumerator SendMessageNextFrame(string message)
+    {
+        yield return new WaitForEndOfFrame();
+        gameObject.SendMessage(message);
 
     }
 }
