@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8920850587401739167}
   - component: {fileID: 419427205}
   - component: {fileID: 419427208}
+  - component: {fileID: 972866573}
   m_Layer: 0
   m_Name: WFCManagerToto
   m_TagString: Untagged
@@ -58,8 +59,8 @@ MonoBehaviour:
   zoneGrid: {fileID: 0}
   relationGrids:
   - addNbTimes: 1
-    relationGrid: {fileID: 6051803017836593869, guid: 0f535a18ee9a6354dab6fd5a6524d71f, type: 3}
-  - addNbTimes: 10
+    relationGrid: {fileID: 6051803017836593869, guid: 5aa0e553cf3903049b65f3042cb09849, type: 3}
+  - addNbTimes: 1
     relationGrid: {fileID: 6051803017836593869, guid: af609d349063f344fbd86603474d97dc, type: 3}
   wfcConfig:
     gridSize: 30
@@ -116,3 +117,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: {fileID: 0}
   mainDirectionalLight: {fileID: 0}
+--- !u!114 &972866573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920850587401739164}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4b0334e5acee340b11871a4513a088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchGA: 0
+  gaConfig:
+    populationMin: 40
+    populationMax: 60
+    nbGeneration: 3
+    crossProbability: 0.5
+    mutationProbability: 0.5
+    allGenesMutable: 0
+    isMultiThread: 1
+    gridUnitSize: 1
+    nbZones: 0
