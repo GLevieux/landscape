@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107423313142364147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21, y: 0, z: 4.955799}
+  m_LocalPosition: {x: -21, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3720400931551811409}
@@ -50,7 +50,7 @@ MonoBehaviour:
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
-  size: {x: 2, y: 2}
+  size: {x: 2, y: 1}
   gridUnitSize: 2
   param:
     allRotationsAllowed: 0
@@ -88,7 +88,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6278313354589125335, guid: bdd7298807cc2944ab65a47c76857019, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.794201
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6278313354589125335, guid: bdd7298807cc2944ab65a47c76857019, type: 3}
       propertyPath: m_LocalRotation.w
