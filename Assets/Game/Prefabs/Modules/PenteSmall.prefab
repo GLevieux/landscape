@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2209157075263362049}
   - component: {fileID: -3168650474579952034}
+  - component: {fileID: 3557917489491020212}
   m_Layer: 0
   m_Name: PenteSmall
   m_TagString: Untagged
@@ -55,6 +56,22 @@ MonoBehaviour:
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0
+--- !u!114 &3557917489491020212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750550479752423155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0445098daa2b18a4da4b80fe92b3d031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavHeightZPos: 0.5
+  NavHeightZNeg: 0.5
+  NavHeightXPos: 1
+  NavHeightXNeg: 0
 --- !u!1001 &7779589009331912976
 PrefabInstance:
   m_ObjectHideFlags: 0

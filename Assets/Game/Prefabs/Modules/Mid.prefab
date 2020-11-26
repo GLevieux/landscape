@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6514815195942472441}
   - component: {fileID: 6514815195942472442}
+  - component: {fileID: 8844337781946458150}
   m_Layer: 0
   m_Name: Mid
   m_TagString: Untagged
@@ -55,6 +56,22 @@ MonoBehaviour:
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0
+--- !u!114 &8844337781946458150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514815195942472443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0445098daa2b18a4da4b80fe92b3d031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavHeightZPos: 1
+  NavHeightZNeg: 1
+  NavHeightXPos: 1
+  NavHeightXNeg: 1
 --- !u!1 &6514815196036402158
 GameObject:
   m_ObjectHideFlags: 0
