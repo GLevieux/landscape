@@ -36,9 +36,12 @@ public class PrefabInstance : MonoBehaviour
     [System.Serializable]
     public class TileParameters
     {
+        //Permet de n'ajouter qu'une seule rotation
+        /*[Tooltip("Ne prend jamais en compte les rotations pour ce prefab")]
+        public bool allRotationsAlwaysAllowed = false;*/
 
-        public bool allRotationsAllowed = false; //generate automatically relations with all 4 rotations
-                                                 //rend de ce fait les 3 rotations en plus inutiles => optimiser ici, ne pas les générer
+        [Tooltip("Valide les liens pour toutes les rotations, juste ici pour ce module sur cette grille")]
+        public bool allRotationsAllowed = false; 
 
         //public Axis symetricAxis = Axis.None; //opti ici, peut servir a supprimer des rotations inutiles
         //si both équivalent à => allrotallowed

@@ -663,17 +663,19 @@ public class SimpleGridWFC
                 u.nbInBaseGrid = u.minNb;
         }
 
+        //Cherche le nombre max
         foreach (UniqueTile u in config.uniqueTilesInGrid)
         {
             if (u.nbInBaseGrid > maxNbInGrid)
                 maxNbInGrid = u.nbInBaseGrid;
         }
 
-        foreach (UniqueTile u in config.uniqueTilesInGrid)
+        //Affichage
+        /*foreach (UniqueTile u in config.uniqueTilesInGrid)
         {
             Debug.Log(u.id);
             Debug.Log("Length "+unqTlNbSlotsAvailable.Length);
-        }
+        }*/
 
 
         //Init grid module
@@ -715,6 +717,12 @@ public class SimpleGridWFC
                     //    grid[i, j].availables.Add(new Module(ut, 1));
                     //}
                     //else
+
+                    /*if(ut.pi.param.allRotationsAlwaysAllowed)
+                    {
+                        grid[i, j].availables.Add(new Module(ut, 0));
+                    }
+                    else */
                     {
                         for (int w = 0; w < 4; w++)
                         {//create all variants of rotation (4)
@@ -792,19 +800,14 @@ public class SimpleGridWFC
     
     private bool searchMinEntropy()
     {
-        //Debug.Log("Search min entropy");
+        
 #if LOGGER
         Logger.Log("Search Minimum Entropy", Logger.LogType.TITLE);
 #endif
         //Find lowest entropy after propagation update
-        //int maxTiles = gridSize * gridSize;
-        float minEntropy = 0.0f;
+        float minEntropy = float.MaxValue;
         Slot candidateEntropy = null;
 
-        //on pourrait skip les calculs sur les tempAvailabes == 1 non ? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //if (tempAvailables.size <= 1)
-        //    continue;
-        
         //On calcule les probas par unique tile, car en fait la proba dépend pas de la case, que du tile (son min, son max, a quel point il est présent)
         //Il faut juste ensuite normaliser pour chaque case de la grille
         for(int i=0; i < unqTlProbas.Length; i++)
@@ -823,22 +826,47 @@ public class SimpleGridWFC
             {
                 unqTlProbas[i] = Mathf.Lerp(t.nbInBaseGrid / (mNbInGenGrid + 1),
                     maxNbInGrid, (t.minNb - mNbInGenGrid) / (unqTlNbSlotsAvailable[i] / 4.0f + 1));
-            }            
+            }
         }
-        
+
+        //Pour stoquer tout ceux qui ont une mini entropie
+        List<Slot> candidatesWithMinEntropy = new List<Slot>();
+
         //normaliser tiles probabilité selon présence dans grille de base (est-ce que ca recalcule inutilement pour ceux à 1 de count, je crois que oui !!!)
         for (int i = 0; i < config.gridSize; i++)
         {
             for (int j = 0; j < config.gridSize; j++)
             {
                 ListOptim<Module> tempAvailables = grid[i, j].availables;
+
+                //Sera automatiquement choisi ensuite
+                if (tempAvailables.size <= 1) 
+                    continue;
+
+                ListOptim<Zone> tempZones = grid[i, j].zonesIn;
                 float sumProbas = 0;
 
-                //Sumweight
+                //Pour tous les modules possibles
                 for (int k = 0; k < tempAvailables.size; k++)
                 {
                     Module m = tempAvailables.data[k];
+
                     m.probability = unqTlProbas[m.linkedTile.id];
+
+                    //Si on a des zones à prendre en compte, et que la proba est pas zero (zero c'est quand motif rédibitoire genre max dépassé)
+                    if (config.takeZonesIntoAccount && tempZones.size > 0 && m.probability > 0)
+                    {
+                        for (int iz = 0; iz < tempZones.size; iz++)
+                        {
+                            Zone z = tempZones.data[iz];
+
+                            if (z.assetID == m.linkedTile.id || (z.prefabTag != PrefabTag.None && z.prefabTag == m.linkedTile.pi.prefabTag))
+                            {
+                                m.probability = z.probabilityBoost; //Mais si plusieurs zones ???
+                            }
+                        }                        
+                    }
+                    
                     sumProbas += m.probability;
                 }
 
@@ -851,9 +879,32 @@ public class SimpleGridWFC
                         m.probability /= sumProbas;
                     }
                 }
+
+                float entropy = 0.0f;
+
+                //Entropie
+                float equiprob = 1.0f / (float)tempAvailables.size;
+                for (int k = 0; k < tempAvailables.size; k++)
+                {
+                    Module m = tempAvailables.data[k];
+                    //entropy += m.probability * Mathf.Log(m.probability);//Mathf.Abs(0.5f - m.probability);//Mathf.Abs(0.5f - m.probability);//m.probability * Mathf.Log(m.probability);// Mathf.Abs(0.5f - m.probability);//;//ou Sum de abs(0.5 - p)
+                    entropy -= System.Math.Abs(equiprob - m.probability);
+                    }
+
+                if (entropy < minEntropy - 0.001)
+                {
+                    minEntropy = entropy;
+                    candidatesWithMinEntropy.Clear();
+                    candidatesWithMinEntropy.Add(grid[i, j]);
+                }
+                else
+                {
+                    if (entropy >= minEntropy - 0.001 && entropy <= minEntropy + 0.001)
+                        candidatesWithMinEntropy.Add(grid[i,j]);
+                }
             }
         }
-
+#region CodeEnPlus
         //Zones (à déplacer dans la boucle en haut pour éviter 2x loop)
 
         //V1 Boost proba
@@ -898,8 +949,8 @@ public class SimpleGridWFC
         //    }
         //}
 
-        //V2 Repartition proba
-        if (config.takeZonesIntoAccount)
+        //V2 Repartition proba -> passée dans la boucle de base
+        /*if (config.takeZonesIntoAccount)
         {
             for (int i = 0; i < config.gridSize; i++)
             {
@@ -951,7 +1002,7 @@ public class SimpleGridWFC
                     }
                 }
             }
-        }
+        }*/
 
         /* for (int i = 0; i < gridSize; i++)
         {
@@ -966,7 +1017,7 @@ public class SimpleGridWFC
 
         //compute entropies and update lowest
         //On doit recalculer toutes les entropies car toutes les probas changent quand un asset est chosi (cause proba liée à fréquence des assets)
-        List<Slot> candidatesWithMinEntropy = new List<Slot>();
+        /*List<Slot> candidatesWithMinEntropy = new List<Slot>();
         int StartI = RandomUtility.NextInt()% config.gridSize;
         int StartJ = RandomUtility.NextInt()% config.gridSize;
         for (int iCpt = 0; iCpt < config.gridSize; iCpt++)
@@ -1003,7 +1054,8 @@ public class SimpleGridWFC
                         candidatesWithMinEntropy.Add(grid[i, j]);
                 }
             }
-        }
+        }*/
+#endregion
 
         if (candidatesWithMinEntropy.Count <= 0)//plus de choix possible
             return false;
@@ -1023,8 +1075,8 @@ public class SimpleGridWFC
         //float random = Random.Range(0.0f, 1.0f);
         float random = (float) RandomUtility.NextDouble();
 
-        for (int k = 0; k < candidateEntropy.availables.size; k++)
-        {
+        for (int k = 0; k < candidateEntropy.availables.size; k++) 
+        { 
             Module m = candidateEntropy.availables.data[k];
 
             random -= m.probability;
@@ -1039,6 +1091,7 @@ public class SimpleGridWFC
         Logger.Log("Chosen module is" + chosenModule.ToString());
 #endif
 
+        #region CodeEnPlus
         //is big tile (simplify propagation) => NOT WORKING BECAUSE OF ROTATIONS
         //if(chosenModule.linkedTile.parent != null && false)
         //{
@@ -1097,7 +1150,7 @@ public class SimpleGridWFC
         //        Debug.Log("ERROR some neighboors can't spawn selected bigtile");
         //    }
         //}
-
+        #endregion
 
         if (unqTlNbInGeneratedGrid[chosenModule.linkedTile.id] >= chosenModule.linkedTile.maxNb)
         {
@@ -1105,7 +1158,6 @@ public class SimpleGridWFC
         }
 
         //on compte (plus on choisit meme tile, moins normalement on la reprend)
-        //hashUTToFrequences[chosenModule.linkedTile]++;
         unqTlNbInGeneratedGrid[chosenModule.linkedTile.id]++;
 
         //On enleve tout ceux qu'on vire des possibilités
@@ -1127,6 +1179,8 @@ public class SimpleGridWFC
     {
 
         bool[] changedNeighboors = new bool[config.nbNeighboors];//by default bool is false
+
+
 
         while (counterLoop-- > 0 && restart == false)
         {
@@ -1154,9 +1208,7 @@ public class SimpleGridWFC
                     break;
                 }
             }
-
             
-
             nbStepsToDo--;
             
             while (slotsToUpdate.Count > 0 && restart == false)
@@ -1170,11 +1222,6 @@ public class SimpleGridWFC
 
                 for(int i = 0; i < changedNeighboors.Length; i++)
                     changedNeighboors[i] = false;
-
-                //for(int i = 0; i < changedNeighboors.Length; i++)
-                //{
-                //    changedNeighboors[i] = false;
-                //}
 
                 for (int i = 0; i < config.nbNeighboors; i++)//check the 4 neighboors
                 {
@@ -1206,6 +1253,7 @@ public class SimpleGridWFC
                                     }
                                     //si il devient true à un seul moment je peux sortir de la boucle et skip le reste
                                 }
+
                                 if (authorizedTile)
                                     break;
                             }
@@ -1216,12 +1264,12 @@ public class SimpleGridWFC
                                 currentNeighboors[i].availables.Remove(moduleN);
                                 j--;
 
-                                //Un possbilité de moins
+                                //Une possbilité de moins
                                 unqTlNbSlotsAvailable[moduleN.linkedTile.id]--;
 
                                 if (currentNeighboors[i].availables.size == 0)
                                 {
-                                    Debug.Log("Constraints error");
+                                    Debug.LogError("Constraints error !!");
                                     restart = true;
                                 }
                             }

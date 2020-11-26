@@ -575,6 +575,16 @@ public class RelationGrid : MonoBehaviour
 
         Debug.Log("uniqueTilesInGrid count is " + uniqueTilesInGrid.Count);
 
+        //Applique le allRotationsAlwaysAllowed pour rester cohérent
+        /*for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+            {
+                if (grid[i, j].param.allRotationsAlwaysAllowed)
+                    grid[i, j].param.allRotationsAllowed = true;
+            }
+        }*/
+
 
         for (int i = 0; i < gridSize; i++)
         {
