@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabTag: 0
-  prefab: {fileID: 0}
-  stringId: UnknownStringId please fill
+  prefab: {fileID: 3006387295140087437}
+  stringId: PassageModule
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
