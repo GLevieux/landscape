@@ -50,8 +50,16 @@ MonoBehaviour:
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
-  size: {x: 2, y: 2}
+  size: {x: 1, y: 1}
   gridUnitSize: 2
+  NavHeightZPosRot0: -1
+  CanReachFromInsideZPos: 1
+  NavHeightZNegRot0: -1
+  CanReachFromInsideZNeg: 1
+  NavHeightXPosRot0: -1
+  CanReachFromInsideXPos: 1
+  NavHeightXNegRot0: -1
+  CanReachFromInsideXNeg: 1
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0
@@ -72,7 +80,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6060662568512911462, guid: 6104c79fede224043994f06314382efe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6060662568512911462, guid: 6104c79fede224043994f06314382efe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -80,7 +88,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6060662568512911462, guid: 6104c79fede224043994f06314382efe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6060662568512911462, guid: 6104c79fede224043994f06314382efe, type: 3}
       propertyPath: m_LocalRotation.w
