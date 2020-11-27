@@ -58,9 +58,7 @@ MonoBehaviour:
   zoneGrid: {fileID: 0}
   relationGrids:
   - addNbTimes: 1
-    relationGrid: {fileID: 6051803017836593869, guid: 0f535a18ee9a6354dab6fd5a6524d71f, type: 3}
-  - addNbTimes: 10
-    relationGrid: {fileID: 6051803017836593869, guid: af609d349063f344fbd86603474d97dc, type: 3}
+    relationGrid: {fileID: 6051803017836593869, guid: 706145229be3a1b49a98fc62eee80f29, type: 3}
   wfcConfig:
     gridSize: 30
     gridUnitSize: 2
