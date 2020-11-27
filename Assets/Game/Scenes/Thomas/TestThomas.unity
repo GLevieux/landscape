@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 531.5177, g: 325.61475, b: 266.07782, a: 1}
+  m_IndirectSpecularColor: {r: 531.4946, g: 325.5254, b: 265.76093, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315839542190839937, guid: c996b53e9f849234393d1e90f68d1679, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1315839542190839937, guid: c996b53e9f849234393d1e90f68d1679, type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,7 +270,7 @@ PrefabInstance:
       objectReference: {fileID: 2075220840}
     - target: {fileID: 8920850587401739161, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739161, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -317,9 +317,25 @@ PrefabInstance:
       value: WFCManagerToto
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.data[0].addNbTimes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.data[1].addNbTimes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.data[0].relationGrid
+      value: 
+      objectReference: {fileID: 6051803017836593869, guid: 706145229be3a1b49a98fc62eee80f29, type: 3}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.data[1].relationGrid
       value: 
-      objectReference: {fileID: 6051803017836593869, guid: c6520a5baf77d0c45a815ae185148e73, type: 3}
+      objectReference: {fileID: 6051803017836593869, guid: 10008b87c5b48c34bacf659e9a2eb1ad, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
 --- !u!1 &1134178034
@@ -416,7 +432,7 @@ Transform:
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1327360354
 PrefabInstance:
@@ -431,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8746678193447392789, guid: 761cdc9e4e883334cbdcea062d0befa7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -521,7 +537,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &1793207630
 LightingSettings:
@@ -975,5 +991,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 63.504, y: -36.478, z: 65.944}
