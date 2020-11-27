@@ -52,10 +52,15 @@ MonoBehaviour:
   maxNb: 1000
   size: {x: 1, y: 1}
   gridUnitSize: 2
-  NavHeightZPosRot0: -1
-  NavHeightZNegRot0: -1
-  NavHeightXPosRot0: -1
-  NavHeightXNegRot0: -1
+  NavHeightZPosRot0: 4
+  CanReachFromInsideZPos: 1
+  NavHeightZNegRot0: 0
+  CanReachFromInsideZNeg: 1
+  NavHeightXPosRot0: 2
+  CanReachFromInsideXPos: 1
+  NavHeightXNegRot0: 2
+  CanReachFromInsideXNeg: 1
+  hideGizmos: 0
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0
