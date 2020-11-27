@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 565.9633, g: 344.38403, b: 276.80682, a: 1}
+  m_IndirectSpecularColor: {r: 563.9893, g: 344.38672, b: 279.17502, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gaEnded: 0
   sizeZone: 3
+  IdPlayerStart: 6
 --- !u!1001 &427353884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -637,6 +638,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7267769575523271762, guid: 761cdc9e4e883334cbdcea062d0befa7, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491190654590824519, guid: 761cdc9e4e883334cbdcea062d0befa7, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8303093099919959869, guid: 761cdc9e4e883334cbdcea062d0befa7, type: 3}
       propertyPath: m_HDR
       value: 0
@@ -979,6 +988,10 @@ PrefabInstance:
       propertyPath: wfcConfig.takeZonesIntoAccount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: relationGrids.Array.data[2].relationGrid
+      value: 
+      objectReference: {fileID: 6051803017836593869, guid: 6c1b50060873c774cb696559591d1b2f, type: 3}
     - target: {fileID: 7300433337243496434, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_Name
       value: WFCManagerGuillaume
@@ -1037,19 +1050,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.nbGeneration
-      value: 2
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.isMultiThread
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.populationMax
-      value: 4
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.populationMin
-      value: 2
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7908097354556734476, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}

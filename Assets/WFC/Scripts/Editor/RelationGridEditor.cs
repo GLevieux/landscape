@@ -12,6 +12,12 @@ public class RelationGridEditor : Editor
         DrawDefaultInspector();
 
         RelationGrid myScript = (RelationGrid)target;
+
+        if (GUILayout.Button("Toggle Prefab Instance Gizmos"))
+        {
+            myScript.TogglePrefabInstanceGizmos();
+        }
+
         if (GUILayout.Button("Scan and fill with air"))
         {
             myScript.ScanAndFillAirEditor();
@@ -20,12 +26,32 @@ public class RelationGridEditor : Editor
             {
                 EditorSceneManager.MarkSceneDirty(prefabStage.scene);
             }
-        }
+        }        
 
         if (GUILayout.Button("Build and show nav grid"))
         {
             myScript.BuildAndShowNavEditor();
         }
+
+        if (GUILayout.Button("Show agent"))
+        {
+            myScript.StartAgentEditor();
+        }
+
+        if(myScript.agent != null)
+        {
+            if (GUILayout.Button("Step agent"))
+            {
+                myScript.StepAgentEditor();
+            }
+            if (GUILayout.Button("Kill agent"))
+            {
+                myScript.KillAgentEditor();
+            }
+        }
+
+
+        
     }
 }
 

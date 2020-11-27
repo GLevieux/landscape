@@ -52,7 +52,7 @@ public class GATestFlow : GAScript
 
     protected override IFitness getFitnessClass()
     {
-        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed);
+        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart);
     }
 
     protected override IChromosome getChromosomeClass()
@@ -129,7 +129,7 @@ public class GATestFlow : GAScript
         }
     }
 
-
+    public int IdPlayerStart = -1;
 
     public class WFCFitness : IFitness
     {
@@ -139,8 +139,9 @@ public class GATestFlow : GAScript
         private bool m_forceSeed;
         private int m_randomSeed;
         private int m_sizeZone;
+        private int idPlayerStart = -1;
 
-        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed)
+        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart)
         {
             m_generalConfig = config;
             m_numberOfZones = numberOfZones;
@@ -150,6 +151,8 @@ public class GATestFlow : GAScript
             m_randomSeed = randomSeed;
 
             m_sizeZone = sizeZone;
+
+            idPlayerStart = IdPlayerStart;
         }
 
         public double Evaluate(IChromosome chromosome)
@@ -205,85 +208,46 @@ public class GATestFlow : GAScript
             NavGrid nav = new NavGrid();
             nav.Build(modules);
 
-            //Creation d'une grille de navigation
+            //On estime le flow de la grille
 
-            //Je veux une entrée et un drapeau ! 
-
-            //SM_Prop_Fence_02 = entry, id 1
-            //id 28 is FlagBlue
-            //id 27 is air
-            /*int entryID = 6;
-            int flagObjectiveID = 5;//28
-            int airID = 27;//27
-
-            List<int> walkables = new List<int>()
+            //On trouve le point de départ
+            int gridSize = modules.GetUpperBound(0) + 1;
+            int xStart = -1;
+            int zStart = -1;
+            int dirStart = 0;
+            for (int x = 0; x < gridSize; x++)
             {
-                entryID, flagObjectiveID, airID
-            };
+                for (int z = 0; z < gridSize; z++)
+                {
+                    if (modules[x, z] != null && modules[x, z].linkedTile.id == idPlayerStart)
+                    {
+                        xStart = x;
+                        zStart = z;
+                        dirStart = modules[x, z].rotationY;
+                        break;
+                    }
+                }
+            }
 
-            int nbEntry = wfc.GetNbAssetInGrid(entryID);
-            int nbFlag = wfc.GetNbAssetInGrid(flagObjectiveID);
+            //Pas de start, c'est nul
+            if (xStart < 0)
+            {
+                return 0.0f;
+            }
 
+            //On part du départ et on voit comme ca avance tout droit
             float fitness = 0.0f;
 
-            if (nbEntry > 1)
-            {
-                fitness += 0.05f;
-            }
+            AgentFlowCurieux agent = new AgentFlowCurieux();
+            agent.Init(xStart, zStart, dirStart, nav);
 
-            if (nbEntry == 1)
-            {
-                fitness += 0.3f;
-            }
+            for (int i = 0; i < 10000; i++)
+                fitness += agent.Step();            
 
-            if (nbFlag > 1)
-            {
-                fitness += 0.05f;
-            }
-
-            if (nbFlag == 1)
-            {
-                fitness += 0.3f;
-            }
-
-            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResultFiltered();
-
-            if (wfc.GetNbAssetInGrid(entryID) != 1 || wfc.GetNbAssetInGrid(flagObjectiveID) != 1)
-            {
-                return fitness;
-            }
-
-            Vector2Int entryPos = wfc.GetPositionFirst(entryID);
-            Vector2Int flagPos = wfc.GetPositionFirst(flagObjectiveID);
-
-
-
-            //int[][] map = wfc.getPathGrid();
-            //int[] start = new int[2] { entryPos.x, entryPos.y };
-            //int[] end = new int[2] { flagPos.x, flagPos.y };
-
-            //List<Vector2> pathToObjective = new Astar(map, start, end, "nope").result;
-
-            // create the tiles map
-            bool[,] tilesmap = wfc.getBoolPathGrid(walkables);
-
-            // create a grid
-            NesScripts.Controls.PathFind.Grid grid = new NesScripts.Controls.PathFind.Grid(tilesmap);
-
-            // create source and target points
-            Point _from = new Point(entryPos.x, entryPos.y);
-            Point _to = new Point(flagPos.x, flagPos.y);
-
-            // get path
-            // path will either be a list of Points (x, y), or an empty list if no path is found.
-            List<Point> path = Pathfinding.FindPath(grid, _from, _to, Pathfinding.DistanceType.Manhattan);
-
-
-            return path.Count;*/
-
-                return 0;
+            return fitness;
         }
     }
 
 }
+
 

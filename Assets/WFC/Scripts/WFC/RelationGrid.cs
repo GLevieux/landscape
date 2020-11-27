@@ -164,6 +164,7 @@ public class RelationGrid : MonoBehaviour
         //On le fait une première fois pour ajouter l'air
         this.uniqueTilesInGrid = new List<UniqueTile>();
         this.hashPrefabToUniqueTile = new Dictionary<string, UniqueTile>();
+        UniqueTile.ResetId();
 
         RemoveAir();
         initGrid();
@@ -174,6 +175,7 @@ public class RelationGrid : MonoBehaviour
         //On reset et on rescan tout pour mettre au propre (et avoir les bonnes valeurs dans l'editeur par exemple)
         this.uniqueTilesInGrid = new List<UniqueTile>();
         this.hashPrefabToUniqueTile = new Dictionary<string, UniqueTile>();
+        UniqueTile.ResetId();
 
         initGrid();
         ScanGrid(1);
@@ -187,15 +189,19 @@ public class RelationGrid : MonoBehaviour
     }
 
     private NavGrid navGridDebug = null;
+    public bool showNavGridDebug = true;
+    private SimpleGridWFC.Module[,] modules = null;
+    public AgentFlowCurieux agent = null;
     public float stepHeightDebugNav = 0.05f;
     public float jumpHeightDebugNav = 0.8f;
+    public int idPlayerStart = -1;
     public void BuildAndShowNavEditor()
     {
         if (grid == null)
             ScanAndFillAirEditor();
 
         navGridDebug = new NavGrid();
-        SimpleGridWFC.Module[,] modules = new SimpleGridWFC.Module[gridSize, gridSize];
+        modules = new SimpleGridWFC.Module[gridSize, gridSize];
         for (int i = 0; i < gridSize; i++)
         {
             for (int j = 0; j < gridSize; j++)
@@ -203,7 +209,76 @@ public class RelationGrid : MonoBehaviour
                 modules[i, j] = new SimpleGridWFC.Module(grid[i, j].linkedTile, grid[i, j].rotationGridY);
             }
         }
+
         navGridDebug.Build(modules);
+        showNavGridDebug = true;
+        UnityEditor.SceneView.RepaintAll();
+    }
+
+    public void TogglePrefabInstanceGizmos()
+    {
+        PrefabInstance[] allPi = GetComponentsInChildren<PrefabInstance>();
+        if (allPi.Length == 0)
+            return;
+
+        bool value = !allPi[0].hideGizmos;
+        foreach (PrefabInstance pi in allPi)
+            pi.hideGizmos = value;
+
+        UnityEditor.SceneView.RepaintAll();
+    }
+
+    public void StartAgentEditor()
+    {
+
+        if (navGridDebug == null)
+            BuildAndShowNavEditor();
+        //On trouve le point de départ
+
+        int xStart = -1;
+        int zStart = -1;
+        int dirStart = 0;
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int z = 0; z < gridSize; z++)
+            {
+                if (modules[x, z] != null && modules[x, z].linkedTile.id == idPlayerStart)
+                {
+                    xStart = x;
+                    zStart = z;
+                    dirStart = modules[x, z].rotationY;
+                    break;
+                }
+            }
+        }
+
+        //Pas de start, c'est nul
+        if (xStart < 0)
+        {
+            Debug.LogWarning("Pas de point de start...");
+            return;
+        }
+
+        //On part du départ et on voit comme ca avance tout droit
+        float fitness = 0.0f;
+
+        agent = new AgentFlowCurieux();
+        agent.Init(xStart, zStart, dirStart, navGridDebug);
+        UnityEditor.SceneView.RepaintAll();
+    }
+
+    public void StepAgentEditor()
+    {
+        if (agent == null)
+            return;
+        agent.Step();
+        UnityEditor.SceneView.RepaintAll();
+    }
+
+    public void KillAgentEditor()
+    {
+        agent = null;
+        UnityEditor.SceneView.RepaintAll();
     }
 
     private void RemoveAir()
@@ -753,7 +828,30 @@ public class RelationGrid : MonoBehaviour
             Gizmos.DrawLine(zLineStart, zLineEnd);
         }
 
-        if (navGridDebug != null)
+        if(agent != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize, gridUnitSize, gridUnitSize));
+            Gizmos.color = Color.green;
+            switch (agent.direction)
+            {
+                case 0:
+                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f + gridUnitSize * 0.55f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
+                    break;
+                case 1:
+                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f + +gridUnitSize * 0.55f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
+                    break;
+                case 2:
+                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f - +gridUnitSize * 0.55f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
+                    break;
+                case 3:
+                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f - + gridUnitSize * 0.55f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
+                    break;
+            }
+            
+        }
+
+        if (navGridDebug != null && showNavGridDebug)
         {
             for (int x = 0; x < gridSize; x++)
             {

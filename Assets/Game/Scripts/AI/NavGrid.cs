@@ -8,11 +8,12 @@ public class NavGrid
     public struct Cell
     {
         //Toutes ces valeurs sont avec la rotation du module appliquée...
+        public int lastTimeInside;
+        public int id;
         public float XPDiff;
         public float XNDiff;
         public float ZPDiff;
-        public float ZNDiff;
-
+        public float ZNDiff;       
         public float HeightXP; 
         public float CanReachFromInsideXP; 
         public float HeightXN; 
@@ -21,6 +22,46 @@ public class NavGrid
         public float CanReachFromInsideZP;
         public float HeightZN; 
         public float CanReachFromInsideZN;
+        public int xPos;
+        public int zPos;
+        public NavGrid grid;
+
+        //La dir0 c'est ZPos, le forward
+        public void GetValuesInDir(int dir, out float Height, out float HeightDiff, out float canReachFromInside, out int lastTimeInside)
+        {
+            Height = HeightZP;
+            HeightDiff = ZPDiff;
+            canReachFromInside = CanReachFromInsideZP;
+            lastTimeInside = 0;
+
+            if(zPos+1 <= grid.Cells.GetUpperBound(1))
+                lastTimeInside = grid.Cells[xPos, zPos+1].lastTimeInside;
+
+            switch (dir)
+            {
+                case 1:
+                    Height = HeightXP;
+                    HeightDiff = XPDiff;
+                    canReachFromInside = CanReachFromInsideXP;
+                    if (xPos + 1 <= grid.Cells.GetUpperBound(0))
+                        lastTimeInside = grid.Cells[xPos+1, zPos].lastTimeInside;
+                    break;
+                case 2:
+                    Height = HeightZN;
+                    HeightDiff = ZNDiff;
+                    canReachFromInside = CanReachFromInsideZN;
+                    if (zPos - 1 >= 0)
+                        lastTimeInside = grid.Cells[xPos, zPos - 1].lastTimeInside;
+                    break;
+                case 3:
+                    Height = HeightXN;
+                    HeightDiff = XNDiff;
+                    canReachFromInside = CanReachFromInsideXN;
+                    if (xPos - 1 >= 0)
+                        lastTimeInside = grid.Cells[xPos-1, zPos].lastTimeInside;
+                    break;
+            }
+        }
     }
 
     public Cell[,] Cells;
@@ -35,6 +76,12 @@ public class NavGrid
         {
             for (int z = 0; z < sizeZ; z++)
             {
+                Cells[x, z].lastTimeInside = 0;
+                Cells[x, z].grid = this;
+                Cells[x, z].xPos = x;
+                Cells[x, z].zPos = z;
+
+
                 Module m = modules[x, z];
                 if (m == null)
                 {
@@ -42,9 +89,18 @@ public class NavGrid
                     Cells[x, z].HeightXN = 0;
                     Cells[x, z].HeightZP = 0;
                     Cells[x, z].HeightZN = 0;
+
+                    Cells[x, z].CanReachFromInsideXP = 1;
+                    Cells[x, z].CanReachFromInsideZN = 1;
+                    Cells[x, z].CanReachFromInsideXN = 1;
+                    Cells[x, z].CanReachFromInsideZP = 1;
+
+                    Cells[x, z].id = - 1;
                     continue;
                 }
-                
+
+                Cells[x, z].id = modules[x, z].linkedTile.id;
+
                 //On applique la rotation
                 switch (m.rotationY)
                 {

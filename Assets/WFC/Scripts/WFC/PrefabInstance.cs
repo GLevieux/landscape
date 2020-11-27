@@ -49,6 +49,8 @@ public class PrefabInstance : MonoBehaviour
     [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
     public float CanReachFromInsideXNeg = 1;
 
+    public bool hideGizmos = false;
+
 
     //Depend de l'instance
     [System.Serializable]
@@ -73,6 +75,9 @@ public class PrefabInstance : MonoBehaviour
 
     public void OnDrawGizmosSelected()
     {
+        if (hideGizmos)
+            return;
+
         Vector3 wOffDir = transform.TransformDirection(new Vector3(1, 0, 1));
 
         Gizmos.DrawWireCube(transform.position - new Vector3(wOffDir.x*gridUnitSize / 2, 0, wOffDir.z * gridUnitSize / 2) + new Vector3((size.x * gridUnitSize* wOffDir.x) / 2.0f, gridUnitSize/2, (size.y*gridUnitSize* wOffDir.z) / 2.0f), new Vector3((size.x * gridUnitSize* wOffDir.x) , gridUnitSize, (size.y*gridUnitSize* wOffDir.z) ));
