@@ -274,7 +274,7 @@ public class WFCManager : MonoBehaviour
             if (ga == null)
                 return;
 
-            if (Input.GetButtonDown("Generate"))
+            if (Input.GetButtonDown("GenerateEnd"))
             {
                 ga.StopGA();
                 gaLaunched = false;
