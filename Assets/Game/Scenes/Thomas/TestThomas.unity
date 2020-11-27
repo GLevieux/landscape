@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 531.7095, g: 325.62842, b: 265.7375, a: 1}
+  m_IndirectSpecularColor: {r: 531.70374, g: 325.62744, b: 265.7331, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -631,14 +631,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.data[0].addNbTimes
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.data[1].addNbTimes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.data[2].addNbTimes
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
@@ -649,6 +653,10 @@ PrefabInstance:
       propertyPath: relationGrids.Array.data[1].relationGrid
       value: 
       objectReference: {fileID: 6051803017836593869, guid: a9fef53cf1f5718449cb2706981621f3, type: 3}
+    - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
+      propertyPath: relationGrids.Array.data[2].relationGrid
+      value: 
+      objectReference: {fileID: 6051803017836593869, guid: 6c1b50060873c774cb696559591d1b2f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
 --- !u!1 &1134178034
@@ -940,9 +948,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchGA: 1
   gaConfig:
-    populationMin: 40
-    populationMax: 80
-    nbGeneration: 50
+    populationMin: 80
+    populationMax: 160
+    nbGeneration: 1000
     crossProbability: 0.5
     mutationProbability: 0.5
     allGenesMutable: 1
