@@ -212,7 +212,9 @@ public class RelationGrid : MonoBehaviour
 
         navGridDebug.Build(modules);
         showNavGridDebug = true;
+#if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
+#endif
     }
 
     public void TogglePrefabInstanceGizmos()
@@ -225,7 +227,9 @@ public class RelationGrid : MonoBehaviour
         foreach (PrefabInstance pi in allPi)
             pi.hideGizmos = value;
 
+#if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
+#endif
     }
 
     public void StartAgentEditor()
@@ -264,7 +268,9 @@ public class RelationGrid : MonoBehaviour
 
         agent = new AgentFlowCurieux();
         agent.Init(xStart, zStart, dirStart, navGridDebug);
+#if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
+#endif
     }
 
     public void StepAgentEditor()
@@ -272,13 +278,17 @@ public class RelationGrid : MonoBehaviour
         if (agent == null)
             return;
         agent.Step();
+#if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
+#endif
     }
 
     public void KillAgentEditor()
     {
         agent = null;
+#if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
+#endif
     }
 
     private void RemoveAir()
