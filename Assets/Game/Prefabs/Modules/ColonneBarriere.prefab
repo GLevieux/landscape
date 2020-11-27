@@ -54,6 +54,10 @@ MonoBehaviour:
   maxNb: 1000
   size: {x: 1, y: 1}
   gridUnitSize: 2
+  NavHeightZPosRot0: 0
+  NavHeightZNegRot0: 0
+  NavHeightXPosRot0: 0
+  NavHeightXNegRot0: 0
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0
@@ -78,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979493, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979493, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_LocalPosition.z
@@ -156,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979493, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979493, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_LocalPosition.z
@@ -234,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979493, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979493, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_LocalPosition.z
