@@ -7,19 +7,25 @@ public class NavGrid
 {
     public struct Cell
     {
-        public bool XP;
-        public bool XN;
-        public bool ZP;
-        public bool ZN;
-        public float HeightXP; //Avec la rotation du module appliquée...
-        public float HeightXN; //Avec la rotation du module appliquée...
-        public float HeightZP; //Avec la rotation du module appliquée...
-        public float HeightZN; //Avec la rotation du module appliquée...
+        //Toutes ces valeurs sont avec la rotation du module appliquée...
+        public float XPDiff;
+        public float XNDiff;
+        public float ZPDiff;
+        public float ZNDiff;
+
+        public float HeightXP; 
+        public float CanReachFromInsideXP; 
+        public float HeightXN; 
+        public float CanReachFromInsideXN;
+        public float HeightZP; 
+        public float CanReachFromInsideZP;
+        public float HeightZN; 
+        public float CanReachFromInsideZN;
     }
 
     public Cell[,] Cells;
 
-    public void Build(Module[,] modules, float stepHeight = 0.05f)
+    public void Build(Module[,] modules)
     {
         int sizeX = modules.GetUpperBound(0)+1;
         int sizeZ = modules.GetUpperBound(1)+1;
@@ -47,24 +53,44 @@ public class NavGrid
                         Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightZNegRot0;
                         Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightXNegRot0;
                         Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightZPosRot0;
+
+                        Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideXPos;
+                        Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideZNeg;
+                        Cells[x, z].CanReachFromInsideXN = m.linkedTile.pi.CanReachFromInsideXNeg;
+                        Cells[x, z].CanReachFromInsideZP = m.linkedTile.pi.CanReachFromInsideZPos;
                         break;
                     case 1:
                         Cells[x, z].HeightXP = m.linkedTile.pi.NavHeightZPosRot0; 
                         Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightXPosRot0; 
                         Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightZNegRot0;
-                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightXNegRot0; 
+                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightXNegRot0;
+
+                        Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideZPos;
+                        Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideXPos;
+                        Cells[x, z].CanReachFromInsideXN = m.linkedTile.pi.CanReachFromInsideZNeg;
+                        Cells[x, z].CanReachFromInsideZP = m.linkedTile.pi.CanReachFromInsideXNeg;
                         break;
                     case 2:
                         Cells[x, z].HeightXP = m.linkedTile.pi.NavHeightXNegRot0;
                         Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightZPosRot0; 
                         Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightXPosRot0; 
-                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightZNegRot0; 
+                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightZNegRot0;
+
+                        Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideXNeg;
+                        Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideZPos; 
+                        Cells[x, z].CanReachFromInsideXN = m.linkedTile.pi.CanReachFromInsideXPos;
+                        Cells[x, z].CanReachFromInsideZP = m.linkedTile.pi.CanReachFromInsideZNeg; 
                         break;
                     case 3:
                         Cells[x, z].HeightXP = m.linkedTile.pi.NavHeightZNegRot0;
                         Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightXNegRot0; 
                         Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightZPosRot0; 
-                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightXPosRot0; 
+                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightXPosRot0;
+
+                        Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideZNeg;
+                        Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideXNeg; 
+                        Cells[x, z].CanReachFromInsideXN = m.linkedTile.pi.CanReachFromInsideZPos; 
+                        Cells[x, z].CanReachFromInsideZP = m.linkedTile.pi.CanReachFromInsideXPos; 
                         break;
                 }
                 
@@ -79,43 +105,44 @@ public class NavGrid
                 //Voisin XNeg
                 if (x == 0)
                 {
-                    Cells[x, z].XN = false;
+                    Cells[x, z].XNDiff = float.MaxValue;
                 }
                 else
                 {
-                    Cells[x, z].XN = Mathf.Abs(Cells[x - 1, z].HeightXP - Cells[x, z].HeightXN) < stepHeight;
+                    Cells[x, z].XNDiff = Cells[x - 1, z].HeightXP - Cells[x, z].HeightXN;
                 }
 
                 //Voisin XPos
                 if (x == sizeX - 1)
                 {
-                    Cells[x, z].XP = false;
+                    Cells[x, z].XPDiff = float.MaxValue;
                 }
                 else
                 {
-                    Cells[x, z].XP = Mathf.Abs(Cells[x + 1, z].HeightXN - Cells[x, z].HeightXP) < stepHeight;
+                    Cells[x, z].XPDiff = Cells[x + 1, z].HeightXN - Cells[x, z].HeightXP;
                 }
 
                 //Voisin ZNeg
                 if (z == 0)
                 {
-                    Cells[x, z].ZN = false;
+                    Cells[x, z].ZNDiff = float.MaxValue; 
                 }
                 else
                 {
-                    Cells[x, z].ZN = Mathf.Abs(Cells[x, z-1].HeightZP - Cells[x, z].HeightZN) < stepHeight;
+                    Cells[x, z].ZNDiff = Cells[x, z - 1].HeightZP - Cells[x, z].HeightZN;
                 }
 
                 //Voisin XPos
                 if (z == sizeX - 1)
                 {
-                    Cells[x, z].ZP = false;
+                    Cells[x, z].ZPDiff = float.MaxValue; 
                 }
                 else
                 {
-                    Cells[x, z].ZP = Mathf.Abs(Cells[x, z+1].HeightZN - Cells[x, z].HeightZP) < stepHeight;
+                    Cells[x, z].ZPDiff = Cells[x, z + 1].HeightZN - Cells[x, z].HeightZP;
                 }
             }
         }
     }
 }
+

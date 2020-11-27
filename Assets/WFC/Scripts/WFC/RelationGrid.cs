@@ -187,6 +187,8 @@ public class RelationGrid : MonoBehaviour
     }
 
     private NavGrid navGridDebug = null;
+    public float stepHeightDebugNav = 0.05f;
+    public float jumpHeightDebugNav = 0.8f;
     public void BuildAndShowNavEditor()
     {
         if (grid == null)
@@ -726,6 +728,8 @@ public class RelationGrid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        
+
         if(takeBorderIntoAccount)
         {
             Gizmos.color = new Color(1, 0, 1, 1.0f);
@@ -755,14 +759,49 @@ public class RelationGrid : MonoBehaviour
             {
                 for (int z = 0; z < gridSize; z++)
                 {
-                    Gizmos.color = navGridDebug.Cells[x, z].XN ? Color.green : Color.red;
-                    Gizmos.DrawCube(transform.position + new Vector3(x*gridUnitSize,0,z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f,0.5f,0.5f));
-                    Gizmos.color = navGridDebug.Cells[x, z].XP ? Color.green : Color.red;
-                    Gizmos.DrawCube(transform.position + new Vector3((x+1) * gridUnitSize, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f, 0.5f, 0.5f));
-                    Gizmos.color = navGridDebug.Cells[x, z].ZN ? Color.green : Color.red;
-                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, z * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
-                    Gizmos.color = navGridDebug.Cells[x, z].ZP ? Color.green : Color.red;
-                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, (z+1) * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
+                    Color colorGiz = Color.red;
+                    if (navGridDebug.Cells[x, z].XNDiff < stepHeightDebugNav)
+                        colorGiz = Color.green;
+                    else if (navGridDebug.Cells[x, z].XNDiff < jumpHeightDebugNav)
+                        colorGiz = Color.cyan;
+
+                    colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideXN);
+
+                    Gizmos.color = colorGiz;
+                    Gizmos.DrawCube(transform.position + new Vector3(x*gridUnitSize + 0.15f,0,z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f,0.5f,0.5f));
+
+                    colorGiz = Color.red;
+                    if(navGridDebug.Cells[x, z].XPDiff < stepHeightDebugNav)
+                        colorGiz = Color.green;
+                    else if (navGridDebug.Cells[x, z].XPDiff < jumpHeightDebugNav)
+                        colorGiz = Color.cyan;
+
+                    colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideXP);
+
+                    Gizmos.color = colorGiz;
+                    Gizmos.DrawCube(transform.position + new Vector3((x+1) * gridUnitSize - 0.15f, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f, 0.5f, 0.5f));
+
+                    colorGiz = Color.red;
+                    if (navGridDebug.Cells[x, z].ZNDiff < stepHeightDebugNav)
+                        colorGiz = Color.green;
+                    else if (navGridDebug.Cells[x, z].ZNDiff < jumpHeightDebugNav)
+                        colorGiz = Color.cyan;
+
+                    colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideZN);
+
+                    Gizmos.color = colorGiz;
+                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, z * gridUnitSize + 0.15f), new Vector3(0.5f, 0.5f, 0.25f));
+
+                    colorGiz = Color.red;
+                    if (navGridDebug.Cells[x, z].ZPDiff < stepHeightDebugNav)
+                        colorGiz = Color.green;
+                    else if (navGridDebug.Cells[x, z].ZPDiff < jumpHeightDebugNav)
+                        colorGiz = Color.cyan;
+
+                    colorGiz = Color.Lerp(Color.red,colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideZP);
+
+                    Gizmos.color = colorGiz;
+                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, (z+1) * gridUnitSize - 0.15f), new Vector3(0.5f, 0.5f, 0.25f));
 
                 }
             }

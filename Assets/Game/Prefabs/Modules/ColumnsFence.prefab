@@ -55,9 +55,13 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   gridUnitSize: 2
   NavHeightZPosRot0: 8
+  CanReachFromInsideZPos: 0
   NavHeightZNegRot0: 0
+  CanReachFromInsideZNeg: 1
   NavHeightXPosRot0: 0
+  CanReachFromInsideXPos: 1
   NavHeightXNegRot0: 0
+  CanReachFromInsideXNeg: 1
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0

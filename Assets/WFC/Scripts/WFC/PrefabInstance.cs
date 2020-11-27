@@ -32,10 +32,22 @@ public class PrefabInstance : MonoBehaviour
     public float gridUnitSize = 1; //Debug
 
     //Pour la navigation
+    [Tooltip("Height of this side of the tile")]
     public float NavHeightZPosRot0 = -1;
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    public float CanReachFromInsideZPos = 1;
+    [Tooltip("Height of this side of the tile")]
     public float NavHeightZNegRot0 = -1;
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    public float CanReachFromInsideZNeg = 1;
+    [Tooltip("Height of this side of the tile")]
     public float NavHeightXPosRot0 = -1;
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    public float CanReachFromInsideXPos = 1;
+    [Tooltip("Height of this side of the tile")]
     public float NavHeightXNegRot0 = -1;
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    public float CanReachFromInsideXNeg = 1;
 
 
     //Depend de l'instance
