@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7047534046750885022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7723950019204526432}
+  - component: {fileID: 7693701556882530171}
+  m_Layer: 0
+  m_Name: WallWithHolesModule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7723950019204526432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047534046750885022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6, y: 0, z: 17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8743810128163442178}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7693701556882530171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047534046750885022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c575b6b2aa2a31f428dc43f29b950b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabTag: 0
+  prefab: {fileID: 7047534046750885022}
+  stringId: WallWithHolesModule
+  doNotShowInCreatedLevel: 0
+  minNb: 0
+  maxNb: 1000
+  size: {x: 1, y: 1}
+  gridUnitSize: 2
+  NavHeightZPosRot0: -1
+  CanReachFromInsideZPos: 1
+  NavHeightZNegRot0: -1
+  CanReachFromInsideZNeg: 1
+  NavHeightXPosRot0: -1
+  CanReachFromInsideXPos: 1
+  NavHeightXNegRot0: -1
+  CanReachFromInsideXNeg: 1
+  param:
+    allRotationsAllowed: 0
+    symetricalAxisY: 0
+--- !u!1001 &5493271987225390991
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7723950019204526432}
+    m_Modifications:
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193102, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193105, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_Name
+      value: WallWithHoles
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193106, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3847276091413193107, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+--- !u!4 &8743810128163442178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3847276091413193101, guid: 72d0692e31e59144aa462c17ca3bbd11, type: 3}
+  m_PrefabInstance: {fileID: 5493271987225390991}
+  m_PrefabAsset: {fileID: 0}
