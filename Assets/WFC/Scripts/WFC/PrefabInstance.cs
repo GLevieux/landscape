@@ -92,6 +92,17 @@ public class PrefabInstance : MonoBehaviour
         Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x, NavHeightZPosRot0, tailleModule.z)), 0.2f);
         Gizmos.color = NavHeightZNegRot0 < 0 ? Color.red : Color.blue;
         Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x, NavHeightZNegRot0, 0)), 0.2f);
+
+        float heightMoy = (NavHeightXPosRot0 + NavHeightXNegRot0 + NavHeightZPosRot0 + NavHeightZNegRot0) / 4;
+
+        Gizmos.color = Color.Lerp(Color.red, Color.green, CanReachFromInsideXPos);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x + 0.2f, heightMoy, tailleModuleDemi.z)), 0.1f);
+        Gizmos.color = Color.Lerp(Color.red, Color.green, CanReachFromInsideXNeg);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x - 0.2f, heightMoy, tailleModuleDemi.z)), 0.1f);
+        Gizmos.color = Color.Lerp(Color.red, Color.green, CanReachFromInsideZPos);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x, heightMoy, tailleModuleDemi.z + 0.2f)), 0.1f);
+        Gizmos.color = Color.Lerp(Color.red, Color.green, CanReachFromInsideZNeg);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x, heightMoy, tailleModuleDemi.z - 0.2f)), 0.1f);
     }
 
     public TileParameters param = new TileParameters();
