@@ -52,7 +52,7 @@ MonoBehaviour:
   maxNb: 1000
   size: {x: 1, y: 1}
   gridUnitSize: 2
-  NavHeightZPosRot0: 3
+  NavHeightZPosRot0: 2
   CanReachFromInsideZPos: 1
   NavHeightZNegRot0: 0
   CanReachFromInsideZNeg: 1
