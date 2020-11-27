@@ -21,6 +21,11 @@ public class RelationGridEditor : Editor
                 EditorSceneManager.MarkSceneDirty(prefabStage.scene);
             }
         }
+
+        if (GUILayout.Button("Build and show nav grid"))
+        {
+            myScript.BuildAndShowNavEditor();
+        }
     }
 }
 

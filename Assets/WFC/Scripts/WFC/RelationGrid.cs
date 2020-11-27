@@ -186,6 +186,21 @@ public class RelationGrid : MonoBehaviour
         }
     }
 
+    private NavGrid navGridDebug = null;
+    public void BuildAndShowNavEditor()
+    {
+        navGridDebug = new NavGrid();
+        SimpleGridWFC.Module[,] modules = new SimpleGridWFC.Module[gridSize, gridSize];
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+            {
+                modules[i, j] = new SimpleGridWFC.Module(grid[i, j].linkedTile, grid[i, j].rotationGridY);
+            }
+        }
+        navGridDebug.Build(modules);
+    }
+
     private void RemoveAir()
     {
         //Array to hold all child obj
@@ -708,16 +723,13 @@ public class RelationGrid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        
-
         if(takeBorderIntoAccount)
         {
             Gizmos.color = new Color(1, 0, 1, 1.0f);
         }
         else
         {
-            Gizmos.color = new Color(0
-                , 0, 1, 1.0f);
+            Gizmos.color = new Color(0, 0, 1, 1.0f);
         }
 
         Gizmos.DrawWireCube(transform.position + new Vector3(gridSize/2.0f, 0.5f, gridSize / 2.0f) * gridUnitSize, new Vector3(gridSize, 1 , gridSize) * gridUnitSize);
@@ -733,6 +745,24 @@ public class RelationGrid : MonoBehaviour
             Gizmos.DrawLine(xLineStart, xLineEnd);
             Gizmos.DrawLine(zLineStart, zLineEnd);
         }
-        
+
+        if (navGridDebug != null)
+        {
+            for (int x = 0; x < gridSize; x++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
+                    Gizmos.color = navGridDebug.Cells[x, z].XN ? Color.green : Color.red;
+                    Gizmos.DrawCube(new Vector3(x*gridUnitSize,0,z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f,0.5f,0.5f));
+                    Gizmos.color = navGridDebug.Cells[x, z].XP ? Color.green : Color.red;
+                    Gizmos.DrawCube(new Vector3((x+1) * gridUnitSize, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f, 0.5f, 0.5f));
+                    Gizmos.color = navGridDebug.Cells[x, z].ZN ? Color.green : Color.red;
+                    Gizmos.DrawCube(new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, z * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
+                    Gizmos.color = navGridDebug.Cells[x, z].ZP ? Color.green : Color.red;
+                    Gizmos.DrawCube(new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, (z+1) * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
+
+                }
+            }
+        }
     }
 }

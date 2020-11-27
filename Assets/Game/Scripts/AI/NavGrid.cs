@@ -5,7 +5,7 @@ using static SimpleGridWFC;
 
 public class NavGrid 
 {
-    struct Cell
+    public struct Cell
     {
         public bool XP;
         public bool XN;
@@ -17,7 +17,7 @@ public class NavGrid
         public float HeightZN; //Avec la rotation du module appliquée...
     }
 
-    Cell[,] Cells;
+    public Cell[,] Cells;
 
     public void Build(Module[,] modules, float stepHeight = 0.05f)
     {
