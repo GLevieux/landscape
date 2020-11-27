@@ -67,19 +67,19 @@ public class PrefabInstance : MonoBehaviour
 
         float unitSize = gridUnitSize;
         
-        Vector3 coinXZZero = transform.position - new Vector3(unitSize / 2.0f, 0, unitSize / 2.0f);
+        Vector3 coinXZZero = transform.position - new Vector3(wOffDir.x * gridUnitSize / 2, 0, wOffDir.z * gridUnitSize / 2);
         Vector3 tailleModule = new Vector3(unitSize * size.x, 0, unitSize * size.y);
         Vector3 tailleModuleDemi = new Vector3(unitSize * size.x / 2.0f, 0, unitSize * size.y / 2.0f);
 
-
+        
         Gizmos.color = NavHeightXPosRot0 < 0 ? Color.red : Color.blue;
-        Gizmos.DrawSphere(coinXZZero + new Vector3(tailleModule.x, NavHeightXPosRot0, tailleModuleDemi.z), 0.2f);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModule.x, NavHeightXPosRot0, tailleModuleDemi.z)), 0.2f);
         Gizmos.color = NavHeightXNegRot0 < 0 ? Color.red : Color.blue;
-        Gizmos.DrawSphere(coinXZZero + new Vector3(0, NavHeightXNegRot0, tailleModuleDemi.z), 0.2f);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(0, NavHeightXNegRot0,  tailleModuleDemi.z)), 0.2f);
         Gizmos.color = NavHeightZPosRot0 < 0 ? Color.red : Color.blue;
-        Gizmos.DrawSphere(coinXZZero + new Vector3(tailleModuleDemi.x, NavHeightZPosRot0, tailleModule.z), 0.2f);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x, NavHeightZPosRot0, tailleModule.z)), 0.2f);
         Gizmos.color = NavHeightZNegRot0 < 0 ? Color.red : Color.blue;
-        Gizmos.DrawSphere(coinXZZero + new Vector3(tailleModuleDemi.x, NavHeightZNegRot0, 0), 0.2f);
+        Gizmos.DrawSphere(coinXZZero + transform.TransformDirection(new Vector3(tailleModuleDemi.x, NavHeightZNegRot0, 0)), 0.2f);
     }
 
     public TileParameters param = new TileParameters();

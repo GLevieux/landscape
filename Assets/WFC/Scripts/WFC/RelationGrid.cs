@@ -189,6 +189,9 @@ public class RelationGrid : MonoBehaviour
     private NavGrid navGridDebug = null;
     public void BuildAndShowNavEditor()
     {
+        if (grid == null)
+            ScanAndFillAirEditor();
+
         navGridDebug = new NavGrid();
         SimpleGridWFC.Module[,] modules = new SimpleGridWFC.Module[gridSize, gridSize];
         for (int i = 0; i < gridSize; i++)
@@ -753,13 +756,13 @@ public class RelationGrid : MonoBehaviour
                 for (int z = 0; z < gridSize; z++)
                 {
                     Gizmos.color = navGridDebug.Cells[x, z].XN ? Color.green : Color.red;
-                    Gizmos.DrawCube(new Vector3(x*gridUnitSize,0,z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f,0.5f,0.5f));
+                    Gizmos.DrawCube(transform.position + new Vector3(x*gridUnitSize,0,z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f,0.5f,0.5f));
                     Gizmos.color = navGridDebug.Cells[x, z].XP ? Color.green : Color.red;
-                    Gizmos.DrawCube(new Vector3((x+1) * gridUnitSize, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f, 0.5f, 0.5f));
+                    Gizmos.DrawCube(transform.position + new Vector3((x+1) * gridUnitSize, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.5f, 0.5f, 0.5f));
                     Gizmos.color = navGridDebug.Cells[x, z].ZN ? Color.green : Color.red;
-                    Gizmos.DrawCube(new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, z * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
+                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, z * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
                     Gizmos.color = navGridDebug.Cells[x, z].ZP ? Color.green : Color.red;
-                    Gizmos.DrawCube(new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, (z+1) * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
+                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, (z+1) * gridUnitSize), new Vector3(0.5f, 0.5f, 0.5f));
 
                 }
             }
