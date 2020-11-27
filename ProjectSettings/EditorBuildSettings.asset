@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/Guillaume/TestGuillaume.unity
     guid: 65e8f39b62cbf954f9015185befb1bff
+  - enabled: 1
+    path: Assets/Game/Scenes/Thomas/TestThomas.unity
+    guid: 184896ae12357a243a59c1e51cea6acf
   m_configObjects: {}
