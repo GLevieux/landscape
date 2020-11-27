@@ -198,6 +198,13 @@ public class GATestFlow : GAScript
             if (wfc.isWFCFailed())
                 return 0.0f;
 
+            //Sauve le résultat
+            Module[,] modules = wfc.getModuleResultFiltered();
+            ((WFCChromosome)chromosome).gridResult = modules;
+
+            NavGrid nav = new NavGrid();
+            nav.Build(modules);
+
             //Creation d'une grille de navigation
 
             //Je veux une entrée et un drapeau ! 
@@ -205,7 +212,7 @@ public class GATestFlow : GAScript
             //SM_Prop_Fence_02 = entry, id 1
             //id 28 is FlagBlue
             //id 27 is air
-            int entryID = 6;
+            /*int entryID = 6;
             int flagObjectiveID = 5;//28
             int airID = 27;//27
 
@@ -239,7 +246,7 @@ public class GATestFlow : GAScript
                 fitness += 0.3f;
             }
 
-            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResult();
+            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResultFiltered();
 
             if (wfc.GetNbAssetInGrid(entryID) != 1 || wfc.GetNbAssetInGrid(flagObjectiveID) != 1)
             {
@@ -272,7 +279,9 @@ public class GATestFlow : GAScript
             List<Point> path = Pathfinding.FindPath(grid, _from, _to, Pathfinding.DistanceType.Manhattan);
 
 
-            return path.Count;
+            return path.Count;*/
+
+                return 0;
         }
     }
 

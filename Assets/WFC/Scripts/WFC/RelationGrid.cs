@@ -30,9 +30,19 @@ public class RelationGrid : MonoBehaviour
         public float minNb = 0;
         public PrefabInstance pi = null;//access parameters (prefab, rotation, symetrical)
 
-        public UniqueTile()
+        [HideInInspector]
+        public float NavHeightZPosRot0 = 0;
+        [HideInInspector]
+        public float NavHeightZNegRot0 = 0;
+        [HideInInspector]
+        public float NavHeightXPosRot0 = 0;
+        [HideInInspector]
+        public float NavHeightXNegRot0 = 0;
+
+        public UniqueTile(PrefabInstance prefInst)
         {
             id = idCounter++;//commence a 0
+            pi = prefInst;
         }
 
         public static void ResetId()
@@ -394,9 +404,8 @@ public class RelationGrid : MonoBehaviour
 
                         if (!hashPrefabToUniqueTile.ContainsKey(id))
                         {
-                            UniqueTile newUT = new UniqueTile();
-                            newUT.pi = currentPrefabInstance;
-
+                            UniqueTile newUT = new UniqueTile(currentPrefabInstance);
+                            
                             //Associer parent
                             if (xCases > 1 || zCases > 1)//bigtile it is
                             {

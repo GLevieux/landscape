@@ -1,0 +1,43 @@
+=====Start GA=====
+=====WFC Config=====
+GridSize is 30
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 15) are :
+0 is Border, nbInGrid: 0, NoBigtile
+1 is Corner, nbInGrid: 36, NoBigtile
+2 is Wall, nbInGrid: 411, NoBigtile
+3 is EnemySpawner, nbInGrid: 1, NoBigtile
+4 is Full, nbInGrid: 830, NoBigtile
+5 is Goal, nbInGrid: 1, NoBigtile
+6 is PlayerSpawner, nbInGrid: 1, NoBigtile
+7 is Air, nbInGrid: 4009, NoBigtile
+8 is Big, nbInGrid: 36, BigTile => SubTile at 0/0
+9 is Big, nbInGrid: 36, BigTile => SubTile at 0/1
+10 is Big, nbInGrid: 36, BigTile => SubTile at 1/0
+11 is Big, nbInGrid: 36, BigTile => SubTile at 1/1
+12 is PenteSmall, nbInGrid: 60, NoBigtile
+13 is Mid, nbInGrid: 100, NoBigtile
+14 is MidEtPente, nbInGrid: 60, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GATestFlow
+Population is (2, 4) 
+nbGeneration is 2
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is True
+nbZones is 100
+-------Zone coverage size is 3
+
+=====GA Generations=====

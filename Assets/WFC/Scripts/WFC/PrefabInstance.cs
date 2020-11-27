@@ -31,6 +31,12 @@ public class PrefabInstance : MonoBehaviour
     [Tooltip("Debug : pour avoir le bon gizmo de taille. Mettre le meme que le WFC")]
     public float gridUnitSize = 1; //Debug
 
+    //Pour la navigation
+    public float NavHeightZPosRot0 = -1;
+    public float NavHeightZNegRot0 = -1;
+    public float NavHeightXPosRot0 = -1;
+    public float NavHeightXNegRot0 = -1;
+
 
     //Depend de l'instance
     [System.Serializable]
@@ -58,6 +64,22 @@ public class PrefabInstance : MonoBehaviour
         Vector3 wOffDir = transform.TransformDirection(new Vector3(1, 0, 1));
 
         Gizmos.DrawWireCube(transform.position - new Vector3(wOffDir.x*gridUnitSize / 2, 0, wOffDir.z * gridUnitSize / 2) + new Vector3((size.x * gridUnitSize* wOffDir.x) / 2.0f, gridUnitSize/2, (size.y*gridUnitSize* wOffDir.z) / 2.0f), new Vector3((size.x * gridUnitSize* wOffDir.x) , gridUnitSize, (size.y*gridUnitSize* wOffDir.z) ));
+
+        float unitSize = gridUnitSize;
+        
+        Vector3 coinXZZero = transform.position - new Vector3(unitSize / 2.0f, 0, unitSize / 2.0f);
+        Vector3 tailleModule = new Vector3(unitSize * size.x, 0, unitSize * size.y);
+        Vector3 tailleModuleDemi = new Vector3(unitSize * size.x / 2.0f, 0, unitSize * size.y / 2.0f);
+
+
+        Gizmos.color = NavHeightXPosRot0 < 0 ? Color.red : Color.blue;
+        Gizmos.DrawSphere(coinXZZero + new Vector3(tailleModule.x, NavHeightXPosRot0, tailleModuleDemi.z), 0.2f);
+        Gizmos.color = NavHeightXNegRot0 < 0 ? Color.red : Color.blue;
+        Gizmos.DrawSphere(coinXZZero + new Vector3(0, NavHeightXNegRot0, tailleModuleDemi.z), 0.2f);
+        Gizmos.color = NavHeightZPosRot0 < 0 ? Color.red : Color.blue;
+        Gizmos.DrawSphere(coinXZZero + new Vector3(tailleModuleDemi.x, NavHeightZPosRot0, tailleModule.z), 0.2f);
+        Gizmos.color = NavHeightZNegRot0 < 0 ? Color.red : Color.blue;
+        Gizmos.DrawSphere(coinXZZero + new Vector3(tailleModuleDemi.x, NavHeightZNegRot0, 0), 0.2f);
     }
 
     public TileParameters param = new TileParameters();

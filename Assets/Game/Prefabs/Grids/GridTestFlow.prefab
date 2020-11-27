@@ -10219,6 +10219,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3557917489491020212, guid: ada175b52702682459284e66a2c6eac7, type: 3}
+      propertyPath: NavHeightZPos
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8750550479752423155, guid: ada175b52702682459284e66a2c6eac7, type: 3}
       propertyPath: m_Name
       value: PenteSmall

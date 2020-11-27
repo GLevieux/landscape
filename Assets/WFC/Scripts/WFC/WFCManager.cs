@@ -151,8 +151,7 @@ public class WFCManager : MonoBehaviour
         }
         if(takeBorderIntoAccount)//First unique tile at index 0 is dummy corner
         {
-            UniqueTile cornerUT = new UniqueTile();
-            cornerUT.pi = prefabBorder.GetComponent<PrefabInstance>();
+            UniqueTile cornerUT = new UniqueTile(prefabBorder.GetComponent<PrefabInstance>());
             cornerUT.nbInBaseGrid = 0;//a verif si 0 = ok
             dt.uniqueTilesInGrid.Add(cornerUT);
         }
@@ -380,7 +379,7 @@ public class WFCManager : MonoBehaviour
                 if (nextWFC)
                 {
                     this.gameObject.SetActive(false);
-                    nextWFC.NextLaunch(currentWFC.getModuleResult());
+                    nextWFC.NextLaunch(currentWFC.getModuleResultFiltered());
                 }
             }
         }

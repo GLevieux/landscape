@@ -350,7 +350,7 @@ public class GASimpleTest : GAScript
 
             ((WFCChromosome)chromosome).assetsWantedCreated = assetsWantedCreated;
             ((WFCChromosome)chromosome).nbInstanceAssetsCreated = nbInstanceAssetsCreated;
-            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResult();
+            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResultFiltered();
 
             fitness = (float)nbInstanceAssetsCreated / (m_assetsWanted.Count - assetsWantedCreated + 1);//1.0f - ((float) m_assetsWanted.Count / assetsWantedCreated);
 
@@ -419,7 +419,7 @@ for (int i = 0; i < m_assetsWanted.Count; i++)
 
 ((WFCChromosome)chromosome).assetsWantedCreated = assetsWantedCreated;
 ((WFCChromosome)chromosome).nbInstanceAssetsCreated = nbInstanceAssetsCreated;
-((WFCChromosome)chromosome).gridResult = wfc.getModuleResult();
+((WFCChromosome)chromosome).gridResult = wfc.getModuleResultFiltered();
 
 fitness = (float) nbInstanceAssetsCreated / (m_assetsWanted.Count - assetsWantedCreated + 1);//1.0f - ((float) m_assetsWanted.Count / assetsWantedCreated);
 
