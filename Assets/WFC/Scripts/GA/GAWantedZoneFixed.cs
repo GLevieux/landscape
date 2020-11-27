@@ -227,7 +227,7 @@ public class GAWantedZoneFixed : GAScript
 
             ((WFCChromosome)chromosome).assetsWantedCreated = assetsWantedCreated;
             ((WFCChromosome)chromosome).nbInstanceAssetsCreated = nbInstanceAssetsCreated;
-            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResult();
+            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResultFiltered();
 
             return (float)nbInstanceAssetsCreated / (m_assetsWanted.Count - assetsWantedCreated + 1);
         }

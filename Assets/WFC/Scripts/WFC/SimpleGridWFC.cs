@@ -120,11 +120,7 @@ public class SimpleGridWFC
             return "Zone at " + origin.x + "/" + origin.y + ", size: " + size.x + "/" + size.y + ", proba:" + probabilityBoost + ", assetID:" + assetID + ", prefabTag:" + prefabTag;
         }
     }
-
     
-
-
-
     private Vector3 instanceCoordinates = new Vector3(30, 0, 0);
 
     private Slot[,] grid;
@@ -144,7 +140,7 @@ public class SimpleGridWFC
     private int nbRestart = 0;
 
     //Renvoie la grille (en excluant les sous tiles des bigtiles excepté le centre)
-    public Module[,] getModuleResult()
+    public Module[,] getModuleResultFiltered()
     {
         Module[,] gridResult = new Module[config.gridSize, config.gridSize];
 
