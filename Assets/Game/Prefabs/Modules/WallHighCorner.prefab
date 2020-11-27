@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7001575806967191215}
   - component: {fileID: 3479752670340645194}
   m_Layer: 0
-  m_Name: WallHautSimple
+  m_Name: WallHigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 6477799644428399976}
   - component: {fileID: 981582661883126991}
   m_Layer: 0
-  m_Name: WallHautCorner
+  m_Name: WallHighCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,12 +360,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 5245904112987263991}
-  stringId: WallHautCorner
+  stringId: WallHighCorner
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
   size: {x: 1, y: 1}
   gridUnitSize: 2
+  NavHeightZPosRot0: -1
+  NavHeightZNegRot0: -1
+  NavHeightXPosRot0: -1
+  NavHeightXNegRot0: -1
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0
@@ -383,7 +387,7 @@ GameObject:
   - component: {fileID: 1535977964238759759}
   - component: {fileID: 2700669184974834532}
   m_Layer: 0
-  m_Name: WallHautSimple (1)
+  m_Name: WallHigh 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

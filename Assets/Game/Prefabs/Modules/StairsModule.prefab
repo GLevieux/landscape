@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3579217986466487293}
   - component: {fileID: -1147180764694274408}
   m_Layer: 0
-  m_Name: StairsSmallModule
+  m_Name: StairsModule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,12 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 580887276327595821}
-  stringId: StairsSmallModule
+  stringId: StairsModule
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
   size: {x: 1, y: 1}
   gridUnitSize: 2
+  NavHeightZPosRot0: -1
+  NavHeightZNegRot0: -1
+  NavHeightXPosRot0: -1
+  NavHeightXNegRot0: -1
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0

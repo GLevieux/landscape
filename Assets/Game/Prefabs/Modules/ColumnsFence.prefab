@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5366674803176597495}
   - component: {fileID: -6718237208245545413}
   m_Layer: 0
-  m_Name: ColonneBarriere
+  m_Name: ColumnsFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 5246289365028958808}
-  stringId: ColonneBarriere
+  stringId: ColumnsFence
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
@@ -122,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979512, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_Name
-      value: ColonneThin (4)
+      value: ColumnThin (4)
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979512, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -200,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979512, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_Name
-      value: ColonneThin (2)
+      value: ColumnThin (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979512, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -278,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979512, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_Name
-      value: ColonneThin
+      value: ColumnThin
       objectReference: {fileID: 0}
     - target: {fileID: 6311740113435979512, guid: 1c3fc72e935725842ab87bbcc0a80bed, type: 3}
       propertyPath: m_StaticEditorFlags

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2790942669978217512}
   - component: {fileID: 3815836754182542369}
   m_Layer: 0
-  m_Name: WindowHautModule
+  m_Name: WindowHigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 1579624580092234729}
-  stringId: WindowHautModule
+  stringId: WindowHigh
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 6050269525309598870}
   - component: {fileID: 8828380269669219119}
   m_Layer: 0
-  m_Name: WindowSimple
+  m_Name: WindowSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 4504255089957302973}
   - component: {fileID: 8062108157444810072}
   m_Layer: 0
-  m_Name: WallHautSimple
+  m_Name: WallHigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

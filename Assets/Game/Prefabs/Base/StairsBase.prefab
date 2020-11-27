@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9157200810542218876}
   - component: {fileID: 9157200810542218877}
   m_Layer: 0
-  m_Name: StairsSmall
+  m_Name: StairsBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
