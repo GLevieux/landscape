@@ -1,7 +1,7 @@
 ﻿
 
 
-#define LOGGER
+//#define LOGGER
 
 using System;
 using System.Collections.Generic;
