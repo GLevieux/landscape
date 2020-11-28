@@ -1083,6 +1083,12 @@ public class SimpleGridWFC
             }
         }
 
+        if(chosenModule == null)
+        {
+            Debug.LogError("No chosen module ! we are stuck !");
+            return false;
+        }
+
 #if LOGGER
         Logger.Log("Chosen module is" + chosenModule.ToString());
 #endif

@@ -66,6 +66,7 @@ GameObject:
   - component: {fileID: 7406548990343174644}
   - component: {fileID: 6449686686394465367}
   - component: {fileID: 1614318205656627459}
+  - component: {fileID: -8646736565510639758}
   m_Layer: 9
   m_Name: Enemy_HoverBot
   m_TagString: Untagged
@@ -343,6 +344,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8646736565510639758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015434656898269652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b7698ec50c85c44a849a968dc1d57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  compassMarkerPrefab: {fileID: 4125838790012652590, guid: 513785daf84f2a243b0cda079e6835cd, type: 3}
+  textDirection: 
 --- !u!1 &2201913640410082181
 GameObject:
   m_ObjectHideFlags: 0

@@ -12434,11 +12434,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3880339663797769267, guid: eaf6ee5648acc1647929671631655ff5, type: 3}
       propertyPath: maxNb
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3880339663797769267, guid: eaf6ee5648acc1647929671631655ff5, type: 3}
       propertyPath: minNb
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3880339663797769267, guid: eaf6ee5648acc1647929671631655ff5, type: 3}
       propertyPath: hideGizmos

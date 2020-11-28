@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 563.2093, g: 341.3357, b: 262.2619, a: 1}
+  m_IndirectSpecularColor: {r: 563.9893, g: 344.38965, b: 279.17502, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -985,16 +985,36 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: wfcConfig.gridSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: wfcConfig.scaleSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.size
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.takeZonesIntoAccount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: relationGrids.Array.data[1].addNbTimes
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: relationGrids.Array.data[2].addNbTimes
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: relationGrids.Array.data[3].addNbTimes
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[4].addNbTimes
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[5].addNbTimes
@@ -1003,7 +1023,11 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[2].relationGrid
       value: 
-      objectReference: {fileID: 6051803017836593869, guid: 6c1b50060873c774cb696559591d1b2f, type: 3}
+      objectReference: {fileID: 6051803017836593869, guid: ebea2d012ca0e3e45bff4bcd6ac170d0, type: 3}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: relationGrids.Array.data[3].relationGrid
+      value: 
+      objectReference: {fileID: 6051803017836593869, guid: eb3b3a1cb9a25704eb4c4ccd2c7ad11d, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[4].relationGrid
       value: 
