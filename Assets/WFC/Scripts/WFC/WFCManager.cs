@@ -67,7 +67,7 @@ public class WFCManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if(ga != null)
+        if (ga != null)
         {
             ga.StopGA();
         }
@@ -95,7 +95,7 @@ public class WFCManager : MonoBehaviour
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
         //link next wfc
-        if(previousResults != null)
+        if (previousResults != null)
         {
             previousResults.setNextWFC(this);
         }
@@ -140,6 +140,7 @@ public class WFCManager : MonoBehaviour
 
         //generate dummy border tiles (dans tous les cas, on l'a) => a opti
         //if (takeBorderIntoAccount)//si takeBorder => alors il s'agit du premier bloc UT
+        /* VIRE AUTO BORDER
         bool takeBorderIntoAccount = false;
         foreach (RelationGridForWfc r in listRG)
         {
@@ -154,7 +155,9 @@ public class WFCManager : MonoBehaviour
             UniqueTile cornerUT = new UniqueTile(prefabBorder.GetComponent<PrefabInstance>());
             cornerUT.nbInBaseGrid = 0;//a verif si 0 = ok
             dt.uniqueTilesInGrid.Add(cornerUT);
-        }
+        }*/
+
+
         //il s'agit d'une tile à opti => ne pas prendre en compte pour les cases du milieu du wfc ? (supprimer liste)
 
         //get tiles from each relation grid
@@ -164,7 +167,7 @@ public class WFCManager : MonoBehaviour
         }
 
         //Override with custom nbingrid limiter
-        foreach(UniqueTile ut in dt.uniqueTilesInGrid)
+        foreach (UniqueTile ut in dt.uniqueTilesInGrid)
         {
             ut.maxNb = ut.pi.maxNb;
             ut.minNb = ut.pi.minNb;
@@ -173,7 +176,7 @@ public class WFCManager : MonoBehaviour
 
     private void initialAssetsExtraction()
     {
-        if(initialGrid != null)
+        if (initialGrid != null)
             wfcConfig.listInitialAssets = initialGrid.getInitialAssets();
     }
 
@@ -198,7 +201,7 @@ public class WFCManager : MonoBehaviour
 
         wfcConfig.uniqueTilesInGrid = utNormal.uniqueTilesInGrid;
         wfcConfig.hashPrefabToUniqueTile = utNormal.hashPrefabToUniqueTile;
-        
+
         initialAssetsExtraction();
 
         if (useCustomRelations)
@@ -209,7 +212,7 @@ public class WFCManager : MonoBehaviour
                 rc.addRelationsCustom(ref utNormal.hashPrefabToUniqueTile);
             }
         }
-        
+
         Debug.Log("------Tiles Normal------");
         debugTiles(ref utNormal);
 
@@ -219,7 +222,7 @@ public class WFCManager : MonoBehaviour
         TryGenerateNewLevel();
     }
 
-    
+
 
     public void NextLaunch(Module[,] previousResult)
     {
@@ -239,7 +242,7 @@ public class WFCManager : MonoBehaviour
 
     public void processPreviousResult(ref Module[,] previousResult)
     {
-        if(paramResults == TypeOfResults.TakeAssetsAsTags)
+        if (paramResults == TypeOfResults.TakeAssetsAsTags)
         {
             List<ForceTag> res = new List<ForceTag>();
 
@@ -285,8 +288,8 @@ public class WFCManager : MonoBehaviour
                 gaLaunched = false;
                 ga.gaEnded = false;
                 ga.ShowResult(this.transform.position);
-                
-                if(zoneGrid)
+
+                if (zoneGrid)
                 {
                     zoneGrid.setZones(ga.getZonesResult());
                 }
@@ -296,7 +299,7 @@ public class WFCManager : MonoBehaviour
                     GetComponent<CameraCapture>().TakeScreenshot("AutoScreenshot.png", true);
                 }
 
-                debugText = "Generation time for GA: " + Mathf.Round((float)ga.getElapsedTime().TotalMilliseconds/100.0f)/10 + "s";
+                debugText = "Generation time for GA: " + Mathf.Round((float)ga.getElapsedTime().TotalMilliseconds / 100.0f) / 10 + "s";
 
                 StartCoroutine(SendMessageEndOfFrame("LevelGenerated"));
 
@@ -307,7 +310,7 @@ public class WFCManager : MonoBehaviour
                 }
             }
 
-            if(ga.isRunning())
+            if (ga.isRunning())
             {
                 debugText = ga.debug;
             }
@@ -331,7 +334,7 @@ public class WFCManager : MonoBehaviour
                 {
                     Debug.LogError(this + "You want to launch GA but have no GAScript");
                     return;
-                }                    
+                }
 
                 ga.init(gaParameters.gaConfig, wfcConfig, useCustomRandomSeed, customSeed);
 
@@ -368,13 +371,13 @@ public class WFCManager : MonoBehaviour
                 listResultTime.Add(stopwatch.Elapsed);
                 double res = listResultTime.Average(item => item.TotalMilliseconds);
                 Debug.Log("Multiple generation WFC => Avg time elapsed ms: " + res);
-                
-                debugText = "Avg generation time: " + Mathf.Round((float)res/100)/10 + "s";
+
+                debugText = "Avg generation time: " + Mathf.Round((float)res / 100) / 10 + "s";
 
                 currentWFC.show(true, this.transform.position, transform);
 
                 StartCoroutine(SendMessageEndOfFrame("LevelGenerated"));
-                
+
 
                 if (nextWFC)
                 {
@@ -395,7 +398,7 @@ public class WFCManager : MonoBehaviour
     public void LevelGenerated()
     {
         Debug.Log("Level Generated");
-        
+
     }
 
     public void StartGeneration()
@@ -406,7 +409,7 @@ public class WFCManager : MonoBehaviour
 
     public void PreStartGeneration()
     {
-        Debug.Log("Start Generation in "+timeBeforeLaunch);
+        Debug.Log("Start Generation in " + timeBeforeLaunch);
 
     }
 

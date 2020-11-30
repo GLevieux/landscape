@@ -84,7 +84,7 @@ public class RelationGrid : MonoBehaviour
     public int gridUnitSize = 1;
     //public bool incrementNbInGrid = true;
     //public bool fillWithAir = false;
-    public bool takeBorderIntoAccount = false;//create relation between "null" (around the grid) and neighboor tile
+    //public bool takeBorderIntoAccount = false;//create relation between "null" (around the grid) and neighboor tile
     public GameObject prefabAir = null;
     
     public bool RangeLesAssets = true;
@@ -621,17 +621,19 @@ public class RelationGrid : MonoBehaviour
                 ut.relations[i] = new Relation();
                 ut.relations[i].to = uniqueTilesInGrid[i];//raccourci, qui peut etre retrouvé par juste l'index == id de la tile
 
-                //corner to corner
+                /* VIRE AUTO BORDER 
+                //corner to corner 
                 if(takeBorderIntoAccount && ut == uniqueTilesInGrid[0] && ut.relations[i].to == ut)
                 {
                     ut.relations[i].autorization = 0b_1111_1111_1111_1111;
-                }
+                }*/
             }
         }
 
 
         //A verif, pas redondant avec la section en dessous avec le elseif(takeborder) ???
 
+        /* VIRE AUTO BORDER
         if(takeBorderIntoAccount)//Creer relation entre les blocs en bords avec le faux tile border
         {
             for (int i = 0; i < gridSize; i++)
@@ -684,7 +686,7 @@ public class RelationGrid : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
         
 
         Debug.Log("uniqueTilesInGrid count is " + uniqueTilesInGrid.Count);
@@ -730,11 +732,13 @@ public class RelationGrid : MonoBehaviour
                                                                     0, left.rotationGridY, leftTP.allRotationsAllowed, leftTP.symetricalAxisY);//2 -> left for current tiles, 0 -> right for left tiles
                     }
                 }
+                /* VIRE AUTO BORDER
                 else if (takeBorderIntoAccount)
                 {
                     Relation r = getRelation(ut.relations, uniqueTilesInGrid[0]);//0 => cornerUT
                     r.autorization = BinaryUtility.writeRelation(r.autorization, 2, current.rotationGridY, tp.allRotationsAllowed, tp.symetricalAxisY, 0, 0, true, false);
                 }
+                */
 
                 if (i + 1 < gridSize)
                 {
@@ -749,11 +753,12 @@ public class RelationGrid : MonoBehaviour
                                                                     2, right.rotationGridY, rightTP.allRotationsAllowed, rightTP.symetricalAxisY);
                     }
                 }
+                /* VIRE AUTO BORDER
                 else if (takeBorderIntoAccount)
                 {
                     Relation r = getRelation(ut.relations, uniqueTilesInGrid[0]);//0 => cornerUT
                     r.autorization = BinaryUtility.writeRelation(r.autorization, 0, current.rotationGridY, tp.allRotationsAllowed, tp.symetricalAxisY, 2, 0, true, false);
-                }
+                }*/
 
                 if (j - 1 >= 0)
                 {
@@ -768,11 +773,12 @@ public class RelationGrid : MonoBehaviour
                                                                     1, down.rotationGridY, downTP.allRotationsAllowed, downTP.symetricalAxisY);
                     }
                 }
+                /* VIRE AUTO BORDER
                 else if (takeBorderIntoAccount)
                 {
                     Relation r = getRelation(ut.relations, uniqueTilesInGrid[0]);//0 => cornerUT
                     r.autorization = BinaryUtility.writeRelation(r.autorization, 3, current.rotationGridY, tp.allRotationsAllowed, tp.symetricalAxisY, 1, 0, true, false);
-                }
+                }*/
 
                 if ((j + 1) < gridSize)
                 {
@@ -788,11 +794,12 @@ public class RelationGrid : MonoBehaviour
                                                                     3, top.rotationGridY, topTP.allRotationsAllowed, topTP.symetricalAxisY);
                     }
                 }
+                /* VIRE AUTO BORDER
                 else if (takeBorderIntoAccount)
                 {
                     Relation r = getRelation(ut.relations, uniqueTilesInGrid[0]);//0 => cornerUT
                     r.autorization = BinaryUtility.writeRelation(r.autorization, 1, current.rotationGridY, tp.allRotationsAllowed, tp.symetricalAxisY, 3, 0, true, false);
-                }
+                }*/
             }
         }
 
@@ -813,8 +820,7 @@ public class RelationGrid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        
-
+        /* VIRE AUTO BORDER
         if(takeBorderIntoAccount)
         {
             Gizmos.color = new Color(1, 0, 1, 1.0f);
@@ -822,7 +828,9 @@ public class RelationGrid : MonoBehaviour
         else
         {
             Gizmos.color = new Color(0, 0, 1, 1.0f);
-        }
+        }*/
+
+        Gizmos.color = new Color(0, 0, 1, 1.0f);
 
         Gizmos.DrawWireCube(transform.position + new Vector3(gridSize/2.0f, 0.5f, gridSize / 2.0f) * gridUnitSize, new Vector3(gridSize, 1 , gridSize) * gridUnitSize);
 

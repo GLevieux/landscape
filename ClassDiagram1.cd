@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="FollowPlayer" Collapsed="true">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAgAAIAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\FollowPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FramerateCounter" Collapsed="true">
+    <Position X="24.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAIAAAAgAAAAAAAggAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\FramerateCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameConstants" Collapsed="true">
+    <Position X="27.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAMAAgACAAIAAAAAFAACBAEIAAAIQAAAIRBA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\GameConstants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameFlowManager" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQBAAAAACCABCAAAggUAEAAAAAAAAAAAAAAAACZAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\GameFlowManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Health" Collapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAFAAIKAGAAAACAAAgQAAAAAAAEAAAKAAAAgAAAgBA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\Health.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthPickup" Collapsed="true">
+    <Position X="24.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAACAAAAAAAAAAAAAAAAAAAACAAAAAAAQAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\HealthPickup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IgnoreHeatMap" Collapsed="true">
+    <Position X="26" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\IgnoreHeatMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IgnoreHitDetection" Collapsed="true">
+    <Position X="27.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\IgnoreHitDetection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InGameMenuManager" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAQASBAAAEQIABAABABAAAAAAEAICAAEAAAAEg=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\InGameMenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jetpack" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAICACABAOADBACAAACAAAEAAAAAACwBgAACA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\Jetpack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetpackPickup" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAACAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\JetpackPickup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshCombiner" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAgACIAAAAAAAAAAAAACAABAAAEQAABAAYAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\MeshCombiner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshCombineUtility" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\MeshCombineUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NavigationModule" Collapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\NavigationModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Objective" Collapsed="true">
+    <Position X="24.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAAAFAQCAABAAAIAAAAAAAEAAgIIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\Objective.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityActionUpdateObjective" Collapsed="true">
+    <Position X="26" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAEAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\Objective.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectiveKillEnemies" Collapsed="true">
+    <Position X="27.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAABAACAAAAIAAgAAAIAAAAAAAABAAAAAACAAACA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\ObjectiveKillEnemies.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectiveManager" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\ObjectiveManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectivePickupItem" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAEAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\ObjectivePickupItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectiveReachPoint" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\ObjectiveReachPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OverheatBehavior" Collapsed="true">
+    <Position X="19" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAoAAAAQAgAAAAAAAAIAAgAAgCACAABAAIAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\OverheatBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PatrolPath" Collapsed="true">
+    <Position X="22.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQEAACIAAAAAEAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\PatrolPath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pickup" Collapsed="true">
+    <Position X="24.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQQAAAEACEAAAAAAAAAAAAAAABAAAAEQAgAJAAgAAE=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\Pickup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerCharacterController" Collapsed="true">
+    <Position X="26" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAYQHgBAQOgYYAYqiWWgBYAYCJgAMkBKAEJIGCAAACA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\PlayerCharacterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerInputHandler" Collapsed="true">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARACBAsAACAAAEAQCCAAIAAACAJAAJAAAIAkAAAwEQI=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\PlayerInputHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerWeaponsManager" Collapsed="true">
+    <Position X="13.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQABQJSAOQCIhCMDAEBIIIQCJACE6gBAAgBWAokCKA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\PlayerWeaponsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PositionBobbing" Collapsed="true">
+    <Position X="15.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAIAAgAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\PositionBobbing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrefabReplacer" Collapsed="true">
+    <Position X="19" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\PrefabReplacer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrefabReplacerOnInstance" Collapsed="true">
+    <Position X="20.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\PrefabReplacerOnInstance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileBase" Collapsed="true">
+    <Position X="22.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAhAAAhEAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\ProjectileBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileChargeParameters" Collapsed="true">
+    <Position X="24.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAASAAIgAAAAAAAAAAAAAAAAQAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\ProjectileChargeParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileStandard" Collapsed="true">
+    <Position X="26" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABSAAaAII4EEBAAAggAAAABAIAQRBAQABAAAgCJA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\ProjectileStandard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TakeScreenshot" Collapsed="true">
+    <Position X="24.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAQAAARAAAAAAAQAAACoIAAAAAAAAAGAAAAAAAEg=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\TakeScreenshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeleportPlayer" Collapsed="true">
+    <Position X="26" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAAAAABAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\TeleportPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimedSelfDestruct" Collapsed="true">
+    <Position X="17.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\TimedSelfDestruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FillBarColorChange" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEIAAGAAAUAAAAAAAAAIAEAAAAAAUAAIgAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\FillBarColorChange.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetpackCounter" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAgAAAAAAQAAAAAAAAgAAAIAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\JetpackCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoadSceneButton" Collapsed="true">
+    <Position X="22.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAACAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\LoadSceneButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuNavigation" Collapsed="true">
+    <Position X="27.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\MenuNavigation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NotificationHUDManager" Collapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAQQAAAAAAgEAAACAAAAAAAAAAAAAAAAQAAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\NotificationHUDManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NotificationToast" Collapsed="true">
+    <Position X="22.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAgAAQAEAQQACAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\NotificationToast.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectiveHUDManger" Collapsed="true">
+    <Position X="26" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAACAAAAAAAQAAAAAAgAAAQAAAQAAAAAAEA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\ObjectiveHUDManger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectiveToast" Collapsed="true">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAhAESAQIYQIADEAEACgghAAAAAAADAAAIAAAAAg=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\ObjectiveToast.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerHealthBar" Collapsed="true">
+    <Position X="27.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\PlayerHealthBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StanceHUD" Collapsed="true">
+    <Position X="22.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAACAAAAABAAQAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\UI\StanceHUD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeaponController" Collapsed="true">
+    <Position X="27.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>OiQASBsADwwikEiU4CFAAkCgFQgoABCEWgAIIDCBDEg=</HashCode>
+      <FileName>Assets\_MicroFPS\FPS\Scripts\WeaponController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GenerateEffect" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAIAGAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Game\Materials\GenerateEffect\GenerateEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GenerateEffectManager" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Game\Materials\GenerateEffect\GenerateEffectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomSky" Collapsed="true">
+    <Position X="27.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAYAAAAAAIABACAACACAAACAAARAAAAoACAAAAoCAAA=</HashCode>
+      <FileName>Assets\Game\Materials\RandomSky\RandomSky.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AgentFlowCurieux" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIAAIAAAAAQgAAAAAAAAEIAAIAACBAAAAAA=</HashCode>
+      <FileName>Assets\Game\Scripts\AI\AgentFlowCurieux.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NavGrid" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Game\Scripts\AI\NavGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GATestFlow" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAEAQAAMAAAAAAQAAIAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\Game\Scripts\GA\GATestFlow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeleportPlayerOnStart" Collapsed="true">
+    <Position X="27.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Game\Scripts\GameProgression\TeleportPlayerOnStart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlagGenerateLevel" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Game\Scripts\Progression\FlagGenerateLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GAAstarTest" Collapsed="true">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAEAQAAMAAAAAAAAAIAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAAstarTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneticAlgo" Collapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABBAAAAADAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAExampleTSM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TspCity" Collapsed="true">
+    <Position X="22.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAExampleTSM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TspChromosome" Collapsed="true">
+    <Position X="20.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAIAAAAAAAAgAAAAAAAABAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAExampleTSM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TspFitness" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAQAAAAAAAQgAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAExampleTSM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GAFilterAstarGreyBlock" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAEAQAAMAAAAAAAAAIAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAFilterAstarGreyBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GAParameters" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAACAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GAScript" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAACABAQAAAQBEAQCAMTAAMAAAQKJAIgQAAAACAAg=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GASimpleTest" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAABAACEAQAAMAAAAAAAAAIAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GASimpleTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GAWantedZoneFixed" Collapsed="true">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAABAAAEAQAAMAAAAAAAAAIAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\GAWantedZoneFixed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraCapture" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAABAAAAAAAAAAAAAAAAAACAAAAAEAABAAAAAAAAI=</HashCode>
+      <FileName>Assets\WFC\Scripts\General\CameraCapture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FreeCam" Collapsed="true">
+    <Position X="26" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAIAEAAAAQAAAAAAABAgEAAIAABAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\General\FreeCam.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Logger" Collapsed="true">
+    <Position X="24.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAQCAAAAAQIAAAhAAAAAAABAAAAAEAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\General\Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ThreadTest" Collapsed="true">
+    <Position X="15.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAACACAAAgQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\General\ThreadTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BinaryUtility" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\Utils\BinaryUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ListOptim&lt;T&gt;" Collapsed="true">
+    <Position X="20.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAIAABAAAAAAAAAAACAASAABAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\Utils\ListOptim.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathUtility" Collapsed="true">
+    <Position X="26" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\Utils\MathUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomUtility" Collapsed="true">
+    <Position X="12" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAQAAAAABAAAYAAAAAAAAQAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\Utils\RandomUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadOnlyAttribute" Collapsed="true">
+    <Position X="13.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\Utils\ReadOnlyAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InitialGrid" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAIAAQAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\WFC\InitialGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PrefabInstance" Collapsed="true">
+    <Position X="17.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAlAAAAAMCABBAAMAAABYAAAQAAAAECAAAAQQAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\WFC\PrefabInstance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RelationCustom" Collapsed="true">
+    <Position X="15.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\WFC\RelationCustom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RelationGrid" Collapsed="true">
+    <Position X="17.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEIAAAGCIAAQAABBAAkDAAAAJgBAAAahBIAYQAEAY=</HashCode>
+      <FileName>Assets\WFC\Scripts\WFC\RelationGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleGridWFC" Collapsed="true">
+    <Position X="20.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kBACABAAAIclAAQEBEAQAIAAGgAAAAIqRQQgAABADAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\WFC\SimpleGridWFC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WFCManager" Collapsed="true">
+    <Position X="16.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CKRERBoAAaIKAAECAACIAIEAkAAAAAAkIICISkAAkUA=</HashCode>
+      <FileName>Assets\WFC\Scripts\WFC\WFCManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZoneGrid" Collapsed="true">
+    <Position X="14.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAIAAAIAAAAgAAAAAAAAAAAAAAAAIAAAABAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\WFC\ZoneGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityTemplateProjects.SimpleCameraController" Collapsed="true">
+    <Position X="19" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAwgAAAAAAAAAIJAAAAAAAAAAAAAAAAAECAACAA=</HashCode>
+      <FileName>Assets\Game\Scripts\SimpleCameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneticSharp.Domain.Mutations.CustomMutation" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAABAAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\GA\CustomMutation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NesScripts.Controls.PathFind.Grid" Collapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAkAAAAAAAgAAAAAAIgA=</HashCode>
+      <FileName>Assets\WFC\Scripts\General\2dTileBasedPathFinding\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NesScripts.Controls.PathFind.Node" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAEAAAACABAAAAAAAAAAAAAABIAAAAAAAAIAAE=</HashCode>
+      <FileName>Assets\WFC\Scripts\General\2dTileBasedPathFinding\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NesScripts.Controls.PathFind.Pathfinding" Collapsed="true">
+    <Position X="20.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAABAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\WFC\Scripts\General\2dTileBasedPathFinding\PathFinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

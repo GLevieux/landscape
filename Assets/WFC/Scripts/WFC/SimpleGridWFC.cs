@@ -6,6 +6,7 @@ using UnityEngine;
 using static InitialGrid;
 using static PrefabInstance;
 using static RelationGrid;
+using System.Runtime.CompilerServices;
 
 public class SimpleGridWFC
 {
@@ -16,17 +17,18 @@ public class SimpleGridWFC
     [System.Serializable]
     public class WFCConfig
     {
-        public int gridSize = 15;      
+        public int gridSize = 15;
 
         //Spawning only
         public int gridUnitSize = 1;
         public int scaleSize = 1;// ? //5 ? c'est pas pareil que unitsize ?
 
+        
         public int maxLoops = 10000;
         [ReadOnly] public int nbNeighboors = 4;//not implemented
         [ReadOnly] public bool stepByStep = false;//is still working ?
-        //Vector2Int sizeGrid = new Vector2Int(15, 15);//todo rectangle grid
-        
+                                                  //Vector2Int sizeGrid = new Vector2Int(15, 15);//todo rectangle grid
+
         [ReadOnly] public List<UniqueTile> uniqueTilesInGrid = new List<UniqueTile>();
         [ReadOnly] public Dictionary<string, UniqueTile> hashPrefabToUniqueTile = new Dictionary<string, UniqueTile>();
         //[ReadOnly] public List<UniqueTile> uniqueGreyBlockInGrid = new List<UniqueTile>();
@@ -36,7 +38,18 @@ public class SimpleGridWFC
         public bool takeInitialAssets = false;
         public bool takeInitialTags = false;
 
-        public bool generateBorders = true;
+        [Header("Borders")]
+        [Tooltip("Initialise la dernière colonne de la grille avec des tiles de border X+")]
+        public bool initWithBordersRight = true;
+        [Tooltip("Initialise la dernière ligne de la grille avec des tiles de border Z-")]
+        public bool initWithBordersDown = true;
+        [Tooltip("Initialise la première colonne de la grille avec des tiles de border X-")]
+        public bool initWithBordersLeft = true;
+        [Tooltip("Initialise la première ligne de la grille avec des tiles de border Z+")]
+        public bool initWithBordersUp = true;
+
+        [Tooltip("L'id du tile à utiliser pour le border")]
+        public int idBorderTile = 0;
 
         [Header("Debug only")]
         [ReadOnly] public List<Zone> listInitialZones = new List<Zone>();//potentiellement sortir ce parametre
@@ -51,7 +64,7 @@ public class SimpleGridWFC
             //string uGreyBlock = "";
             string initialAssets = "";
 
-            foreach(Zone z in listInitialZones)
+            foreach (Zone z in listInitialZones)
             {
                 zones += z.ToString() + "\n";
             }
@@ -77,11 +90,11 @@ public class SimpleGridWFC
                     + "Take zone is " + takeZonesIntoAccount + "\n"
                     + "Take initial zones is " + takeInitialZones + "\n"
                     + "Take initial assets is " + takeInitialAssets + "\n"
-                    + "Generate borders is " + generateBorders + "\n\n"
+                    + "Generate borders is " + initWithBordersRight + " " + initWithBordersDown + " " + initWithBordersLeft + " " + initWithBordersUp + "\n\n"
                     + "* InitialZones (count: " + listInitialZones.Count + ") are :\n" + zones + "\n"
                     + "* InitialAssets (count: " + listInitialAssets.Count + ") are :\n" + initialAssets + "\n"
                     + "* Unique Tiles (count: " + uniqueTilesInGrid.Count + ") are :\n" + uTiles + "\n";
-                    //+ "* Unique Grey Blocks (count: " + uniqueGreyBlockInGrid.Count + ") are :\n" + uGreyBlock + "\n";
+            //+ "* Unique Grey Blocks (count: " + uniqueGreyBlockInGrid.Count + ") are :\n" + uGreyBlock + "\n";
         }
     }
 
@@ -120,14 +133,14 @@ public class SimpleGridWFC
             return "Zone at " + origin.x + "/" + origin.y + ", size: " + size.x + "/" + size.y + ", proba:" + probabilityBoost + ", assetID:" + assetID + ", prefabTag:" + prefabTag;
         }
     }
-    
+
     private Vector3 instanceCoordinates = new Vector3(30, 0, 0);
 
     private Slot[,] grid;
     private Slot candidate = null;
     private Queue<Slot> slotsToUpdate = new Queue<Slot>();
     private List<GameObject> tileInstanciated = new List<GameObject>();
-    
+
     private int nbStepsToDo = 0;
     private int counterLoop;
     //Dictionary<UniqueTile, float> hashUTToFrequences = new Dictionary<UniqueTile, float>();//remplacer par array avec id uniquetile
@@ -226,7 +239,7 @@ public class SimpleGridWFC
                 UniqueTile ut = m.linkedTile;
                 PrefabInstance pi = ut.pi;
 
-                if(pi.stringId == "Air")
+                if (pi.stringId == "Air")
                 {
                     gridResult[i][j] = 0;
                 }
@@ -240,7 +253,7 @@ public class SimpleGridWFC
         return gridResult;
     }
 
-    
+
 
     public int GetNbAssetInGrid(int assetID)
     {
@@ -289,12 +302,12 @@ public class SimpleGridWFC
                 }
             }
         }
-        return totalPos / (float) count;
+        return totalPos / (float)count;
     }
 
     public SimpleGridWFC(WFCConfig config = null)//Constructor
     {
-        if(config != null)
+        if (config != null)
             this.config = config;
 
         if (config.takeInitialZones)//les zones ne sont pas éditées par le wfc, on peut donc les set ici
@@ -365,7 +378,7 @@ public class SimpleGridWFC
     public string ToString()
     {
         string slots = "";
-        for(int i = 0; i < config.gridSize; i++)
+        for (int i = 0; i < config.gridSize; i++)
         {
             for (int j = 0; j < config.gridSize; j++)
             {
@@ -375,7 +388,7 @@ public class SimpleGridWFC
                 string modules = "";
 
                 int lastId = -1;
-                if(s.availables.size > 0)
+                if (s.availables.size > 0)
                 {
                     lastId = s.availables.data[0].linkedTile.id;
                 }
@@ -398,7 +411,7 @@ public class SimpleGridWFC
                     //    modules += "\n\t";
                     //}
                     //All modules for each UniqueTile per line
-                    
+
                     if (k == s.availables.size - 1)
                     {
                         modules += "\n\t";
@@ -410,7 +423,7 @@ public class SimpleGridWFC
         }
         return "Grid is composed of\n" + slots;
     }
-    
+
     public void launchWFC()
     {
 #if LOGGER
@@ -425,7 +438,7 @@ public class SimpleGridWFC
 
             init();
 
-            if(config.takeInitialAssets)
+            if (config.takeInitialAssets)
             {
                 trySetInitialAssets();
             }
@@ -443,7 +456,7 @@ public class SimpleGridWFC
 #endif
             compute();
 
-            if(config.maxLoops == 0)
+            if (config.maxLoops == 0)
             {
                 Debug.LogWarning(this + "=> Max Loops reached!");
             }
@@ -453,7 +466,7 @@ public class SimpleGridWFC
                 nbRestart++;
                 Debug.Log("Error : doing restart " + nbRestart);
             }
-            
+
         } while (restart && nbRestart < nbRestartMax);
 
         if (restart)
@@ -470,7 +483,7 @@ public class SimpleGridWFC
         return restart;
     }
 
-    public Vector3 offsetGeneration = new Vector3(10.0f,0,0);
+    public Vector3 offsetGeneration = new Vector3(10.0f, 0, 0);
 
     public void unShow()
     {
@@ -483,7 +496,7 @@ public class SimpleGridWFC
     private bool showDebugBigTile = false;
     public void show(bool useCustomCoordinates = false, Vector3 newCoordinates = new Vector3(), Transform parent = null)
     {
-        if(useCustomCoordinates)
+        if (useCustomCoordinates)
         {
             instanceCoordinates = newCoordinates;
         }
@@ -510,13 +523,14 @@ public class SimpleGridWFC
                     UniqueTile ut = m.linkedTile;
                     PrefabInstance pi = ut.pi;
 
-                    if (!pi.doNotShowInCreatedLevel)  {
+                    if (!pi.doNotShowInCreatedLevel)
+                    {
 
                         bool isOrigin = true;
 
                         if (ut.parent != null && !ut.parent.subpartPos[ut.id].Equals(Vector3Int.zero))//le prob ici c'est que si le bigtile n'est pas en entier, il ne l'affiche pas ici alors qu'il a fail
                         {
-                            if(!showDebugBigTile)
+                            if (!showDebugBigTile)
                                 continue;
                             isOrigin = false;
                         }
@@ -531,14 +545,14 @@ public class SimpleGridWFC
                         tileInstanciated.Add(go);
 
 
-                        if(showDebugBigTile && !isOrigin && ut.parent != null && go.GetComponent<Renderer>() != null)
+                        if (showDebugBigTile && !isOrigin && ut.parent != null && go.GetComponent<Renderer>() != null)
                         {
                             go.transform.localScale = Vector3.Scale(go.transform.localScale, new Vector3(config.scaleSize, config.scaleSize, config.scaleSize) * 0.9f);
                             var rend = go.GetComponent<Renderer>();
                             rend.material.SetColor("_Color", Color.blue);
                         }
                     }
-                    
+
                 }
             }
         }
@@ -552,16 +566,16 @@ public class SimpleGridWFC
 
     private void trySetInitialAssets()
     {
-        foreach(InitialAsset ia in config.listInitialAssets)
+        foreach (InitialAsset ia in config.listInitialAssets)
         {
-            if(ia.position.x >= 0 && ia.position.x < config.gridSize
+            if (ia.position.x >= 0 && ia.position.x < config.gridSize
                 && ia.position.y >= 0 && ia.position.y < config.gridSize)
             {
                 Slot s = grid[ia.position.x, ia.position.y];
 
                 List<Module> wanted = new List<Module>();
 
-                for(int i = 0; i < s.availables.size; i++)
+                for (int i = 0; i < s.availables.size; i++)
                 {
                     Module current = s.availables.data[i];
 
@@ -572,10 +586,10 @@ public class SimpleGridWFC
                     }
                 }
 
-                if(wanted.Count > 0)
+                if (wanted.Count > 0)
                 {
                     s.availables.Clear();
-                    foreach(Module m in wanted)
+                    foreach (Module m in wanted)
                     {
                         s.availables.Add(m);
 
@@ -583,14 +597,14 @@ public class SimpleGridWFC
                     }
 
                     //if we limit to 1 already, then nbingrid must be updated
-                    if(wanted.Count == 1)
+                    if (wanted.Count == 1)
                     {
                         unqTlNbInGeneratedGrid[wanted[0].linkedTile.id]++;
                     }
                 }
                 else
                 {
-                    Debug.LogError("InitialAssets (id:" + ia.id +", rot:" + ia.rot + ") can't be placed at " + ia.position.x + "/"+ ia.position.y);
+                    Debug.LogError("InitialAssets (id:" + ia.id + ", rot:" + ia.rot + ") can't be placed at " + ia.position.x + "/" + ia.position.y);
                 }
             }
         }
@@ -685,20 +699,23 @@ public class SimpleGridWFC
                 grid[i, j].x = i;
                 grid[i, j].y = j;
 
-                //set border as the only one solution
-                if(config.generateBorders && (i == 0 || j == 0 || i == config.gridSize - 1 || j == config.gridSize - 1))
+                bool initWithBorders = false;
+                if ((i == config.gridSize - 1 && config.initWithBordersRight) ||
+                    (j == config.gridSize - 1 && config.initWithBordersDown) ||
+                    (i == 0 && config.initWithBordersLeft) ||
+                    (j == 0 && config.initWithBordersUp) )
                 {
-                    grid[i, j].availables.Add(new Module(config.uniqueTilesInGrid[0], 0));
+                    grid[i, j].availables.Add(new Module(config.uniqueTilesInGrid[config.idBorderTile], 0));
                     grid[i, j].isCorner = true;
                     slotsToUpdate.Enqueue(grid[i, j]);
-                    //possible crash en fait grid[i, j].wasSelected = true;//optimisation pour entropy
+                    initWithBorders = true;
                     continue;
                 }
 
                 //create all module possibilities
                 for (int k = 0; k < config.uniqueTilesInGrid.Count; k++)
                 {
-                    if (config.generateBorders && k == 0)//skip corner
+                    if (initWithBorders && k == config.idBorderTile) //skip border
                         continue;
 
                     UniqueTile ut = config.uniqueTilesInGrid[k];
@@ -722,7 +739,7 @@ public class SimpleGridWFC
                     {
                         for (int w = 0; w < 4; w++)
                         {//create all variants of rotation (4)
-                            grid[i, j].availables.Add(new Module(ut, w)); 
+                            grid[i, j].availables.Add(new Module(ut, w));
                             unqTlNbSlotsAvailable[ut.id]++;
                         }
                     }
@@ -747,7 +764,7 @@ public class SimpleGridWFC
 
 
         //Add zones
-        if(config.takeZonesIntoAccount == true)
+        if (config.takeZonesIntoAccount == true)
         {
             //foreach (Zone zone in config.listZones)
             //{
@@ -773,7 +790,7 @@ public class SimpleGridWFC
             {
                 Vector2Int origin = zone.origin;
                 Vector2Int size = zone.size;
-                
+
                 for (int i = origin.x; i < origin.x + size.x; i++)
                 {
                     for (int j = origin.y; j < origin.y + size.y; j++)
@@ -793,10 +810,10 @@ public class SimpleGridWFC
     }
 
 
-    
+
     private bool searchMinEntropy()
     {
-        
+
 #if LOGGER
         Logger.Log("Search Minimum Entropy", Logger.LogType.TITLE);
 #endif
@@ -806,7 +823,7 @@ public class SimpleGridWFC
 
         //On calcule les probas par unique tile, car en fait la proba dépend pas de la case, que du tile (son min, son max, a quel point il est présent)
         //Il faut juste ensuite normaliser pour chaque case de la grille
-        for(int i=0; i < unqTlProbas.Length; i++)
+        for (int i = 0; i < unqTlProbas.Length; i++)
         {
             float mNbInGenGrid = unqTlNbInGeneratedGrid[i];
             UniqueTile t = config.uniqueTilesInGrid[i];
@@ -836,7 +853,7 @@ public class SimpleGridWFC
                 ListOptim<Module> tempAvailables = grid[i, j].availables;
 
                 //Sera automatiquement choisi ensuite
-                if (tempAvailables.size <= 1) 
+                if (tempAvailables.size <= 1)
                     continue;
 
                 ListOptim<Zone> tempZones = grid[i, j].zonesIn;
@@ -860,9 +877,9 @@ public class SimpleGridWFC
                             {
                                 m.probability = z.probabilityBoost; //Mais si plusieurs zones ???
                             }
-                        }                        
+                        }
                     }
-                    
+
                     sumProbas += m.probability;
                 }
 
@@ -885,7 +902,7 @@ public class SimpleGridWFC
                     Module m = tempAvailables.data[k];
                     //entropy += m.probability * Mathf.Log(m.probability);//Mathf.Abs(0.5f - m.probability);//Mathf.Abs(0.5f - m.probability);//m.probability * Mathf.Log(m.probability);// Mathf.Abs(0.5f - m.probability);//;//ou Sum de abs(0.5 - p)
                     entropy -= System.Math.Abs(equiprob - m.probability);
-                    }
+                }
 
                 if (entropy < minEntropy - 0.001)
                 {
@@ -896,11 +913,11 @@ public class SimpleGridWFC
                 else
                 {
                     if (entropy >= minEntropy - 0.001 && entropy <= minEntropy + 0.001)
-                        candidatesWithMinEntropy.Add(grid[i,j]);
+                        candidatesWithMinEntropy.Add(grid[i, j]);
                 }
             }
         }
-#region CodeEnPlus
+        #region CodeEnPlus
         //Zones (à déplacer dans la boucle en haut pour éviter 2x loop)
 
         //V1 Boost proba
@@ -1051,7 +1068,7 @@ public class SimpleGridWFC
                 }
             }
         }*/
-#endregion
+        #endregion
 
         if (candidatesWithMinEntropy.Count <= 0)//plus de choix possible
             return false;
@@ -1069,10 +1086,10 @@ public class SimpleGridWFC
         Module chosenModule = null;
 
         //float random = Random.Range(0.0f, 1.0f);
-        float random = (float) RandomUtility.NextDouble();
+        float random = (float)RandomUtility.NextDouble();
 
-        for (int k = 0; k < candidateEntropy.availables.size; k++) 
-        { 
+        for (int k = 0; k < candidateEntropy.availables.size; k++)
+        {
             Module m = candidateEntropy.availables.data[k];
 
             random -= m.probability;
@@ -1083,7 +1100,7 @@ public class SimpleGridWFC
             }
         }
 
-        if(chosenModule == null)
+        if (chosenModule == null)
         {
             Debug.LogError("No chosen module ! we are stuck !");
             return false;
@@ -1163,7 +1180,8 @@ public class SimpleGridWFC
         unqTlNbInGeneratedGrid[chosenModule.linkedTile.id]++;
 
         //On enleve tout ceux qu'on vire des possibilités
-        for (int i= 0;i < candidateEntropy.availables.size; i++){
+        for (int i = 0; i < candidateEntropy.availables.size; i++)
+        {
             unqTlNbSlotsAvailable[candidateEntropy.availables.data[i].linkedTile.id]--;
         }
 
@@ -1179,21 +1197,15 @@ public class SimpleGridWFC
 
     private void compute()
     {
-
-        bool[] changedNeighboors = new bool[config.nbNeighboors];//by default bool is false
-
-
-
         while (counterLoop-- > 0 && restart == false)
         {
             //Continuer la premiere boucle sans le search min car on doit update tous les voisins des borders
-
-            //Start counter loop at 0
 #if LOGGER
             Logger.Log("Loop n°" + (config.maxLoops - 1 - counterLoop), Logger.LogType.TITLE);
 #endif
-
-            if (config.generateBorders && counterLoop == config.maxLoops - 1)//force update borders to set neighboors directly before a searchminentropy (first loop)
+            //Si première boucle, on fait pas entropie, on demande update direct
+            if (counterLoop == config.maxLoops - 1 && 
+                (config.initWithBordersRight || config.initWithBordersDown || config.initWithBordersLeft || config.initWithBordersUp))//force update borders to set neighboors directly before a searchminentropy (first loop)
             {
                 // en fait pour que corner marche, il faut que les bords interieur de la map s'update selon les border bloc qui sont la seule possibilité
                 // dans l'autre sens c'est border qui tombe a 0
@@ -1210,82 +1222,15 @@ public class SimpleGridWFC
                     break;
                 }
             }
-            
+
             nbStepsToDo--;
-            
+
             while (slotsToUpdate.Count > 0 && restart == false)
             {
                 Slot currentSlot = slotsToUpdate.Dequeue();
-
-                //List<Module> currentAvailables = currentSlot.availables;
                 ListOptim<Module> currentAvailables = currentSlot.availables;
-
                 Slot[] currentNeighboors = currentSlot.neighboors;
-
-                for(int i = 0; i < changedNeighboors.Length; i++)
-                    changedNeighboors[i] = false;
-
-                for (int i = 0; i < config.nbNeighboors; i++)//check the 4 neighboors
-                {
-                    if (currentNeighboors[i] != null)
-                    {
-                        for (int j = 0; j < currentNeighboors[i].availables.size; j++)//for (int j = 0; j < currentNeighboors[i].availables.Count; j++)//il se passe quoi si le neighboor n'a plus qu'une possibilite, ca reverifie en trop => dans le cas où il a été collapsé auparavant (à opti pour eviter ça), car si se sont ses choix qui sont suppr, il se peut qu'il reste aucun (erreur de contraintes)
-                        {
-                            Module moduleN = currentNeighboors[i].availables.data[j];
-
-                            Relation[] currentRelations = moduleN.linkedTile.relations;
-
-                            bool authorizedTile = false;
-
-                            for(int l = 0; l < currentRelations.Length; l++)//foreach (Relation r in currentRelations)
-                            {
-                                Relation r = currentRelations[l];
-
-                                //int size = currentAvailables.getSize();
-                                for (int k = 0; k < currentAvailables.size; k++)//foreach (Module moduleC in currentAvailables)
-                                {
-                                    Module moduleC = currentAvailables.data[k];
-                                    if (moduleC.linkedTile.id != r.to.id)//if (moduleC.linkedTile.pi.prefab != r.to.pi.prefab)//prendre en compte que quand prefab relation == prefab available
-                                        continue;
-
-                                    if(BinaryUtility.isRelationOK(r.autorization, (i + config.nbNeighboors / 2) % config.nbNeighboors, moduleN.rotationY, i, moduleC.rotationY))//check relation avec le voisin opposé
-                                    {
-                                        authorizedTile = true;
-                                        break;
-                                    }
-                                    //si il devient true à un seul moment je peux sortir de la boucle et skip le reste
-                                }
-
-                                if (authorizedTile)
-                                    break;
-                            }
-
-                            if (!authorizedTile)
-                            {
-                                changedNeighboors[i] = true;
-                                currentNeighboors[i].availables.Remove(moduleN);
-                                j--;
-
-                                //Une possbilité de moins
-                                unqTlNbSlotsAvailable[moduleN.linkedTile.id]--;
-
-                                if (currentNeighboors[i].availables.size == 0)
-                                {
-                                    Debug.LogError("Constraints error !!");
-                                    restart = true;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (int i = 0; i < config.nbNeighboors; i++)
-                {
-                    if (changedNeighboors[i] && currentNeighboors[i].availables.size > 0)//if (changedNeighboors[i] && currentNeighboors[i].availables.Count > 0)
-                    {
-                        slotsToUpdate.Enqueue(currentNeighboors[i]);
-                    }
-                }
+                updateMyNeighboursAgainstMe(currentAvailables, currentNeighboors);
             }
 #if LOGGER
             Logger.Log("Propagation Ended", Logger.LogType.TITLE);
@@ -1293,4 +1238,89 @@ public class SimpleGridWFC
 #endif
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void updateMyNeighboursAgainstMe(ListOptim<Module> availablesForMe, Slot[] myNeighboors)
+    {
+        //On va check tous les voisins du slot, et voir si chaque module qu'ils pensent
+        //pouvoir mettre ont bien une relation valide avec nous. Si c'est pas le cas,
+        //on va virer ce module du voisin et le marquer comme à updater.
+                
+        //Pour checker les neighbours qui ont changé et qui devront donc etre update
+        bool[] changedNeighboors = new bool[config.nbNeighboors];
+
+        for (int i = 0; i < changedNeighboors.Length; i++)
+            changedNeighboors[i] = false;
+
+        //On check les voisins du slot qu'on vient de dépiler
+        for (int i = 0; i < config.nbNeighboors; i++)
+        {
+            if (myNeighboors[i] != null)
+            {
+                //Pour chaque module encore possible du voisin en cours
+                for (int j = 0; j < myNeighboors[i].availables.size; j++)//il se passe quoi si le neighboor n'a plus qu'une possibilite, ca reverifie en trop => dans le cas où il a été collapsé auparavant (à opti pour eviter ça), car si se sont ses choix qui sont suppr, il se peut qu'il reste aucun (erreur de contraintes)
+                {
+                    Module moduleN = myNeighboors[i].availables.data[j];
+
+                    Relation[] currentRelations = moduleN.linkedTile.relations;
+                    bool neighbourModuleOk = false;
+
+                    //Pour chaque relation de ce module du voisin
+                    for (int l = 0; l < currentRelations.Length; l++)
+                    {
+                        Relation r = currentRelations[l];
+
+                        //Je check si j'ai un module possible lié à cette relation et si il est ok
+                        for (int k = 0; k < availablesForMe.size; k++)
+                        {
+                            //prendre en compte que quand la relation concerne bien le module que je teste
+                            Module moduleC = availablesForMe.data[k];
+                            if (moduleC.linkedTile.id != r.to.id)
+                                continue;
+
+                            //Si ce module est valide, alors la relation l'est, et donc ce module du voisin est valide
+                            if (BinaryUtility.isRelationOK(r.autorization, (i + config.nbNeighboors / 2) % config.nbNeighboors, moduleN.rotationY, i, moduleC.rotationY))//check relation avec le voisin opposé
+                            {
+                                //Le module du voisin a une relation ok, il est ok
+                                neighbourModuleOk = true;
+                                break;
+                            }
+
+                        }
+
+                        //si il devient true à un seul moment je peux sortir de la boucle et skip le reste
+                        if (neighbourModuleOk)
+                            break;
+                    }
+
+                    //Si aucune des relations du module n'est valide, alors il faut l'enlever du voisin, et le marquer comme à propager
+                    if (!neighbourModuleOk)
+                    {
+                        changedNeighboors[i] = true;
+                        myNeighboors[i].availables.Remove(moduleN);
+                        j--;
+
+                        //Une possbilité de moins
+                        unqTlNbSlotsAvailable[moduleN.linkedTile.id]--;
+
+                        if (myNeighboors[i].availables.size == 0)
+                        {
+                            Debug.LogError("Constraints error !!");
+                            restart = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        //On ajoute les voisins marqués comme à propager
+        for (int i = 0; i < config.nbNeighboors; i++)
+        {
+            if (changedNeighboors[i] && myNeighboors[i].availables.size > 0)//if (changedNeighboors[i] && currentNeighboors[i].availables.Count > 0)
+            {
+                slotsToUpdate.Enqueue(myNeighboors[i]);
+            }
+        }
+    }
+
 }

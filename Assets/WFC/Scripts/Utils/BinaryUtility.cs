@@ -1,7 +1,14 @@
 ﻿using System;
 
+//Tile side : 
+//0 à droite, 1 en dessous, 2 à gauche, 3 à droite
+
 public static class BinaryUtility
 {
+    public const int RIGHT = 0;
+    public const int BOTTOM = 1;
+    public const int LEFT = 2;
+    public const int UP = 3;
     public static uint writeRelation(uint relation, int leftSide, int leftRot, bool leftAllRotOk, bool leftSymetricalY,
                                     int rightSide, int rightRot, bool rightAllRotOk, bool rightSymetricalY)
     {
