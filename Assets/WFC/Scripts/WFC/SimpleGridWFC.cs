@@ -39,14 +39,16 @@ public class SimpleGridWFC
         public bool takeInitialTags = false;
 
         [Header("Borders")]
+        [Tooltip("On empèche le tile de border de se propager dans la grille")]
+        public bool noBordersInside = true;
         [Tooltip("Initialise la dernière colonne de la grille avec des tiles de border X+")]
-        public bool initWithBordersRight = true;
+        public bool initWithBordersRight = false;
         [Tooltip("Initialise la dernière ligne de la grille avec des tiles de border Z-")]
-        public bool initWithBordersDown = true;
+        public bool initWithBordersDown = false;
         [Tooltip("Initialise la première colonne de la grille avec des tiles de border X-")]
-        public bool initWithBordersLeft = true;
+        public bool initWithBordersLeft = false;
         [Tooltip("Initialise la première ligne de la grille avec des tiles de border Z+")]
-        public bool initWithBordersUp = true;
+        public bool initWithBordersUp = false;
 
         [Tooltip("L'id du tile à utiliser pour le border")]
         public int idBorderTile = 0;
@@ -141,7 +143,6 @@ public class SimpleGridWFC
     private Queue<Slot> slotsToUpdate = new Queue<Slot>();
     private List<GameObject> tileInstanciated = new List<GameObject>();
 
-    private int nbStepsToDo = 0;
     private int counterLoop;
     //Dictionary<UniqueTile, float> hashUTToFrequences = new Dictionary<UniqueTile, float>();//remplacer par array avec id uniquetile
     float[] unqTlNbInGeneratedGrid;//in init(), combien il y'en a
@@ -510,6 +511,12 @@ public class SimpleGridWFC
         {
             for (int j = 0; j < config.gridSize; j++)
             {
+                if(grid[i, j].availables.size > 10)
+                {
+                    Debug.Log("Plus de 10 choix en " + i + " " + j);
+                    continue;
+                }
+
                 for (int z = 0; z < grid[i, j].availables.size; z++)//for (int z = 0; z < grid[i, j].availables.Count; z++)
                 {
                     //tileInstanciated.Add((GameObject)GameObject.Instantiate(grid[i, j].availables.data[z].linkedTile.pi.prefab,
@@ -518,6 +525,8 @@ public class SimpleGridWFC
 
 
                     //if parent != null => afficher que celui qui est en 0,0 (centre)
+
+                   
 
                     Module m = grid[i, j].availables.data[z];
                     UniqueTile ut = m.linkedTile;
@@ -699,7 +708,6 @@ public class SimpleGridWFC
                 grid[i, j].x = i;
                 grid[i, j].y = j;
 
-                bool initWithBorders = false;
                 if ((i == config.gridSize - 1 && config.initWithBordersRight) ||
                     (j == config.gridSize - 1 && config.initWithBordersDown) ||
                     (i == 0 && config.initWithBordersLeft) ||
@@ -708,42 +716,24 @@ public class SimpleGridWFC
                     grid[i, j].availables.Add(new Module(config.uniqueTilesInGrid[config.idBorderTile], 0));
                     grid[i, j].isCorner = true;
                     slotsToUpdate.Enqueue(grid[i, j]);
-                    initWithBorders = true;
-                    continue;
                 }
-
-                //create all module possibilities
-                for (int k = 0; k < config.uniqueTilesInGrid.Count; k++)
+                else
                 {
-                    if (initWithBorders && k == config.idBorderTile) //skip border
-                        continue;
+                    //create all module possibilities
+                    for (int k = 0; k < config.uniqueTilesInGrid.Count; k++)
+                    {   
+                        UniqueTile ut = config.uniqueTilesInGrid[k];
+                        if (config.noBordersInside && ut.id == config.idBorderTile)
+                            continue;
 
-                    UniqueTile ut = config.uniqueTilesInGrid[k];
-
-                    //if (ut.pi.param.allRotationsAllowed)//create 1 rotation
-                    //{
-                    //    grid[i, j].availables.Add(new Module(ut, 0));
-                    //}
-                    //else if(ut.pi.param.symetricalAxisY)//create 2 rotations, if allrotations is true => symetric on Y is also true (no need to go here)
-                    //{
-                    //    grid[i, j].availables.Add(new Module(ut, 0));
-                    //    grid[i, j].availables.Add(new Module(ut, 1));
-                    //}
-                    //else
-
-                    /*if(ut.pi.param.allRotationsAlwaysAllowed)
-                    {
-                        grid[i, j].availables.Add(new Module(ut, 0));
-                    }
-                    else */
-                    {
+                        //create all variants of rotation (4)
                         for (int w = 0; w < 4; w++)
-                        {//create all variants of rotation (4)
+                        {
                             grid[i, j].availables.Add(new Module(ut, w));
                             unqTlNbSlotsAvailable[ut.id]++;
-                        }
+                        }                        
                     }
-                }
+                }               
             }
         }
 
@@ -1223,8 +1213,6 @@ public class SimpleGridWFC
                 }
             }
 
-            nbStepsToDo--;
-
             while (slotsToUpdate.Count > 0 && restart == false)
             {
                 Slot currentSlot = slotsToUpdate.Dequeue();
@@ -1236,6 +1224,11 @@ public class SimpleGridWFC
             Logger.Log("Propagation Ended", Logger.LogType.TITLE);
             Logger.Log(ToString());
 #endif
+        }
+
+        if(counterLoop <= 0)
+        {
+            Debug.LogWarning("End of loops");
         }
     }
 
@@ -1316,7 +1309,7 @@ public class SimpleGridWFC
         //On ajoute les voisins marqués comme à propager
         for (int i = 0; i < config.nbNeighboors; i++)
         {
-            if (changedNeighboors[i] && myNeighboors[i].availables.size > 0)//if (changedNeighboors[i] && currentNeighboors[i].availables.Count > 0)
+            if (changedNeighboors[i] && myNeighboors[i].availables.size > 0)
             {
                 slotsToUpdate.Enqueue(myNeighboors[i]);
             }

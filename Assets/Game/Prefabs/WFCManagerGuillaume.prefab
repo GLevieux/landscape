@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7908097354556734476}
   - component: {fileID: 7908097354556734479}
   m_Layer: 0
-  m_Name: WFCManagerBase 1
+  m_Name: WFCManagerGuillaume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,11 @@ MonoBehaviour:
     takeInitialZones: 0
     takeInitialAssets: 0
     takeInitialTags: 0
-    generateBorders: 1
+    initWithBordersRight: 1
+    initWithBordersDown: 1
+    initWithBordersLeft: 1
+    initWithBordersUp: 1
+    idBorderTile: 0
     listInitialZones: []
     listInitialAssets: []
     listInitialTags: []
