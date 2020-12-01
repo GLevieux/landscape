@@ -238,7 +238,7 @@ public class GAAstarTest : GAScript
                 fitness += 0.3f;
             }
 
-            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResultFiltered();
+            ((WFCChromosome)chromosome).gridResult = wfc.getModuleResult(true);
 
             if (wfc.GetNbAssetInGrid(entryID) != 1 || wfc.GetNbAssetInGrid(flagObjectiveID) != 1)
             {

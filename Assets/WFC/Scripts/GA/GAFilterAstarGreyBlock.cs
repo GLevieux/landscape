@@ -239,7 +239,7 @@ public class GAFilterAstarGreyBlock : GAScript
                 fitness += 0.3f;
             }
 
-            Module[,] res = wfc.getModuleResultFiltered();
+            Module[,] res = wfc.getModuleResult(true);
             ((WFCChromosome)chromosome).gridResult = res;
 
             if (wfc.GetNbAssetInGrid(entryID) != 1 || wfc.GetNbAssetInGrid(flagObjectiveID) != 1)

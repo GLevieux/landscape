@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2206028419962292198}
   - component: {fileID: 7908097354556734476}
   - component: {fileID: 7908097354556734479}
+  - component: {fileID: 4843408080584093550}
   m_Layer: 0
   m_Name: WFCManagerGuillaume
   m_TagString: Untagged
@@ -48,29 +49,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31be3ecb8b33a824b956db671e0260cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitForPreviousResults: 0
-  previousResults: {fileID: 0}
-  paramResults: 0
-  useCustomRandomSeed: 0
-  customSeed: 0
-  autoScreenshot: 0
-  useCustomRelations: 0
   prefabBorder: {fileID: 6622444295663265238, guid: 88a42c3252e45154aa4b163d35539856, type: 3}
-  initialGrid: {fileID: 0}
-  zoneGrid: {fileID: 0}
   relationGrids:
   - addNbTimes: 1
+    relationGrid: {fileID: 6051803017836593869, guid: 0109af44b40eaaa418f92a48f502f546, type: 3}
+  - addNbTimes: 10
     relationGrid: {fileID: 6051803017836593869, guid: a9fef53cf1f5718449cb2706981621f3, type: 3}
-  - addNbTimes: 2
+  - addNbTimes: 3
     relationGrid: {fileID: 6051803017836593869, guid: af609d349063f344fbd86603474d97dc, type: 3}
-  - addNbTimes: 6
-    relationGrid: {fileID: 6051803017836593869, guid: 641af00ede12b8148b026a5676e62c7b, type: 3}
   - addNbTimes: 20
-    relationGrid: {fileID: 6051803017836593869, guid: 10008b87c5b48c34bacf659e9a2eb1ad, type: 3}
+    relationGrid: {fileID: 6051803017836593869, guid: ebea2d012ca0e3e45bff4bcd6ac170d0, type: 3}
   - addNbTimes: 20
-    relationGrid: {fileID: 6051803017836593869, guid: c1c34b9a446b9d74f945909103e53a93, type: 3}
+    relationGrid: {fileID: 6051803017836593869, guid: eb3b3a1cb9a25704eb4c4ccd2c7ad11d, type: 3}
+  - addNbTimes: 1
+    relationGrid: {fileID: 6051803017836593869, guid: c90c2f56f802c7a439044a587cb4dc8b, type: 3}
+  useCustomRandomSeed: 0
+  customSeed: 0
+  prevBorderWFCManager: {fileID: 0}
+  autoScreenshot: 0
   wfcConfig:
-    gridSize: 30
+    gridSize: 20
     gridUnitSize: 2
     scaleSize: 1
     maxLoops: 10000
@@ -81,14 +79,23 @@ MonoBehaviour:
     takeInitialZones: 0
     takeInitialAssets: 0
     takeInitialTags: 0
+    noBordersInside: 1
     initWithBordersRight: 1
     initWithBordersDown: 1
     initWithBordersLeft: 1
     initWithBordersUp: 1
     idBorderTile: 0
+    prefabError: {fileID: 0}
     listInitialZones: []
     listInitialAssets: []
     listInitialTags: []
+  initialGrid: {fileID: 0}
+  zoneGrid: {fileID: 0}
+  useCustomRelations: 0
+  waitForPreviousResults: 0
+  previousResults: {fileID: 0}
+  paramResults: 0
+  generationIsDone: 0
 --- !u!114 &7300433337243496433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,12 +164,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchGA: 1
   gaConfig:
-    populationMin: 50
-    populationMax: 100
-    nbGeneration: 30
+    populationMin: 80
+    populationMax: 160
+    nbGeneration: 20
     crossProbability: 0.5
     mutationProbability: 0.5
     allGenesMutable: 1
-    isMultiThread: 1
+    runType: 1
     gridUnitSize: 1
     nbZones: 0
+--- !u!114 &4843408080584093550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300433337243496434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a06c14e72258e74aa238a04dd4ec376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gaEnded: 0
+  sizeZone: 1
+  IdPlayerStart: 7

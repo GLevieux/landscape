@@ -267,7 +267,7 @@ public class RelationGrid : MonoBehaviour
         float fitness = 0.0f;
 
         agent = new AgentFlowCurieux();
-        agent.Init(xStart, zStart, dirStart, navGridDebug);
+        agent.Init(xStart, zStart, 0 ,dirStart, navGridDebug);
 #if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
 #endif
@@ -849,7 +849,7 @@ public class RelationGrid : MonoBehaviour
         if(agent != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize, gridUnitSize, gridUnitSize));
+            Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2 + agent.height, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize*0.8f, gridUnitSize * 0.8f, gridUnitSize * 0.8f));
             Gizmos.color = Color.green;
             switch (agent.direction)
             {
@@ -876,9 +876,9 @@ public class RelationGrid : MonoBehaviour
                 for (int z = 0; z < gridSize; z++)
                 {
                     Color colorGiz = Color.red;
-                    if (navGridDebug.Cells[x, z].XNDiff < stepHeightDebugNav)
+                    if (navGridDebug.Cells[x, z].XNHeightOutDiff < stepHeightDebugNav)
                         colorGiz = Color.green;
-                    else if (navGridDebug.Cells[x, z].XNDiff < jumpHeightDebugNav)
+                    else if (navGridDebug.Cells[x, z].XNHeightOutDiff < jumpHeightDebugNav)
                         colorGiz = Color.cyan;
 
                     colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideXN);
@@ -887,9 +887,9 @@ public class RelationGrid : MonoBehaviour
                     Gizmos.DrawCube(transform.position + new Vector3(x*gridUnitSize + 0.15f,0,z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f,0.5f,0.5f));
 
                     colorGiz = Color.red;
-                    if(navGridDebug.Cells[x, z].XPDiff < stepHeightDebugNav)
+                    if(navGridDebug.Cells[x, z].XPHeightOutDiff < stepHeightDebugNav)
                         colorGiz = Color.green;
-                    else if (navGridDebug.Cells[x, z].XPDiff < jumpHeightDebugNav)
+                    else if (navGridDebug.Cells[x, z].XPHeightOutDiff < jumpHeightDebugNav)
                         colorGiz = Color.cyan;
 
                     colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideXP);
@@ -898,9 +898,9 @@ public class RelationGrid : MonoBehaviour
                     Gizmos.DrawCube(transform.position + new Vector3((x+1) * gridUnitSize - 0.15f, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f, 0.5f, 0.5f));
 
                     colorGiz = Color.red;
-                    if (navGridDebug.Cells[x, z].ZNDiff < stepHeightDebugNav)
+                    if (navGridDebug.Cells[x, z].ZNHeightOutDiff < stepHeightDebugNav)
                         colorGiz = Color.green;
-                    else if (navGridDebug.Cells[x, z].ZNDiff < jumpHeightDebugNav)
+                    else if (navGridDebug.Cells[x, z].ZNHeightOutDiff < jumpHeightDebugNav)
                         colorGiz = Color.cyan;
 
                     colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideZN);
@@ -909,15 +909,20 @@ public class RelationGrid : MonoBehaviour
                     Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, z * gridUnitSize + 0.15f), new Vector3(0.5f, 0.5f, 0.25f));
 
                     colorGiz = Color.red;
-                    if (navGridDebug.Cells[x, z].ZPDiff < stepHeightDebugNav)
+                    if (navGridDebug.Cells[x, z].ZPHeightOutDiff < stepHeightDebugNav)
                         colorGiz = Color.green;
-                    else if (navGridDebug.Cells[x, z].ZPDiff < jumpHeightDebugNav)
+                    else if (navGridDebug.Cells[x, z].ZPHeightOutDiff < jumpHeightDebugNav)
                         colorGiz = Color.cyan;
 
                     colorGiz = Color.Lerp(Color.red,colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideZP);
 
                     Gizmos.color = colorGiz;
-                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, (z+1) * gridUnitSize - 0.15f), new Vector3(0.5f, 0.5f, 0.25f));
+
+                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, 0, (z + 1) * gridUnitSize - 0.15f), new Vector3(0.5f, 0.5f, 0.25f));
+
+                    Gizmos.color = Color.yellow;
+                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, navGridDebug.Cells[x, z].height, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f, 0.25f, 0.25f));
+
 
                 }
             }

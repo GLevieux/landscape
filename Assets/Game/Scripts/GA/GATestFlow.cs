@@ -202,7 +202,7 @@ public class GATestFlow : GAScript
                 return 0.0f;
 
             //Sauve le résultat
-            Module[,] modules = wfc.getModuleResultFiltered();
+            Module[,] modules = wfc.getModuleResult(true);
             ((WFCChromosome)chromosome).gridResult = modules;
 
             NavGrid nav = new NavGrid();
@@ -239,7 +239,7 @@ public class GATestFlow : GAScript
             float fitness = 0.0f;
 
             AgentFlowCurieux agent = new AgentFlowCurieux();
-            agent.Init(xStart, zStart, dirStart, nav);
+            agent.Init(xStart, zStart, 0, dirStart, nav);
 
             for (int i = 0; i < 10000; i++)
                 fitness += agent.Step();            

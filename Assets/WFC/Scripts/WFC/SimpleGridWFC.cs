@@ -18,21 +18,16 @@ public class SimpleGridWFC
     public class WFCConfig
     {
         public int gridSize = 15;
-
-        //Spawning only
         public int gridUnitSize = 1;
-        public int scaleSize = 1;// ? //5 ? c'est pas pareil que unitsize ?
-
+        public int scaleSize = 1;
         
         public int maxLoops = 10000;
         [ReadOnly] public int nbNeighboors = 4;//not implemented
         [ReadOnly] public bool stepByStep = false;//is still working ?
-                                                  //Vector2Int sizeGrid = new Vector2Int(15, 15);//todo rectangle grid
 
         [ReadOnly] public List<UniqueTile> uniqueTilesInGrid = new List<UniqueTile>();
         [ReadOnly] public Dictionary<string, UniqueTile> hashPrefabToUniqueTile = new Dictionary<string, UniqueTile>();
-        //[ReadOnly] public List<UniqueTile> uniqueGreyBlockInGrid = new List<UniqueTile>();
-
+        
         public bool takeZonesIntoAccount = true;
         public bool takeInitialZones = false;
         public bool takeInitialAssets = false;
@@ -49,14 +44,25 @@ public class SimpleGridWFC
         public bool initWithBordersLeft = false;
         [Tooltip("Initialise la première ligne de la grille avec des tiles de border Z+")]
         public bool initWithBordersUp = false;
-
+        [HideInInspector] 
+        public List<ModuleToPropagate> borderModulesToPropagate = new List<ModuleToPropagate>();
+        public class ModuleToPropagate
+        {
+            public int xPos;
+            public int zPos;
+            public Module module;
+        }
+        
         [Tooltip("L'id du tile à utiliser pour le border")]
-        public int idBorderTile = 0;
+        [ReadOnly] public int idBorderTile = 0;
 
         [Header("Debug only")]
+        [Tooltip("Permet d'afficher ou se trouve le manque de choix")]
+        public GameObject prefabError = null;
         [ReadOnly] public List<Zone> listInitialZones = new List<Zone>();//potentiellement sortir ce parametre
         [ReadOnly] public List<InitialAsset> listInitialAssets = new List<InitialAsset>();
         [ReadOnly] public List<ForceTag> listInitialTags = new List<ForceTag>();
+        
 
         override
         public string ToString()
@@ -154,7 +160,7 @@ public class SimpleGridWFC
     private int nbRestart = 0;
 
     //Renvoie la grille (en excluant les sous tiles des bigtiles excepté le centre)
-    public Module[,] getModuleResultFiltered()
+    public Module[,] getModuleResult(bool filterBigSubTiles)
     {
         Module[,] gridResult = new Module[config.gridSize, config.gridSize];
 
@@ -175,10 +181,10 @@ public class SimpleGridWFC
 
                 if (!pi.doNotShowInCreatedLevel)
                 {
-                    //if (ut.parent != null && !ut.parent.subpartPos[ut.id].Equals(Vector3Int.zero))
-                    //{
-                    //    continue;
-                    //}
+                    if (filterBigSubTiles && ut.parent != null && !ut.parent.subpartPos[ut.id].Equals(Vector3Int.zero))
+                    {
+                        continue;
+                    }
 
                     gridResult[i, j] = m;
                 }
@@ -449,6 +455,8 @@ public class SimpleGridWFC
                 forceTagsOnGrid();
             }
 
+            propagatePrevBorderModules();
+
 #if LOGGER
             Logger.Log("Init Grid", Logger.LogType.TITLE);
             Logger.Log(ToString());
@@ -511,22 +519,22 @@ public class SimpleGridWFC
         {
             for (int j = 0; j < config.gridSize; j++)
             {
-                if(grid[i, j].availables.size > 10)
+                if (grid[i, j].availables.size > 5)
                 {
-                    Debug.Log("Plus de 10 choix en " + i + " " + j);
+                    Debug.Log("Plus de 5 choix en " + i + " " + j);
                     continue;
                 }
 
-                for (int z = 0; z < grid[i, j].availables.size; z++)//for (int z = 0; z < grid[i, j].availables.Count; z++)
+                int z = 0;
+                for (; z < grid[i, j].availables.size; z++)//for (int z = 0; z < grid[i, j].availables.Count; z++)
                 {
+                    
                     //tileInstanciated.Add((GameObject)GameObject.Instantiate(grid[i, j].availables.data[z].linkedTile.pi.prefab,
                     //                                        new Vector3(instanceCoordinates.x + i * gridUnitSize, z, instanceCoordinates.z + j * gridUnitSize),
                     //                                        Quaternion.Euler(0f, 90f * grid[i, j].availables.data[z].rotationY, 0f)));
 
 
                     //if parent != null => afficher que celui qui est en 0,0 (centre)
-
-                   
 
                     Module m = grid[i, j].availables.data[z];
                     UniqueTile ut = m.linkedTile;
@@ -553,6 +561,7 @@ public class SimpleGridWFC
                         go.transform.localScale = Vector3.Scale(go.transform.localScale, new Vector3(config.scaleSize, config.scaleSize, config.scaleSize));
                         tileInstanciated.Add(go);
 
+                        //yield return new WaitForEndOfFrame();
 
                         if (showDebugBigTile && !isOrigin && ut.parent != null && go.GetComponent<Renderer>() != null)
                         {
@@ -562,6 +571,14 @@ public class SimpleGridWFC
                         }
                     }
 
+                }
+
+                //Si aucune choix et donc on est en erreur
+                if(z == 0)
+                {
+                    GameObject go = GameObject.Instantiate(config.prefabError,
+                                                            new Vector3(instanceCoordinates.x + i * config.gridUnitSize * config.scaleSize + (float)config.gridUnitSize * config.scaleSize / 2, z, instanceCoordinates.z + j * config.gridUnitSize * config.scaleSize + (float)config.gridUnitSize * config.scaleSize / 2), //+ gridUnitSize * scaleSize / 2 => repositionner au milieu de la case
+                                                            Quaternion.Euler(0f, 0, 0f));
                 }
             }
         }
@@ -709,9 +726,9 @@ public class SimpleGridWFC
                 grid[i, j].y = j;
 
                 if ((i == config.gridSize - 1 && config.initWithBordersRight) ||
-                    (j == config.gridSize - 1 && config.initWithBordersDown) ||
+                    (j == config.gridSize - 1 && config.initWithBordersUp) ||
                     (i == 0 && config.initWithBordersLeft) ||
-                    (j == 0 && config.initWithBordersUp) )
+                    (j == 0 && config.initWithBordersDown) )
                 {
                     grid[i, j].availables.Add(new Module(config.uniqueTilesInGrid[config.idBorderTile], 0));
                     grid[i, j].isCorner = true;
@@ -1232,8 +1249,57 @@ public class SimpleGridWFC
         }
     }
 
+    //Si on nous a filé des modules d'un autre wfc qui est a coté et on veut
+    //propager ses contraintes sur nous
+    private void propagatePrevBorderModules()
+    {
+        ListOptim<Module> modules = new ListOptim<Module>();
+        modules.Init(1);
+        Slot[] myNeighboors = new Slot[4];
+
+        for (int i=0;i< config.borderModulesToPropagate.Count; i++)
+        {
+            WFCConfig.ModuleToPropagate mTp = config.borderModulesToPropagate[i];
+            Module module = mTp.module;
+            int xModule = mTp.xPos;
+            int zModule = mTp.zPos;
+
+            modules.Clear();
+            modules.Add(module);
+
+            myNeighboors[0] = null;
+            myNeighboors[1] = null;
+            myNeighboors[2] = null;
+            myNeighboors[3] = null;
+
+            if (xModule == -1 && zModule >= 0 && zModule < config.gridSize)
+            {
+                myNeighboors[0] = grid[xModule + 1, zModule];
+            }
+            else if (xModule == config.gridSize && zModule >= 0 && zModule < config.gridSize)
+            {
+                myNeighboors[2] = grid[xModule - 1, zModule];
+            }
+            else if (zModule == -1 && xModule >= 0 && xModule < config.gridSize)
+            {
+                myNeighboors[1] = grid[xModule, zModule + 1];
+            }
+            else if (zModule == config.gridSize && xModule >= 0 && xModule < config.gridSize)
+            {
+                myNeighboors[3] = grid[xModule, zModule - 1];
+            }
+            else
+            {
+                continue;
+            }
+
+            updateMyNeighboursAgainstMe(modules, myNeighboors);
+        }       
+    }
+    
+    //Les voisins sont donnés dans l'ordre droite bas gauche haut
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void updateMyNeighboursAgainstMe(ListOptim<Module> availablesForMe, Slot[] myNeighboors)
+    private void updateMyNeighboursAgainstMe(ListOptim<Module> availablesForMe, Slot[] myNeighboors)
     {
         //On va check tous les voisins du slot, et voir si chaque module qu'ils pensent
         //pouvoir mettre ont bien une relation valide avec nous. Si c'est pas le cas,

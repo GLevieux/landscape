@@ -10,52 +10,63 @@ public class NavGrid
         //Toutes ces valeurs sont avec la rotation du module appliquée...
         public int lastTimeInside;
         public int id;
-        public float XPDiff;
-        public float XNDiff;
-        public float ZPDiff;
-        public float ZNDiff;       
-        public float HeightXP; 
-        public float CanReachFromInsideXP; 
-        public float HeightXN; 
+        public float XPHeightOutDiff; //Diff de hauteur pour changer de cube
+        public float XNHeightOutDiff;
+        public float ZPHeightOutDiff;
+        public float ZNHeightOutDiff;       
+        public float HeightOutXP; //Hauteur de notre sortie dans cette direction
+        public float CanReachFromInsideXP;
+        public float HeightCenterXP; //Hauteur centrale moyenne de la prochaine case
+        public float HeightOutXN; 
         public float CanReachFromInsideXN;
-        public float HeightZP; 
+        public float HeightCenterXN; 
+        public float HeightOutZP; 
         public float CanReachFromInsideZP;
-        public float HeightZN; 
+        public float HeightCenterZP;
+        public float HeightOutZN; 
         public float CanReachFromInsideZN;
+        public float HeightCenterZN;
         public int xPos;
         public int zPos;
+        public float height; //Moyenne des hauteurs atteignables
         public NavGrid grid;
 
         //La dir0 c'est ZPos, le forward
-        public void GetValuesInDir(int dir, out float Height, out float HeightDiff, out float canReachFromInside, out int lastTimeInside)
+        public void GetValuesInDir(int dir, out float HeightOut, out float HeightCenter, out float HeightDiffToEnter, out float canReachFromInside, out int lastTimeInside)
         {
-            Height = HeightZP;
-            HeightDiff = ZPDiff;
+
+            //Direction Z (0)
+            HeightOut = HeightOutZP;
+            HeightCenter = HeightCenterZP;
+            HeightDiffToEnter = ZPHeightOutDiff;
             canReachFromInside = CanReachFromInsideZP;
             lastTimeInside = 0;
 
             if(zPos+1 <= grid.Cells.GetUpperBound(1))
                 lastTimeInside = grid.Cells[xPos, zPos+1].lastTimeInside;
-
+                        
             switch (dir)
             {
                 case 1:
-                    Height = HeightXP;
-                    HeightDiff = XPDiff;
+                    HeightOut = HeightOutXP;
+                    HeightCenter = HeightCenterXP;
+                    HeightDiffToEnter = XPHeightOutDiff;
                     canReachFromInside = CanReachFromInsideXP;
                     if (xPos + 1 <= grid.Cells.GetUpperBound(0))
                         lastTimeInside = grid.Cells[xPos+1, zPos].lastTimeInside;
                     break;
                 case 2:
-                    Height = HeightZN;
-                    HeightDiff = ZNDiff;
+                    HeightOut = HeightOutZN;
+                    HeightCenter = HeightCenterZN;
+                    HeightDiffToEnter = ZNHeightOutDiff;
                     canReachFromInside = CanReachFromInsideZN;
                     if (zPos - 1 >= 0)
                         lastTimeInside = grid.Cells[xPos, zPos - 1].lastTimeInside;
                     break;
                 case 3:
-                    Height = HeightXN;
-                    HeightDiff = XNDiff;
+                    HeightOut = HeightOutXN;
+                    HeightCenter = HeightCenterXN;
+                    HeightDiffToEnter = XNHeightOutDiff;
                     canReachFromInside = CanReachFromInsideXN;
                     if (xPos - 1 >= 0)
                         lastTimeInside = grid.Cells[xPos-1, zPos].lastTimeInside;
@@ -85,10 +96,15 @@ public class NavGrid
                 Module m = modules[x, z];
                 if (m == null)
                 {
-                    Cells[x, z].HeightXP = 0;
-                    Cells[x, z].HeightXN = 0;
-                    Cells[x, z].HeightZP = 0;
-                    Cells[x, z].HeightZN = 0;
+                    Cells[x, z].HeightOutXP = 0;
+                    Cells[x, z].HeightOutXN = 0;
+                    Cells[x, z].HeightOutZP = 0;
+                    Cells[x, z].HeightOutZN = 0;
+
+                    Cells[x, z].HeightCenterXP = 0;
+                    Cells[x, z].HeightCenterXN = 0;
+                    Cells[x, z].HeightCenterZP = 0;
+                    Cells[x, z].HeightCenterZN = 0;
 
                     Cells[x, z].CanReachFromInsideXP = 1;
                     Cells[x, z].CanReachFromInsideZN = 1;
@@ -105,10 +121,10 @@ public class NavGrid
                 switch (m.rotationY)
                 {
                     case 0:
-                        Cells[x, z].HeightXP = m.linkedTile.pi.NavHeightXPosRot0;
-                        Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightZNegRot0;
-                        Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightXNegRot0;
-                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightZPosRot0;
+                        Cells[x, z].HeightOutXP = m.linkedTile.pi.NavHeightXPosRot0;
+                        Cells[x, z].HeightOutZN = m.linkedTile.pi.NavHeightZNegRot0;
+                        Cells[x, z].HeightOutXN = m.linkedTile.pi.NavHeightXNegRot0;
+                        Cells[x, z].HeightOutZP = m.linkedTile.pi.NavHeightZPosRot0;
 
                         Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideXPos;
                         Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideZNeg;
@@ -116,10 +132,10 @@ public class NavGrid
                         Cells[x, z].CanReachFromInsideZP = m.linkedTile.pi.CanReachFromInsideZPos;
                         break;
                     case 1:
-                        Cells[x, z].HeightXP = m.linkedTile.pi.NavHeightZPosRot0; 
-                        Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightXPosRot0; 
-                        Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightZNegRot0;
-                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightXNegRot0;
+                        Cells[x, z].HeightOutXP = m.linkedTile.pi.NavHeightZPosRot0; 
+                        Cells[x, z].HeightOutZN = m.linkedTile.pi.NavHeightXPosRot0; 
+                        Cells[x, z].HeightOutXN = m.linkedTile.pi.NavHeightZNegRot0;
+                        Cells[x, z].HeightOutZP = m.linkedTile.pi.NavHeightXNegRot0;
 
                         Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideZPos;
                         Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideXPos;
@@ -127,10 +143,10 @@ public class NavGrid
                         Cells[x, z].CanReachFromInsideZP = m.linkedTile.pi.CanReachFromInsideXNeg;
                         break;
                     case 2:
-                        Cells[x, z].HeightXP = m.linkedTile.pi.NavHeightXNegRot0;
-                        Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightZPosRot0; 
-                        Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightXPosRot0; 
-                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightZNegRot0;
+                        Cells[x, z].HeightOutXP = m.linkedTile.pi.NavHeightXNegRot0;
+                        Cells[x, z].HeightOutZN = m.linkedTile.pi.NavHeightZPosRot0; 
+                        Cells[x, z].HeightOutXN = m.linkedTile.pi.NavHeightXPosRot0; 
+                        Cells[x, z].HeightOutZP = m.linkedTile.pi.NavHeightZNegRot0;
 
                         Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideXNeg;
                         Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideZPos; 
@@ -138,10 +154,10 @@ public class NavGrid
                         Cells[x, z].CanReachFromInsideZP = m.linkedTile.pi.CanReachFromInsideZNeg; 
                         break;
                     case 3:
-                        Cells[x, z].HeightXP = m.linkedTile.pi.NavHeightZNegRot0;
-                        Cells[x, z].HeightZN = m.linkedTile.pi.NavHeightXNegRot0; 
-                        Cells[x, z].HeightXN = m.linkedTile.pi.NavHeightZPosRot0; 
-                        Cells[x, z].HeightZP = m.linkedTile.pi.NavHeightXPosRot0;
+                        Cells[x, z].HeightOutXP = m.linkedTile.pi.NavHeightZNegRot0;
+                        Cells[x, z].HeightOutZN = m.linkedTile.pi.NavHeightXNegRot0; 
+                        Cells[x, z].HeightOutXN = m.linkedTile.pi.NavHeightZPosRot0; 
+                        Cells[x, z].HeightOutZP = m.linkedTile.pi.NavHeightXPosRot0;
 
                         Cells[x, z].CanReachFromInsideXP = m.linkedTile.pi.CanReachFromInsideZNeg;
                         Cells[x, z].CanReachFromInsideZN = m.linkedTile.pi.CanReachFromInsideXNeg; 
@@ -161,42 +177,71 @@ public class NavGrid
                 //Voisin XNeg
                 if (x == 0)
                 {
-                    Cells[x, z].XNDiff = float.MaxValue;
+                    Cells[x, z].XNHeightOutDiff = float.MaxValue;
+                    Cells[x, z].HeightCenterXN = float.MaxValue;
                 }
                 else
                 {
-                    Cells[x, z].XNDiff = Cells[x - 1, z].HeightXP - Cells[x, z].HeightXN;
+                    Cells[x, z].XNHeightOutDiff = Cells[x - 1, z].HeightOutXP - Cells[x, z].HeightOutXN;
+                    Cells[x, z].HeightCenterXN = Cells[x - 1, z].height;
                 }
 
                 //Voisin XPos
                 if (x == sizeX - 1)
                 {
-                    Cells[x, z].XPDiff = float.MaxValue;
+                    Cells[x, z].XPHeightOutDiff = float.MaxValue;
+                    Cells[x, z].HeightCenterXP = float.MaxValue;
                 }
                 else
                 {
-                    Cells[x, z].XPDiff = Cells[x + 1, z].HeightXN - Cells[x, z].HeightXP;
+                    Cells[x, z].XPHeightOutDiff = Cells[x + 1, z].HeightOutXN - Cells[x, z].HeightOutXP;
+                    Cells[x, z].HeightCenterXP = Cells[x + 1, z].height;
                 }
 
                 //Voisin ZNeg
                 if (z == 0)
                 {
-                    Cells[x, z].ZNDiff = float.MaxValue; 
+                    Cells[x, z].ZNHeightOutDiff = float.MaxValue;
+                    Cells[x, z].HeightCenterZN = float.MaxValue;
                 }
                 else
                 {
-                    Cells[x, z].ZNDiff = Cells[x, z - 1].HeightZP - Cells[x, z].HeightZN;
+                    Cells[x, z].ZNHeightOutDiff = Cells[x, z - 1].HeightOutZP - Cells[x, z].HeightOutZN;
+                    Cells[x, z].HeightCenterZN = Cells[x, z - 1].height;
                 }
 
                 //Voisin XPos
                 if (z == sizeX - 1)
                 {
-                    Cells[x, z].ZPDiff = float.MaxValue; 
+                    Cells[x, z].ZPHeightOutDiff = float.MaxValue;
+                    Cells[x, z].HeightCenterZP = float.MaxValue;
                 }
                 else
                 {
-                    Cells[x, z].ZPDiff = Cells[x, z + 1].HeightZN - Cells[x, z].HeightZP;
+                    Cells[x, z].ZPHeightOutDiff = Cells[x, z + 1].HeightOutZN - Cells[x, z].HeightOutZP;
+                    Cells[x, z].HeightCenterZP = Cells[x, z + 1].height;
                 }
+
+
+                //Calcul de la hauteur
+                float sumReachability = 0;
+                float sumHeight = 0;
+
+                sumHeight += Cells[x, z].CanReachFromInsideXN * Cells[x, z].HeightOutXN;
+                sumHeight += Cells[x, z].CanReachFromInsideXP * Cells[x, z].HeightOutXP;
+                sumHeight += Cells[x, z].CanReachFromInsideZN * Cells[x, z].HeightOutZN;
+                sumHeight += Cells[x, z].CanReachFromInsideZP * Cells[x, z].HeightOutZP;
+
+                sumReachability += Cells[x, z].CanReachFromInsideXN;
+                sumReachability += Cells[x, z].CanReachFromInsideXP;
+                sumReachability += Cells[x, z].CanReachFromInsideZN;
+                sumReachability += Cells[x, z].CanReachFromInsideZP;
+
+                Cells[x, z].height = sumHeight;
+                if (sumReachability > 0)
+                {
+                    Cells[x, z].height /= sumReachability;
+                }                
             }
         }
     }

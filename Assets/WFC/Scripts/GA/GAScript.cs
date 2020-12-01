@@ -18,6 +18,7 @@ using GeneticSharp.Domain.Selections;
 using GeneticSharp.Domain.Terminations;
 using GeneticSharp.Infrastructure.Framework.Threading;
 using Debug = UnityEngine.Debug;
+using System.Collections;
 
 public abstract class GAScript : MonoBehaviour
 {
@@ -42,7 +43,14 @@ public abstract class GAScript : MonoBehaviour
         public float crossProbability = 0.5f;
         public float mutationProbability = 0.5f;
         public bool allGenesMutable = false;
-        public bool isMultiThread = true;
+
+        public enum RunType
+        {
+            FULL_PARALLEL,
+            ALL_PROC_BUT_ONE,
+            SEQUENTIAL
+        }
+        public RunType runType = RunType.ALL_PROC_BUT_ONE;
 
         [HideInInspector]
         public int gridUnitSize = 1;
@@ -171,8 +179,12 @@ public abstract class GAScript : MonoBehaviour
                                                     Quaternion.Euler(0f, 90f * m.rotationY, 0f));
                 tileInstanciated.Add(go);
 
+                //yield return new WaitForEndOfFrame();
+
             }
         }
+
+        //yield return null;
     }
 
     protected abstract IFitness getFitnessClass();
@@ -201,18 +213,31 @@ public abstract class GAScript : MonoBehaviour
         m_ga.MutationProbability = gaConfig.mutationProbability;
 
 
-        if(gaConfig.isMultiThread)
+        switch (gaConfig.runType)
         {
-            m_ga.TaskExecutor = new ParallelTaskExecutor//The fitness evaluation of whole population will be running on parallel.
-            {
-                MinThreads = 8,
-                MaxThreads = 16
-            };
+            case GAConfig.RunType.FULL_PARALLEL:
+                m_ga.TaskExecutor = new ParallelTaskExecutor//The fitness evaluation of whole population will be running on parallel.
+                {
+                    MinThreads = Environment.ProcessorCount,
+                    MaxThreads = Environment.ProcessorCount*2
+                };
+                break;
+            case GAConfig.RunType.ALL_PROC_BUT_ONE:
+                m_ga.TaskExecutor = new MyParallelTaskExecutor//The fitness evaluation of whole population will be running on parallel.
+                {
+                    MinThreads = Environment.ProcessorCount/2,
+                    MaxThreads = Environment.ProcessorCount/2
+                };
+                break;
+            case GAConfig.RunType.SEQUENTIAL:
+                m_ga.TaskExecutor = new LinearTaskExecutor();
+                break;
+            default:
+                m_ga.TaskExecutor = new LinearTaskExecutor();
+                break;
         }
-        else
-        {
-            m_ga.TaskExecutor = new LinearTaskExecutor();
-        }
+       
+
 
 #if LOGGER
         Logger.Log("Start GA", Logger.LogType.TITLE);

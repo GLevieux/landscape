@@ -67,18 +67,19 @@ public class RandomSky : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.2f);
-        Blackout(false);
+        
     }
 
     
     public void LevelGenerated()
     {
-        Randomize();
+        Blackout(false);
     }
 
     public void PreStartGeneration()
     {
         Blackout(true);
+        Randomize();
     }
 
 }
