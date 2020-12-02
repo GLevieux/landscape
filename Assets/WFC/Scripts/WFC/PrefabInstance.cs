@@ -32,22 +32,25 @@ public class PrefabInstance : MonoBehaviour
     public float gridUnitSize = 1; //Debug
 
     //Pour la navigation
-    [Header("Navigation")]
+    [Header("Z+")]
     [Tooltip("Height of this side of the tile")]
     public float NavHeightZPosRot0 = -1;
-    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick"), Range(0.0f, 1.0f)]
     public float CanReachFromInsideZPos = 1;
+    [Header("Z-")]
     [Tooltip("Height of this side of the tile")]
     public float NavHeightZNegRot0 = -1;
-    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick"), Range(0.0f, 1.0f)]
     public float CanReachFromInsideZNeg = 1;
+    [Header("X+")]
     [Tooltip("Height of this side of the tile")]
     public float NavHeightXPosRot0 = -1;
-    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick"), Range(0.0f, 1.0f)]
     public float CanReachFromInsideXPos = 1;
+    [Header("X-")]
     [Tooltip("Height of this side of the tile")]
     public float NavHeightXNegRot0 = -1;
-    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick")]
+    [Tooltip("How easy to reach this height from inside : 0 impossible 1 very quick"), Range(0.0f, 1.0f)]
     public float CanReachFromInsideXNeg = 1;
 
     public bool hideGizmos = false;

@@ -49,8 +49,8 @@ MonoBehaviour:
   prefab: {fileID: 3880339663797769264}
   stringId: EnemySpawner
   doNotShowInCreatedLevel: 0
-  minNb: 4
-  maxNb: 4
+  minNb: 2
+  maxNb: 2
   size: {x: 1, y: 1}
   gridUnitSize: 2
   NavHeightZPosRot0: 0

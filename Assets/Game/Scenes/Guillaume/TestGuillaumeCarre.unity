@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 564.429, g: 344.52246, b: 278.84982, a: 1}
+  m_IndirectSpecularColor: {r: 564.6009, g: 344.5703, b: 278.718, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -265,10 +265,6 @@ PrefabInstance:
       propertyPath: prevBorderWFC
       value: 
       objectReference: {fileID: 476074991}
-    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
-      propertyPath: wfcConfig.gridSize
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.maxLoops
       value: 10000
@@ -587,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalRotation.w
@@ -656,10 +652,6 @@ PrefabInstance:
       propertyPath: prevBorderWFC
       value: 
       objectReference: {fileID: 476074991}
-    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
-      propertyPath: wfcConfig.gridSize
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.maxLoops
       value: 10000
@@ -970,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalPosition.y
@@ -978,7 +970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1379,10 +1371,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 222567793}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
-      propertyPath: wfcConfig.gridSize
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.maxLoops
       value: 10000
       objectReference: {fileID: 0}
@@ -1692,7 +1680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalPosition.y

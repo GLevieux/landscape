@@ -37,13 +37,15 @@ public class SimpleGridWFC
         [Tooltip("On empèche le tile de border de se propager dans la grille")]
         public bool noBordersInside = true;
         [Tooltip("Initialise la dernière colonne de la grille avec des tiles de border X+")]
-        public bool initWithBordersRight = false;
-        [Tooltip("Initialise la dernière ligne de la grille avec des tiles de border Z-")]
-        public bool initWithBordersDown = false;
+        public bool initWithBordersXP = false;
         [Tooltip("Initialise la première colonne de la grille avec des tiles de border X-")]
-        public bool initWithBordersLeft = false;
+        public bool initWithBordersXN = false;
         [Tooltip("Initialise la première ligne de la grille avec des tiles de border Z+")]
-        public bool initWithBordersUp = false;
+        public bool initWithBordersZP = false;
+        [Tooltip("Initialise la dernière ligne de la grille avec des tiles de border Z-")]
+        public bool initWithBordersZN = false;
+        
+        
         [HideInInspector] 
         public List<ModuleToPropagate> borderModulesToPropagate = new List<ModuleToPropagate>();
         public class ModuleToPropagate
@@ -98,7 +100,7 @@ public class SimpleGridWFC
                     + "Take zone is " + takeZonesIntoAccount + "\n"
                     + "Take initial zones is " + takeInitialZones + "\n"
                     + "Take initial assets is " + takeInitialAssets + "\n"
-                    + "Generate borders is " + initWithBordersRight + " " + initWithBordersDown + " " + initWithBordersLeft + " " + initWithBordersUp + "\n\n"
+                    + "Generate borders is " + initWithBordersXP + " " + initWithBordersZN + " " + initWithBordersXN + " " + initWithBordersZP + "\n\n"
                     + "* InitialZones (count: " + listInitialZones.Count + ") are :\n" + zones + "\n"
                     + "* InitialAssets (count: " + listInitialAssets.Count + ") are :\n" + initialAssets + "\n"
                     + "* Unique Tiles (count: " + uniqueTilesInGrid.Count + ") are :\n" + uTiles + "\n";
@@ -725,10 +727,10 @@ public class SimpleGridWFC
                 grid[i, j].x = i;
                 grid[i, j].y = j;
 
-                if ((i == config.gridSize - 1 && config.initWithBordersRight) ||
-                    (j == config.gridSize - 1 && config.initWithBordersUp) ||
-                    (i == 0 && config.initWithBordersLeft) ||
-                    (j == 0 && config.initWithBordersDown) )
+                if ((i == config.gridSize - 1 && config.initWithBordersXP) ||
+                    (j == config.gridSize - 1 && config.initWithBordersZP) ||
+                    (i == 0 && config.initWithBordersXN) ||
+                    (j == 0 && config.initWithBordersZN) )
                 {
                     grid[i, j].availables.Add(new Module(config.uniqueTilesInGrid[config.idBorderTile], 0));
                     grid[i, j].isCorner = true;
@@ -1212,7 +1214,7 @@ public class SimpleGridWFC
 #endif
             //Si première boucle, on fait pas entropie, on demande update direct
             if (counterLoop == config.maxLoops - 1 && 
-                (config.initWithBordersRight || config.initWithBordersDown || config.initWithBordersLeft || config.initWithBordersUp))//force update borders to set neighboors directly before a searchminentropy (first loop)
+                (config.initWithBordersXP || config.initWithBordersZN || config.initWithBordersXN || config.initWithBordersZP))//force update borders to set neighboors directly before a searchminentropy (first loop)
             {
                 // en fait pour que corner marche, il faut que les bords interieur de la map s'update selon les border bloc qui sont la seule possibilité
                 // dans l'autre sens c'est border qui tombe a 0

@@ -474,9 +474,29 @@ public class WFCManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0, 1, 0, 1.0f);
+        gaParameters = GetComponent<GAParameters>();
+        if(gaParameters && gaParameters.launchGA)
+            Gizmos.color = Color.yellow;
+        else
+            Gizmos.color = Color.green;
+
         Gizmos.DrawWireCube(transform.position + new Vector3(wfcConfig.gridSize / 2.0f, 0.5f, wfcConfig.gridSize / 2.0f) * wfcConfig.gridUnitSize,
                                                 new Vector3(wfcConfig.gridSize, 1, wfcConfig.gridSize) * wfcConfig.gridUnitSize);
+
+        Gizmos.color = Color.red;
+        if (wfcConfig.initWithBordersXP)
+            Gizmos.DrawLine(transform.position + new Vector3(wfcConfig.gridSize, 1.1f,                  0) * wfcConfig.gridUnitSize,
+                            transform.position + new Vector3(wfcConfig.gridSize, 1.1f, wfcConfig.gridSize) * wfcConfig.gridUnitSize);
+        if (wfcConfig.initWithBordersXN)
+            Gizmos.DrawLine(transform.position + new Vector3(0, 1.1f, 0) * wfcConfig.gridUnitSize,
+                            transform.position + new Vector3(0, 1.1f, wfcConfig.gridSize) * wfcConfig.gridUnitSize);
+        if (wfcConfig.initWithBordersZP)
+            Gizmos.DrawLine(transform.position + new Vector3(0, 1.1f, wfcConfig.gridSize) * wfcConfig.gridUnitSize,
+                            transform.position + new Vector3(wfcConfig.gridSize, 1.1f, wfcConfig.gridSize) * wfcConfig.gridUnitSize);
+        if (wfcConfig.initWithBordersZN)
+            Gizmos.DrawLine(transform.position + new Vector3(0, 1.1f, 0) * wfcConfig.gridUnitSize,
+                            transform.position + new Vector3(wfcConfig.gridSize, 1.1f, 0) * wfcConfig.gridUnitSize);
+
     }
     void OnGUI()
     {

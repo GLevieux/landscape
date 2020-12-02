@@ -47,10 +47,10 @@ public abstract class GAScript : MonoBehaviour
         public enum RunType
         {
             FULL_PARALLEL,
-            ALL_PROC_BUT_ONE,
+            CAN_STILL_PLAY_PARALLEL,
             SEQUENTIAL
         }
-        public RunType runType = RunType.ALL_PROC_BUT_ONE;
+        public RunType runType = RunType.CAN_STILL_PLAY_PARALLEL;
 
         [HideInInspector]
         public int gridUnitSize = 1;
@@ -199,9 +199,10 @@ public abstract class GAScript : MonoBehaviour
 
         // This operators are classic genetic algorithm operators that lead to a good solution on TSP,
         // but you can try others combinations and see what result you get.
-        var crossover = new UniformCrossover();
+        var crossover = new TwoPointCrossover();
         var mutation = new UniformMutation(gaConfig.allGenesMutable);
         var selection = new EliteSelection();
+        
         var population = new Population(gaConfig.populationMin, gaConfig.populationMax, chromosome);
 
         gaConfig.gridUnitSize = wfcConfig.gridUnitSize;
@@ -222,7 +223,7 @@ public abstract class GAScript : MonoBehaviour
                     MaxThreads = Environment.ProcessorCount*2
                 };
                 break;
-            case GAConfig.RunType.ALL_PROC_BUT_ONE:
+            case GAConfig.RunType.CAN_STILL_PLAY_PARALLEL:
                 m_ga.TaskExecutor = new MyParallelTaskExecutor//The fitness evaluation of whole population will be running on parallel.
                 {
                     MinThreads = Environment.ProcessorCount/2,

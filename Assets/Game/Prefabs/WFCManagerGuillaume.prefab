@@ -53,22 +53,20 @@ MonoBehaviour:
   relationGrids:
   - addNbTimes: 1
     relationGrid: {fileID: 6051803017836593869, guid: 0109af44b40eaaa418f92a48f502f546, type: 3}
-  - addNbTimes: 10
+  - addNbTimes: 1
     relationGrid: {fileID: 6051803017836593869, guid: a9fef53cf1f5718449cb2706981621f3, type: 3}
   - addNbTimes: 3
     relationGrid: {fileID: 6051803017836593869, guid: af609d349063f344fbd86603474d97dc, type: 3}
   - addNbTimes: 20
-    relationGrid: {fileID: 6051803017836593869, guid: ebea2d012ca0e3e45bff4bcd6ac170d0, type: 3}
+    relationGrid: {fileID: 6051803017836593869, guid: 3fed1523c02848e44a0051d33d506ef4, type: 3}
   - addNbTimes: 20
     relationGrid: {fileID: 6051803017836593869, guid: eb3b3a1cb9a25704eb4c4ccd2c7ad11d, type: 3}
-  - addNbTimes: 1
-    relationGrid: {fileID: 6051803017836593869, guid: c90c2f56f802c7a439044a587cb4dc8b, type: 3}
   useCustomRandomSeed: 0
   customSeed: 0
   prevBorderWFCManager: {fileID: 0}
   autoScreenshot: 0
   wfcConfig:
-    gridSize: 20
+    gridSize: 15
     gridUnitSize: 2
     scaleSize: 1
     maxLoops: 10000
@@ -80,10 +78,10 @@ MonoBehaviour:
     takeInitialAssets: 0
     takeInitialTags: 0
     noBordersInside: 1
-    initWithBordersRight: 1
-    initWithBordersDown: 1
-    initWithBordersLeft: 1
-    initWithBordersUp: 1
+    initWithBordersXP: 0
+    initWithBordersXN: 0
+    initWithBordersZP: 0
+    initWithBordersZN: 0
     idBorderTile: 0
     prefabError: {fileID: 0}
     listInitialZones: []

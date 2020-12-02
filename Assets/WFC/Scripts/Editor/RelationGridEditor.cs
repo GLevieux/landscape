@@ -48,10 +48,12 @@ public class RelationGridEditor : Editor
             {
                 myScript.KillAgentEditor();
             }
+
+            if (GUILayout.Button("Evaluate Level"))
+            {
+                myScript.EvaluateLevelEditor();
+            }
         }
-
-
-        
     }
 }
 

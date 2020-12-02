@@ -91,6 +91,8 @@ public class RelationGrid : MonoBehaviour
     public float DistanceMinRangeAsset = 0.1f;
     public Material ErrorMat;
 
+    
+
     GridTile[,] grid;
 
 
@@ -190,6 +192,7 @@ public class RelationGrid : MonoBehaviour
 
     private NavGrid navGridDebug = null;
     public bool showNavGridDebug = true;
+    public bool showDistanceField = true;
     private SimpleGridWFC.Module[,] modules = null;
     public AgentFlowCurieux agent = null;
     public float stepHeightDebugNav = 0.05f;
@@ -268,6 +271,7 @@ public class RelationGrid : MonoBehaviour
 
         agent = new AgentFlowCurieux();
         agent.Init(xStart, zStart, 0 ,dirStart, navGridDebug);
+        agent.UpdatePerception();
 #if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
 #endif
@@ -278,6 +282,7 @@ public class RelationGrid : MonoBehaviour
         if (agent == null)
             return;
         agent.Step();
+        agent.UpdatePerception();
 #if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
 #endif
@@ -290,6 +295,22 @@ public class RelationGrid : MonoBehaviour
         UnityEditor.SceneView.RepaintAll();
 #endif
     }
+
+    [ReadOnly] public float fitnessLevel = 0.0f;
+    public void EvaluateLevelEditor()
+    {
+        fitnessLevel = 0;
+        float nbSteps = 10000.0f;
+        for (int i=0;i< nbSteps; i++)
+            fitnessLevel += agent.Step();
+        fitnessLevel /= nbSteps;
+
+#if UNITY_EDITOR
+        UnityEditor.SceneView.RepaintAll();
+#endif
+    }
+
+    
 
     private void RemoveAir()
     {
@@ -818,6 +839,7 @@ public class RelationGrid : MonoBehaviour
 
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         /* VIRE AUTO BORDER
@@ -832,7 +854,7 @@ public class RelationGrid : MonoBehaviour
 
         Gizmos.color = new Color(0, 0, 1, 1.0f);
 
-        Gizmos.DrawWireCube(transform.position + new Vector3(gridSize/2.0f, 0.5f, gridSize / 2.0f) * gridUnitSize, new Vector3(gridSize, 1 , gridSize) * gridUnitSize);
+        Gizmos.DrawWireCube(transform.position + new Vector3(gridSize / 2.0f, 0.5f, gridSize / 2.0f) * gridUnitSize, new Vector3(gridSize, 1, gridSize) * gridUnitSize);
 
         for (int i = 0; i < gridSize; i++)
         {
@@ -841,17 +863,17 @@ public class RelationGrid : MonoBehaviour
 
             Vector3 xLineEnd = xLineStart + new Vector3(0, 0, gridSize) * gridUnitSize;
             Vector3 zLineEnd = zLineStart + new Vector3(gridSize, 0, 0) * gridUnitSize;
-            
+
             Gizmos.DrawLine(xLineStart, xLineEnd);
             Gizmos.DrawLine(zLineStart, zLineEnd);
         }
 
-        if(agent != null)
+        if (agent != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2 + agent.height, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize*0.8f, gridUnitSize * 0.8f, gridUnitSize * 0.8f));
+            Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2 + agent.height, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.8f, gridUnitSize * 0.8f, gridUnitSize * 0.8f));
             Gizmos.color = Color.green;
-            switch (agent.direction)
+            /*switch (agent.direction)
             {
                 case 0:
                     Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f + gridUnitSize * 0.55f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
@@ -863,10 +885,47 @@ public class RelationGrid : MonoBehaviour
                     Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f - +gridUnitSize * 0.55f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
                     break;
                 case 3:
-                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f - + gridUnitSize * 0.55f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
+                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f - +gridUnitSize * 0.55f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
                     break;
-            }
+            }*/
+
+            Vector3[] offset =
+            {
+                new Vector3(0,0,1),
+                new Vector3(1,0,0),
+                new Vector3(0,0,-1),
+                new Vector3(-1,0,0)
+            };
+
+            Vector3 positionF = transform.position +
+                new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
+                offset[agent.direction] * gridUnitSize * 0.55f;
+
+            Gizmos.DrawCube(positionF, new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
+
+            positionF = transform.position +
+                new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
+                offset[agent.direction] * gridUnitSize;
+
+            Vector3 positionL = transform.position +
+                new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
+                offset[(agent.direction+3)%4] * gridUnitSize;
+
+            Vector3 positionR = transform.position +
+            new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
+            offset[(agent.direction+1)%4] * gridUnitSize;
+
+            Vector3 positionB = transform.position +
+            new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
+            offset[(agent.direction + 2) % 4] * gridUnitSize;
+
             
+
+            UnityEditor.Handles.Label(positionF + Vector3.up * 2, ""+ Mathf.Round(agent.desirabilityF * 100) / 100);
+            UnityEditor.Handles.Label(positionL + Vector3.up * 2, "" + Mathf.Round(agent.desirabilityN * 100) / 100);
+            UnityEditor.Handles.Label(positionR + Vector3.up * 2, "" + Mathf.Round(agent.desirabilityP * 100) / 100);
+            UnityEditor.Handles.Label(positionB + Vector3.up * 2, "" + Mathf.Round(agent.desirabilityB * 100) / 100);
+
         }
 
         if (navGridDebug != null && showNavGridDebug)
@@ -884,10 +943,10 @@ public class RelationGrid : MonoBehaviour
                     colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideXN);
 
                     Gizmos.color = colorGiz;
-                    Gizmos.DrawCube(transform.position + new Vector3(x*gridUnitSize + 0.15f,0,z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f,0.5f,0.5f));
+                    Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + 0.15f, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f, 0.5f, 0.5f));
 
                     colorGiz = Color.red;
-                    if(navGridDebug.Cells[x, z].XPHeightOutDiff < stepHeightDebugNav)
+                    if (navGridDebug.Cells[x, z].XPHeightOutDiff < stepHeightDebugNav)
                         colorGiz = Color.green;
                     else if (navGridDebug.Cells[x, z].XPHeightOutDiff < jumpHeightDebugNav)
                         colorGiz = Color.cyan;
@@ -895,7 +954,7 @@ public class RelationGrid : MonoBehaviour
                     colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideXP);
 
                     Gizmos.color = colorGiz;
-                    Gizmos.DrawCube(transform.position + new Vector3((x+1) * gridUnitSize - 0.15f, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f, 0.5f, 0.5f));
+                    Gizmos.DrawCube(transform.position + new Vector3((x + 1) * gridUnitSize - 0.15f, 0, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f, 0.5f, 0.5f));
 
                     colorGiz = Color.red;
                     if (navGridDebug.Cells[x, z].ZNHeightOutDiff < stepHeightDebugNav)
@@ -914,7 +973,7 @@ public class RelationGrid : MonoBehaviour
                     else if (navGridDebug.Cells[x, z].ZPHeightOutDiff < jumpHeightDebugNav)
                         colorGiz = Color.cyan;
 
-                    colorGiz = Color.Lerp(Color.red,colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideZP);
+                    colorGiz = Color.Lerp(Color.red, colorGiz, navGridDebug.Cells[x, z].CanReachFromInsideZP);
 
                     Gizmos.color = colorGiz;
 
@@ -922,10 +981,47 @@ public class RelationGrid : MonoBehaviour
 
                     Gizmos.color = Color.yellow;
                     Gizmos.DrawCube(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, navGridDebug.Cells[x, z].height, z * gridUnitSize + gridUnitSize / 2.0f), new Vector3(0.25f, 0.25f, 0.25f));
+                }
+            }
+        }
 
+        if (navGridDebug != null && showDistanceField)
+        {
+            for (int x = 0; x < gridSize; x++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
+                    string text = "+";
+                    if (navGridDebug.Cells[x, z].DistWallXN < (gridSize * gridSize * gridSize))
+                        text =  ""+navGridDebug.Cells[x, z].DistWallXN;
+                   
+                    UnityEditor.Handles.Label(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 5.0f, navGridDebug.Cells[x, z].height, z * gridUnitSize + gridUnitSize / 2.0f),text);
 
+                    text = "+";
+                    if (navGridDebug.Cells[x, z].DistWallXP < (gridSize * gridSize * gridSize))
+                        text = "" + navGridDebug.Cells[x, z].DistWallXP;
+                    
+                    UnityEditor.Handles.Label(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 1.3f, navGridDebug.Cells[x, z].height, z * gridUnitSize + gridUnitSize / 2.0f), text);
+
+                    text = "+";
+                    if (navGridDebug.Cells[x, z].DistWallZP < (gridSize * gridSize * gridSize))
+                        text = "" + navGridDebug.Cells[x, z].DistWallZP;
+
+                    UnityEditor.Handles.Label(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, navGridDebug.Cells[x, z].height, z * gridUnitSize + gridUnitSize / 1.3f), text);
+
+                    text = "+";
+                    if (navGridDebug.Cells[x, z].DistWallZN < (gridSize * gridSize * gridSize))
+                        text = "" + navGridDebug.Cells[x, z].DistWallZN;
+
+                    UnityEditor.Handles.Label(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, navGridDebug.Cells[x, z].height, z * gridUnitSize + gridUnitSize / 5.0f), text);
+
+                    if (navGridDebug.Cells[x, z].distWallMean < (gridSize * gridSize * gridSize))
+                        text = "" + navGridDebug.Cells[x, z].distWallMean;
+
+                    UnityEditor.Handles.Label(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, navGridDebug.Cells[x, z].height+1, z * gridUnitSize + gridUnitSize / 2.0f), text);
                 }
             }
         }
     }
+#endif
 }

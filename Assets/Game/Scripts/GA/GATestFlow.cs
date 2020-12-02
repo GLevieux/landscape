@@ -241,8 +241,8 @@ public class GATestFlow : GAScript
             AgentFlowCurieux agent = new AgentFlowCurieux();
             agent.Init(xStart, zStart, 0, dirStart, nav);
 
-            for (int i = 0; i < 10000; i++)
-                fitness += agent.Step();            
+            for (int i = 0; i < 20000; i++)
+                fitness += agent.Step()/20000.0f;            
 
             return fitness;
         }

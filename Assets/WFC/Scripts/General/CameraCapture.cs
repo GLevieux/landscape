@@ -24,14 +24,15 @@ public class CameraCapture : MonoBehaviour
         }
     }
 
-    //private void LateUpdate()
-    //{
-    //    if (Input.GetKeyDown(screenshotKey))
-    //    {
-    //        Capture(currentCamera, new Vector2Int(1920, 1080), 2, true);
-    //        //Capture();
-    //    }
-    //}
+    private void LateUpdate()
+    {
+        if (Input.GetKeyDown(screenshotKey))
+        {
+            TakeScreenshot("screenshot.png", true);
+            //Capture(currentCamera, new Vector2Int(1920, 1080), 2, true);
+            //Capture();
+        }
+    }
 
     //public void Capture()
     //{
@@ -61,8 +62,22 @@ public class CameraCapture : MonoBehaviour
             DirectoryInfo di = Directory.CreateDirectory(Logger.getPath());
         }
 
+        bool active = currentCamera.gameObject.activeSelf;
+        Camera prevMainCam = Camera.main;
+        if (!active)
+        {
+            prevMainCam.gameObject.SetActive(false);
+            currentCamera.gameObject.SetActive(true);
+        }
+
         Capture(currentCamera, new Vector2Int(1920, 1080), 2, true);
         File.WriteAllBytes(Logger.getPath(name), screenshotBytes);
+
+        if (!active)
+        {
+            prevMainCam.gameObject.SetActive(true);
+            currentCamera.gameObject.SetActive(false);
+        }
     }
 
     private void Capture(Camera camera, Vector2Int resolution, int scale, bool isTransparent)
@@ -84,7 +99,7 @@ public class CameraCapture : MonoBehaviour
         Destroy(screenShot);
 
         //fix to switch to main camera
-        camera.gameObject.SetActive(false);
-        Camera.main.gameObject.SetActive(true);
+        //camera.gameObject.SetActive(false);
+        //Camera.main.gameObject.SetActive(true);
     }
 }

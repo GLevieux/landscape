@@ -11,86 +11,174 @@ public class AgentFlowCurieux
     public float accumNoTurn = 0;
     public int stepNum = 0;
 
+    //Calcul a chaque step
+    public float reachabilityF;
+    public float reachabilityP;
+    public float reachabilityN;
+    public float reachabilityB;
+
+    public float noveltyF;
+    public float noveltyP;
+    public float noveltyN;
+    public float noveltyB;
+
+    public float heightGainF;
+    public float heightGainP;
+    public float heightGainN;
+    public float heightGainB;
+
+    public float safetyGainF;
+    public float safetyGainP;
+    public float safetyGainN;
+    public float safetyGainB;
+
+    public float desirabilityF;
+    public float desirabilityP;
+    public float desirabilityN;
+    public float desirabilityB;
+
+
+    //Utiles 
     NavGrid nav;
 
     int[] xMoves = { 0, 1, 0, -1 }; //Deplacement sur X en fonction de la rotation
     int[] zMoves = { 1, 0, -1, 0 }; //Deplacement sur X en fonction de la rotation
 
-    public void Init(int xStart, int zStart, int heightStart,  int directionStart, NavGrid grid)
+    float gridSizeX;
+    float gridSizeZ;
+
+    public void Init(int xStart, int zStart, int heightStart, int directionStart, NavGrid grid)
     {
         direction = directionStart;
         xPos = xStart;
         zPos = zStart;
         height = heightStart;
         nav = grid;
+        gridSizeX = nav.Cells.GetUpperBound(0) + 1;
+        gridSizeZ = nav.Cells.GetUpperBound(0) + 1;
     }
-    
+
 
     //Retourne un delta de fitness
-    public float Step()
+    public void UpdatePerception()
     {
-        float fitnessStep = 0;
-        
         stepNum++;
         nav.Cells[xPos, zPos].lastTimeInside = stepNum;
         height = nav.Cells[xPos, zPos].height;
+        float safety = 1 - (nav.Cells[xPos, zPos].distWallMean / Mathf.Max(gridSizeX, gridSizeZ));
 
-        float HeightOutF = 0;
-        float HeightCenterF = 0;
-        float HeightDiffF = 0;
-        float CanReachF = 0;
-        int lastTimeInsideF = 0;
+        float heightOutF = 0;
+        float heightCenterNextF = 0;
+        float heightBorderDiffToNextF = 0;
+        float canReachNextF = 0;
+        int lastTimeInsideNextF = 0;
+        float meanDistWallNextF = 0;
 
-        float HeightOutP = 0;
-        float HeightCenterP = 0;
-        float HeightDiffP = 0;
-        float CanReachP = 0;
-        int lastTimeInsideP = 0;
+        float heightOutP = 0;
+        float heightCenterNextP = 0;
+        float heightBorderDiffToNextP = 0;
+        float canReachNextP = 0;
+        int lastTimeInsideNextP = 0;
+        float meanDistWallNextP = 0;
 
-        float HeightOutN = 0;
-        float HeightCenterN = 0;
-        float HeightDiffN = 0;
-        float CanReachN = 0;
-        int lastTimeInsideN = 0;
+        float heightOutN = 0;
+        float heightCenterNextN = 0;
+        float heightBorderDiffToNextN = 0;
+        float canReachNextN = 0;
+        int lastTimeInsideNextN = 0;
+        float meanDistWallNextN = 0;
+
+        float heightOutB = 0;
+        float heightCenterNextB = 0;
+        float heightBorderDiffToNextB = 0;
+        float canReachNextB = 0;
+        int lastTimeInsideNextB = 0;
+        float meanDistWallNextB = 0;
 
         int directionP = (direction + 1) % 4;
-        int directionN = ((direction - 1) % 4 + 4) % 4;
+        int directionN = (direction + 3) % 4;
+        int directionB = (direction + 2) % 4;
 
-        nav.Cells[xPos, zPos].GetValuesInDir(direction, out HeightOutF, out HeightCenterF, out HeightDiffF, out CanReachF, out lastTimeInsideF);
-        nav.Cells[xPos, zPos].GetValuesInDir(directionP, out HeightOutP, out HeightCenterP, out HeightDiffP, out CanReachP, out lastTimeInsideP);
-        nav.Cells[xPos, zPos].GetValuesInDir(directionN, out HeightOutN, out HeightCenterN, out HeightDiffN, out CanReachN, out lastTimeInsideN);
+        nav.Cells[xPos, zPos].GetValuesInDir(direction, out heightOutF, out heightCenterNextF, out heightBorderDiffToNextF, out canReachNextF, out lastTimeInsideNextF, out meanDistWallNextF);
+        nav.Cells[xPos, zPos].GetValuesInDir(directionP, out heightOutP, out heightCenterNextP, out heightBorderDiffToNextP, out canReachNextP, out lastTimeInsideNextP, out meanDistWallNextP);
+        nav.Cells[xPos, zPos].GetValuesInDir(directionN, out heightOutN, out heightCenterNextN, out heightBorderDiffToNextN, out canReachNextN, out lastTimeInsideNextN, out meanDistWallNextN);
+        nav.Cells[xPos, zPos].GetValuesInDir(directionB, out heightOutB, out heightCenterNextB, out heightBorderDiffToNextB, out canReachNextB, out lastTimeInsideNextB, out meanDistWallNextB);
 
-                     
-        float reachability  = CanReachF  * ((Mathf.Abs(HeightDiffF)  < 0.05f) ? 2.0f : ((Mathf.Abs(HeightDiffF)  < 0.6f) ? 0.5f : 0));
-        float reachabilityP = CanReachP * ((Mathf.Abs(HeightDiffP) < 0.05f) ? 2.0f : ((Mathf.Abs(HeightDiffP) < 0.6f) ? 0.5f : 0));
-        float reachabilityN = CanReachN * ((Mathf.Abs(HeightDiffN) < 0.05f) ? 2.0f : ((Mathf.Abs(HeightDiffN) < 0.6f) ? 0.5f : 0));
+        //Peut on atteindre la suivante
+        reachabilityF = canReachNextF * ((Mathf.Abs(heightBorderDiffToNextF) < 0.05f) ? 2.0f : ((Mathf.Abs(heightBorderDiffToNextF) < 0.6f) ? 0.5f : 0));
+        reachabilityP = canReachNextP * ((Mathf.Abs(heightBorderDiffToNextP) < 0.05f) ? 2.0f : ((Mathf.Abs(heightBorderDiffToNextP) < 0.6f) ? 0.5f : 0));
+        reachabilityN = canReachNextN * ((Mathf.Abs(heightBorderDiffToNextN) < 0.05f) ? 2.0f : ((Mathf.Abs(heightBorderDiffToNextN) < 0.6f) ? 0.5f : 0));
+        reachabilityB = canReachNextB * ((Mathf.Abs(heightBorderDiffToNextB) < 0.05f) ? 2.0f : ((Mathf.Abs(heightBorderDiffToNextB) < 0.6f) ? 0.5f : 0));
 
-        float novelty = (stepNum - lastTimeInsideF) / 200.0f;
-        float noveltyP = (stepNum - lastTimeInsideP) / 200.0f;
-        float noveltyN = (stepNum - lastTimeInsideN) / 200.0f;
+        reachabilityF /= 2.0f;
+        reachabilityP /= 2.0f;
+        reachabilityN /= 2.0f;
+        reachabilityB /= 2.0f;
 
-        float heightGain = Mathf.Max(0, HeightCenterF - height);
-        float heightGainP = Mathf.Max(0, HeightCenterP - height);
-        float heightGainN = Mathf.Max(0, HeightCenterN - height);
+        //Est elle nouvelle
+        noveltyF = (stepNum - lastTimeInsideNextF) / 200.0f;
+        noveltyP = (stepNum - lastTimeInsideNextP) / 200.0f;
+        noveltyN = (stepNum - lastTimeInsideNextN) / 200.0f;
+        noveltyB = (stepNum - lastTimeInsideNextB) / 200.0f;
 
-        float desirabilityFront = reachability * (novelty + heightGain) * 1.2f;
-        float desirabilityP = reachabilityP * (noveltyP + heightGainP);
-        float desirabilityN = reachabilityN * (noveltyN + heightGainN);
+        //Gagne t'on de la hauteur
+        heightGainF = Mathf.Max(-1, heightCenterNextF - height) / nav.maxHeight;
+        heightGainP = Mathf.Max(-1, heightCenterNextP - height) / nav.maxHeight;
+        heightGainN = Mathf.Max(-1, heightCenterNextN - height) / nav.maxHeight;
+        heightGainB = Mathf.Max(-1, heightCenterNextB - height) / nav.maxHeight;
+
+        //Gagne t'on de la sureté (de l'espace)
+        safetyGainF = (1 - (meanDistWallNextF / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
+        safetyGainP = (1 - (meanDistWallNextP / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
+        safetyGainN = (1 - (meanDistWallNextN / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
+        safetyGainB = (1 - (meanDistWallNextB / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
+
+        float noveltyBoost = 3.0f;
+        float heightBoost = 2.0f;
+        float safetyBoost = 1.0f;
+
+        desirabilityF = reachabilityF * (noveltyF * noveltyBoost + heightGainF * heightBoost + safetyGainF * safetyBoost);
+        desirabilityP = reachabilityP * (noveltyP * noveltyBoost + heightGainP * heightBoost + safetyGainP * safetyBoost);
+        desirabilityN = reachabilityN * (noveltyN * noveltyBoost + heightGainN * heightBoost + safetyGainN * safetyBoost);
+        desirabilityB = reachabilityB * (noveltyB * noveltyBoost + heightGainB * heightBoost + safetyGainB * safetyBoost);
+
+        if (reachabilityF < float.Epsilon)
+            desirabilityF = -float.MaxValue;
+        if (reachabilityP < float.Epsilon)
+            desirabilityP = -float.MaxValue;
+        if (reachabilityN < float.Epsilon)
+            desirabilityN = -float.MaxValue;
+        if (reachabilityB < float.Epsilon)
+            desirabilityB = -float.MaxValue;
+    }
+
+    public float TakeDecision()
+    {
+        float fitnessStep = 0;
 
         float desirability = 0;
+        float seuilTourne = 0.05f;
+        float seuilDemitour = 0.1f;
+
+        int directionP = (direction + 1) % 4;
+        int directionN = (direction + 3) % 4;
+        int directionB = (direction + 2) % 4;
 
         //Si faut faire demitour
-        if (desirabilityP <= float.Epsilon && desirabilityN <= float.Epsilon && desirabilityFront <= float.Epsilon)
+        if (desirabilityB > desirabilityF + seuilDemitour &&
+            desirabilityB > desirabilityP + seuilDemitour &&
+            desirabilityB > desirabilityN + seuilDemitour)
         {
             accumNoTurn = 0;
             direction = (direction + 2) % 4;
-        } 
-        else if (desirabilityFront > desirabilityP && desirabilityFront > desirabilityN)
+        }
+        else if (desirabilityF > desirabilityP - seuilTourne &&
+                 desirabilityF > desirabilityN - seuilTourne)
         {
             //Aller tout droit
-            desirability = desirabilityFront;
-        } 
-        else 
+            desirability = desirabilityF;
+        }
+        else
         {
             accumNoTurn /= 2;
 
@@ -113,7 +201,7 @@ public class AgentFlowCurieux
         int zPosNext = zPos + zMoves[direction];
 
         //Si ca nous fait sortir ou que c'est nul d'avancer
-        if (desirability == 0 || xPosNext < 0 || xPosNext > nav.Cells.GetUpperBound(0) || zPosNext < 0 || zPosNext > nav.Cells.GetUpperBound(0))
+        if (desirability == 0 || xPosNext < 0 || xPosNext > gridSizeX - 1 || zPosNext < 0 || zPosNext > gridSizeZ - 1)
             return fitnessStep;
 
         xPos = xPosNext;
@@ -121,5 +209,11 @@ public class AgentFlowCurieux
         height = nav.Cells[xPos, zPos].height;
 
         return fitnessStep;
+    }
+
+    public float Step()
+    {
+        UpdatePerception();
+        return TakeDecision();
     }
 }
