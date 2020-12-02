@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 560.9283, g: 343.47632, b: 281.74875, a: 1}
+  m_IndirectSpecularColor: {r: 562.7315, g: 343.94385, b: 280.01828, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1177,8 +1177,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1815054955}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: heightBoost
+      value: -0.768
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: IdPlayerStart
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_Enabled
@@ -1244,6 +1248,10 @@ PrefabInstance:
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.size
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: relationGrids.Array.data[0].relationGrid
+      value: 
+      objectReference: {fileID: 6051803017836593869, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[0].pi
       value: 

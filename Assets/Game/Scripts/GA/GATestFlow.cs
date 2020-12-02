@@ -52,7 +52,7 @@ public class GATestFlow : GAScript
 
     protected override IFitness getFitnessClass()
     {
-        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart);
+        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,noveltyBoost,heightBoost,safetyBoost);
     }
 
     protected override IChromosome getChromosomeClass()
@@ -131,6 +131,13 @@ public class GATestFlow : GAScript
 
     public int IdPlayerStart = -1;
 
+    [Range(-1.0f, 1.0f)]
+    public float noveltyBoost = 1.0f;
+    [Range(-1.0f, 1.0f)]
+    public float heightBoost = 0.8f;
+    [Range(-1.0f, 1.0f)]
+    public float safetyBoost = 0.5f;
+
     public class WFCFitness : IFitness
     {
         private WFCConfig m_generalConfig;
@@ -140,8 +147,13 @@ public class GATestFlow : GAScript
         private int m_randomSeed;
         private int m_sizeZone;
         private int idPlayerStart = -1;
+        private float noveltyBoost;
+        private float heightBoost;
+        private float safetyBoost;
 
-        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart)
+
+
+        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart, float noveltyBoost, float heightBoost, float safetyBoost)
         {
             m_generalConfig = config;
             m_numberOfZones = numberOfZones;
@@ -153,6 +165,10 @@ public class GATestFlow : GAScript
             m_sizeZone = sizeZone;
 
             idPlayerStart = IdPlayerStart;
+
+            this.noveltyBoost = noveltyBoost;
+            this.heightBoost = heightBoost;
+            this.safetyBoost = safetyBoost;
         }
 
         public double Evaluate(IChromosome chromosome)
@@ -239,10 +255,13 @@ public class GATestFlow : GAScript
             float fitness = 0.0f;
 
             AgentFlowCurieux agent = new AgentFlowCurieux();
+            agent.noveltyBoost = noveltyBoost;
+            agent.safetyBoost = safetyBoost;
+            agent.heightBoost = heightBoost;
             agent.Init(xStart, zStart, 0, dirStart, nav);
 
-            for (int i = 0; i < 20000; i++)
-                fitness += agent.Step()/20000.0f;            
+            for (int i = 0; i < 30000; i++)
+                fitness += agent.Step()/30000.0f;            
 
             return fitness;
         }

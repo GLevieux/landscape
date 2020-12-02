@@ -37,6 +37,9 @@ public class AgentFlowCurieux
     public float desirabilityN;
     public float desirabilityB;
 
+    public float noveltyBoost = 1.0f;
+    public float heightBoost = 0.8f;
+    public float safetyBoost = 0.5f;
 
     //Utiles 
     NavGrid nav;
@@ -132,10 +135,6 @@ public class AgentFlowCurieux
         safetyGainP = (1 - (meanDistWallNextP / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
         safetyGainN = (1 - (meanDistWallNextN / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
         safetyGainB = (1 - (meanDistWallNextB / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
-
-        float noveltyBoost = 3.0f;
-        float heightBoost = 2.0f;
-        float safetyBoost = 1.0f;
 
         desirabilityF = reachabilityF * (noveltyF * noveltyBoost + heightGainF * heightBoost + safetyGainF * safetyBoost);
         desirabilityP = reachabilityP * (noveltyP * noveltyBoost + heightGainP * heightBoost + safetyGainP * safetyBoost);
