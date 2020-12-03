@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8229647012688876479}
   - component: {fileID: 8549911036782492382}
   m_Layer: 0
-  m_Name: StairsToMiddle
+  m_Name: H2Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 7392395756328556826}
-  stringId: StairsToMiddle
+  stringId: H2Stairs
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000

@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 6477799644428399976}
   - component: {fileID: 981582661883126991}
   m_Layer: 0
-  m_Name: WallHighCorner
+  m_Name: H8WallCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 5245904112987263991}
-  stringId: WallHighCorner
+  stringId: H8WallCorner
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
@@ -374,6 +374,7 @@ MonoBehaviour:
   CanReachFromInsideXPos: 1
   NavHeightXNegRot0: 8
   CanReachFromInsideXNeg: 0
+  hideGizmos: 0
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0

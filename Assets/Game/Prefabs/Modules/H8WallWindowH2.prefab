@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4240520382838762202}
   - component: {fileID: 4552537284224396734}
   m_Layer: 0
-  m_Name: WindowMiddleModule
+  m_Name: H8WallWindowH2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 1034795501584925796}
-  stringId: WindowMiddleModule
+  stringId: H8WallWindowH2
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000

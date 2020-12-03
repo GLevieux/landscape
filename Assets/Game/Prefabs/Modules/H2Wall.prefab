@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6174008152629141320}
   - component: {fileID: 6174008152629141323}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: H2Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 6174008152629141322}
-  stringId: Wall
+  stringId: H2Wall
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
@@ -60,6 +60,7 @@ MonoBehaviour:
   CanReachFromInsideXPos: 1
   NavHeightXNegRot0: 0
   CanReachFromInsideXNeg: 1
+  hideGizmos: 0
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0

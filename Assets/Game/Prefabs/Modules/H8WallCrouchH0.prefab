@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1590911008606310175}
   - component: {fileID: 6075159282627659498}
   m_Layer: 0
-  m_Name: PassageModule
+  m_Name: H8WallCrouchH0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 1590911008606310144}
-  stringId: PassageModule
+  stringId: H8WallCrouchH0
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
