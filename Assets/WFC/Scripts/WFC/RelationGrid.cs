@@ -194,7 +194,17 @@ public class RelationGrid : MonoBehaviour
     public bool showNavGridDebug = true;
     public bool showDistanceField = true;
     private SimpleGridWFC.Module[,] modules = null;
+
+    [Header("Agent flow de test")]
     public AgentFlowCurieux agent = null;
+    [Range(-1.0f, 1.0f)]
+    public float noveltyBoost = 1.0f;
+    [Range(-1.0f, 1.0f)]
+    public float heightUpBoost = 0.8f;
+    [Range(-1.0f, 1.0f)]
+    public float heightDownBoost = -0.2f;
+    [Range(-1.0f, 1.0f)]
+    public float safetyBoost = 0.5f;
     public float stepHeightDebugNav = 0.05f;
     public float jumpHeightDebugNav = 0.8f;
     public int idPlayerStart = -1;
@@ -270,8 +280,13 @@ public class RelationGrid : MonoBehaviour
         float fitness = 0.0f;
 
         agent = new AgentFlowCurieux();
-        agent.Init(xStart, zStart, 0 ,dirStart, navGridDebug);
+        agent.Init(xStart, zStart, 0 ,dirStart, navGridDebug, gridUnitSize);
+        agent.heightDownBoost = heightDownBoost;
+        agent.heightUpBoost = heightUpBoost;
+        agent.safetyBoost = safetyBoost;
+        agent.noveltyBoost = noveltyBoost;
         agent.UpdatePerception();
+
 #if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
 #endif
@@ -281,6 +296,12 @@ public class RelationGrid : MonoBehaviour
     {
         if (agent == null)
             return;
+
+        agent.heightDownBoost = heightDownBoost;
+        agent.heightUpBoost = heightUpBoost;
+        agent.safetyBoost = safetyBoost;
+        agent.noveltyBoost = noveltyBoost;
+
         agent.Step();
         agent.UpdatePerception();
 #if UNITY_EDITOR
@@ -300,7 +321,7 @@ public class RelationGrid : MonoBehaviour
     public void EvaluateLevelEditor()
     {
         fitnessLevel = 0;
-        float nbSteps = 10000.0f;
+        float nbSteps = 30000.0f;
         for (int i=0;i< nbSteps; i++)
             fitnessLevel += agent.Step();
         fitnessLevel /= nbSteps;
@@ -1015,8 +1036,11 @@ public class RelationGrid : MonoBehaviour
 
                     UnityEditor.Handles.Label(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, navGridDebug.Cells[x, z].height, z * gridUnitSize + gridUnitSize / 5.0f), text);
 
+                    UnityEditor.Handles.color = Color.blue;
+
+                    text = "+";
                     if (navGridDebug.Cells[x, z].distWallMean < (gridSize * gridSize * gridSize))
-                        text = "" + navGridDebug.Cells[x, z].distWallMean;
+                        text = "" + Mathf.Round(navGridDebug.Cells[x, z].distWallMeanOfSq*100)/100;
 
                     UnityEditor.Handles.Label(transform.position + new Vector3(x * gridUnitSize + gridUnitSize / 2.0f, navGridDebug.Cells[x, z].height+1, z * gridUnitSize + gridUnitSize / 2.0f), text);
                 }

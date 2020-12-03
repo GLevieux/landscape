@@ -41,9 +41,10 @@ public class NavGrid
         public int zPos;
         public float height; //Moyenne des hauteurs atteignables
         public float distWallMean;
+        public float distWallMeanOfSq;
         //public float distToNearestWall; //Distance au mur le plus proche
         //public float tmpDistToNearestWall; //Distance au mur le plus proche pendant le calcul (pour plusieurs hauteurs)
-        
+
         public NavGrid grid;
 
         //La dir0 c'est ZPos, le forward
@@ -53,7 +54,8 @@ public class NavGrid
             out float heightBorderDiffToNext, //Différence de hauteur pour aller dans le prochain cube
             out float canReachNext, //A quel point je peut atteindre le prochain cube (Min des difficulté à traverser pour les deux cubes dans cette direction)
             out int lastTimeInsideNext,
-            out float distWallMeanNext) //Moyenne dans la prochaine case de la distance au mur
+            out float distWallMeanNext,
+            out float distWallMeanOfSqNext) //Moyenne dans la prochaine case de la distance au mur
         {
 
             //Direction Z (0)
@@ -63,12 +65,14 @@ public class NavGrid
             canReachNext = CanReachFromInsideZP;
             lastTimeInsideNext = 0;
             distWallMeanNext = 0;
+            distWallMeanOfSqNext = 0;
 
             if (zPos + 1 <= grid.Cells.GetUpperBound(1))
             {
                 lastTimeInsideNext = grid.Cells[xPos, zPos + 1].lastTimeInside;
                 canReachNext = Mathf.Min(canReachNext,grid.Cells[xPos, zPos + 1].CanReachFromInsideZN);
                 distWallMeanNext = grid.Cells[xPos, zPos + 1].distWallMean;
+                distWallMeanOfSqNext = grid.Cells[xPos, zPos + 1].distWallMeanOfSq;
             }
                         
             switch (dir)
@@ -83,6 +87,7 @@ public class NavGrid
                         lastTimeInsideNext = grid.Cells[xPos+1, zPos].lastTimeInside;
                         canReachNext = Mathf.Min(canReachNext, grid.Cells[xPos+1, zPos].CanReachFromInsideXN);
                         distWallMeanNext = grid.Cells[xPos + 1, zPos].distWallMean;
+                        distWallMeanOfSqNext = grid.Cells[xPos + 1, zPos].distWallMeanOfSq;
                     }
             break;
                 case 2:
@@ -95,6 +100,7 @@ public class NavGrid
                         lastTimeInsideNext = grid.Cells[xPos, zPos - 1].lastTimeInside;
                         canReachNext = Mathf.Min(canReachNext, grid.Cells[xPos, zPos - 1].CanReachFromInsideZP);
                         distWallMeanNext = grid.Cells[xPos, zPos - 1].distWallMean;
+                        distWallMeanOfSqNext = grid.Cells[xPos, zPos - 1].distWallMeanOfSq;
                     }
                     break;
                 case 3:
@@ -107,6 +113,7 @@ public class NavGrid
                         lastTimeInsideNext = grid.Cells[xPos-1, zPos].lastTimeInside;
                         canReachNext = Mathf.Min(canReachNext, grid.Cells[xPos-1, zPos].CanReachFromInsideXP);
                         distWallMeanNext = grid.Cells[xPos-1, zPos].distWallMean;
+                        distWallMeanOfSqNext = grid.Cells[xPos - 1, zPos].distWallMeanOfSq;
                     }
                     break;
             }
@@ -468,6 +475,12 @@ public class NavGrid
 
         Cells[cx, cz].distWallMean = Cells[cx, cz].DistWallXN + Cells[cx, cz].DistWallXP + Cells[cx, cz].DistWallZN + Cells[cx, cz].DistWallZP;
         Cells[cx, cz].distWallMean /= 4.0f;
+
+        Cells[cx, cz].distWallMeanOfSq = Mathf.Pow(Cells[cx, cz].DistWallXN,0.5f) +
+             Mathf.Pow(Cells[cx, cz].DistWallXP, 0.5f)+
+             Mathf.Pow(Cells[cx, cz].DistWallZN, 0.5f)+
+             Mathf.Pow(Cells[cx, cz].DistWallZP, 0.5f);
+        Cells[cx, cz].distWallMeanOfSq /= 4.0f;
     }
 
 

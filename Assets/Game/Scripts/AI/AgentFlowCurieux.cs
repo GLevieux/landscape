@@ -38,8 +38,11 @@ public class AgentFlowCurieux
     public float desirabilityB;
 
     public float noveltyBoost = 1.0f;
-    public float heightBoost = 0.8f;
+    public float heightUpBoost = 0.8f;
+    public float heightDownBoost = -0.2f;
     public float safetyBoost = 0.5f;
+
+    public float safetyDistPow = 1.2f;
 
     //Utiles 
     NavGrid nav;
@@ -49,8 +52,9 @@ public class AgentFlowCurieux
 
     float gridSizeX;
     float gridSizeZ;
+    float gridUnitSize;
 
-    public void Init(int xStart, int zStart, int heightStart, int directionStart, NavGrid grid)
+    public void Init(int xStart, int zStart, int heightStart, int directionStart, NavGrid grid, float gridUnitSize)
     {
         direction = directionStart;
         xPos = xStart;
@@ -59,6 +63,7 @@ public class AgentFlowCurieux
         nav = grid;
         gridSizeX = nav.Cells.GetUpperBound(0) + 1;
         gridSizeZ = nav.Cells.GetUpperBound(0) + 1;
+        this.gridUnitSize = gridUnitSize;
     }
 
 
@@ -68,8 +73,9 @@ public class AgentFlowCurieux
         stepNum++;
         nav.Cells[xPos, zPos].lastTimeInside = stepNum;
         height = nav.Cells[xPos, zPos].height;
-        float safety = 1 - (nav.Cells[xPos, zPos].distWallMean / Mathf.Max(gridSizeX, gridSizeZ));
 
+        float safety = 1 / ((nav.Cells[xPos, zPos].distWallMeanOfSq / Mathf.Max(gridSizeX, gridSizeZ))+1);
+        
         float heightOutF = 0;
         float heightCenterNextF = 0;
         float heightBorderDiffToNextF = 0;
@@ -102,10 +108,12 @@ public class AgentFlowCurieux
         int directionN = (direction + 3) % 4;
         int directionB = (direction + 2) % 4;
 
-        nav.Cells[xPos, zPos].GetValuesInDir(direction, out heightOutF, out heightCenterNextF, out heightBorderDiffToNextF, out canReachNextF, out lastTimeInsideNextF, out meanDistWallNextF);
-        nav.Cells[xPos, zPos].GetValuesInDir(directionP, out heightOutP, out heightCenterNextP, out heightBorderDiffToNextP, out canReachNextP, out lastTimeInsideNextP, out meanDistWallNextP);
-        nav.Cells[xPos, zPos].GetValuesInDir(directionN, out heightOutN, out heightCenterNextN, out heightBorderDiffToNextN, out canReachNextN, out lastTimeInsideNextN, out meanDistWallNextN);
-        nav.Cells[xPos, zPos].GetValuesInDir(directionB, out heightOutB, out heightCenterNextB, out heightBorderDiffToNextB, out canReachNextB, out lastTimeInsideNextB, out meanDistWallNextB);
+        float dummy;
+
+        nav.Cells[xPos, zPos].GetValuesInDir(direction, out heightOutF, out heightCenterNextF, out heightBorderDiffToNextF, out canReachNextF, out lastTimeInsideNextF, out dummy, out meanDistWallNextF);
+        nav.Cells[xPos, zPos].GetValuesInDir(directionP, out heightOutP, out heightCenterNextP, out heightBorderDiffToNextP, out canReachNextP, out lastTimeInsideNextP, out dummy, out meanDistWallNextP);
+        nav.Cells[xPos, zPos].GetValuesInDir(directionN, out heightOutN, out heightCenterNextN, out heightBorderDiffToNextN, out canReachNextN, out lastTimeInsideNextN, out dummy, out meanDistWallNextN);
+        nav.Cells[xPos, zPos].GetValuesInDir(directionB, out heightOutB, out heightCenterNextB, out heightBorderDiffToNextB, out canReachNextB, out lastTimeInsideNextB, out dummy, out meanDistWallNextB);
 
         //Peut on atteindre la suivante
         reachabilityF = canReachNextF * ((Mathf.Abs(heightBorderDiffToNextF) < 0.05f) ? 2.0f : ((Mathf.Abs(heightBorderDiffToNextF) < 0.6f) ? 0.5f : 0));
@@ -125,21 +133,37 @@ public class AgentFlowCurieux
         noveltyB = (stepNum - lastTimeInsideNextB) / 200.0f;
 
         //Gagne t'on de la hauteur
-        heightGainF = Mathf.Max(-1, heightCenterNextF - height) / nav.maxHeight;
-        heightGainP = Mathf.Max(-1, heightCenterNextP - height) / nav.maxHeight;
-        heightGainN = Mathf.Max(-1, heightCenterNextN - height) / nav.maxHeight;
-        heightGainB = Mathf.Max(-1, heightCenterNextB - height) / nav.maxHeight;
+        heightGainF = heightCenterNextF - height / gridUnitSize;
+        heightGainP = heightCenterNextP - height / gridUnitSize;
+        heightGainN = heightCenterNextN - height / gridUnitSize;
+        heightGainB = heightCenterNextB - height / gridUnitSize;
+
+        float heightUpGainF = Mathf.Max(0, heightGainF);
+        float heightUpGainP = Mathf.Max(0, heightGainP);
+        float heightUpGainN = Mathf.Max(0, heightGainN);
+        float heightUpGainB = Mathf.Max(0, heightGainB);
+
+        float heightDownGainF = Mathf.Min(0, heightGainF);
+        float heightDownGainP = Mathf.Min(0, heightGainP);
+        float heightDownGainN = Mathf.Min(0, heightGainN);
+        float heightDownGainB = Mathf.Min(0, heightGainB);
+
+        float safetyF = (1 / ((meanDistWallNextF / Mathf.Max(gridSizeX, gridSizeZ)) + 1));
+        float safetyP = (1 / ((meanDistWallNextP / Mathf.Max(gridSizeX, gridSizeZ)) + 1));
+        float safetyN = (1 / ((meanDistWallNextN / Mathf.Max(gridSizeX, gridSizeZ)) + 1));
+        float safetyB = (1 / ((meanDistWallNextB / Mathf.Max(gridSizeX, gridSizeZ)) + 1));
 
         //Gagne t'on de la sureté (de l'espace)
-        safetyGainF = (1 - (meanDistWallNextF / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
-        safetyGainP = (1 - (meanDistWallNextP / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
-        safetyGainN = (1 - (meanDistWallNextN / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
-        safetyGainB = (1 - (meanDistWallNextB / Mathf.Max(gridSizeX, gridSizeZ))) - safety;
+        safetyGainF = safetyF - safety;
+        safetyGainP = safetyP - safety;
+        safetyGainN = safetyN - safety;
+        safetyGainB = safetyB - safety;
 
-        desirabilityF = reachabilityF * (noveltyF * noveltyBoost + heightGainF * heightBoost + safetyGainF * safetyBoost);
-        desirabilityP = reachabilityP * (noveltyP * noveltyBoost + heightGainP * heightBoost + safetyGainP * safetyBoost);
-        desirabilityN = reachabilityN * (noveltyN * noveltyBoost + heightGainN * heightBoost + safetyGainN * safetyBoost);
-        desirabilityB = reachabilityB * (noveltyB * noveltyBoost + heightGainB * heightBoost + safetyGainB * safetyBoost);
+        //Synthèse
+        desirabilityF = reachabilityF * (noveltyF * noveltyBoost + heightUpGainF * heightUpBoost + heightDownGainF * heightDownBoost + safetyGainF * safetyBoost);
+        desirabilityP = reachabilityP * (noveltyP * noveltyBoost + heightUpGainP * heightUpBoost + heightDownGainP * heightDownBoost + safetyGainP * safetyBoost);
+        desirabilityN = reachabilityN * (noveltyN * noveltyBoost + heightUpGainN * heightUpBoost + heightDownGainN * heightDownBoost + safetyGainN * safetyBoost);
+        desirabilityB = reachabilityB * (noveltyB * noveltyBoost + heightUpGainB * heightUpBoost + heightDownGainB * heightDownBoost + safetyGainB * safetyBoost);
 
         if (reachabilityF < float.Epsilon)
             desirabilityF = -float.MaxValue;

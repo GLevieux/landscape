@@ -52,7 +52,7 @@ public class GATestFlow : GAScript
 
     protected override IFitness getFitnessClass()
     {
-        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,noveltyBoost,heightBoost,safetyBoost);
+        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,noveltyBoost,heightUpBoost, heightDownBoost, safetyBoost);
     }
 
     protected override IChromosome getChromosomeClass()
@@ -134,7 +134,9 @@ public class GATestFlow : GAScript
     [Range(-1.0f, 1.0f)]
     public float noveltyBoost = 1.0f;
     [Range(-1.0f, 1.0f)]
-    public float heightBoost = 0.8f;
+    public float heightUpBoost = 0.8f;
+    [Range(-1.0f, 1.0f)]
+    public float heightDownBoost = -0.2f;
     [Range(-1.0f, 1.0f)]
     public float safetyBoost = 0.5f;
 
@@ -148,12 +150,13 @@ public class GATestFlow : GAScript
         private int m_sizeZone;
         private int idPlayerStart = -1;
         private float noveltyBoost;
-        private float heightBoost;
+        private float heightUpBoost;
+        private float heightDownBoost;
         private float safetyBoost;
 
 
 
-        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart, float noveltyBoost, float heightBoost, float safetyBoost)
+        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart, float noveltyBoost, float heightUpBoost, float heightDownBoost, float safetyBoost)
         {
             m_generalConfig = config;
             m_numberOfZones = numberOfZones;
@@ -167,7 +170,8 @@ public class GATestFlow : GAScript
             idPlayerStart = IdPlayerStart;
 
             this.noveltyBoost = noveltyBoost;
-            this.heightBoost = heightBoost;
+            this.heightUpBoost = heightUpBoost;
+            this.heightDownBoost = heightDownBoost;
             this.safetyBoost = safetyBoost;
         }
 
@@ -257,8 +261,9 @@ public class GATestFlow : GAScript
             AgentFlowCurieux agent = new AgentFlowCurieux();
             agent.noveltyBoost = noveltyBoost;
             agent.safetyBoost = safetyBoost;
-            agent.heightBoost = heightBoost;
-            agent.Init(xStart, zStart, 0, dirStart, nav);
+            agent.heightUpBoost = heightUpBoost;
+            agent.heightDownBoost = heightDownBoost;
+            agent.Init(xStart, zStart, 0, dirStart, nav, m_generalConfig.gridUnitSize);
 
             for (int i = 0; i < 30000; i++)
                 fitness += agent.Step()/30000.0f;            
