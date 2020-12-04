@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6368785165535854929}
   - component: {fileID: 6368785165535854930}
   m_Layer: 0
-  m_Name: Corner
+  m_Name: H2Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 6368785165535854931}
-  stringId: Corner
+  stringId: H2Corner
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
@@ -61,6 +61,7 @@ MonoBehaviour:
   CanReachFromInsideXPos: 1
   NavHeightXNegRot0: 2
   CanReachFromInsideXNeg: 0
+  hideGizmos: 0
   param:
     allRotationsAllowed: 0
     symetricalAxisY: 0

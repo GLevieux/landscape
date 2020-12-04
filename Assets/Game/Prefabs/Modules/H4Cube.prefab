@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3469153765622638565}
   - component: {fileID: 4646658664605701890}
   m_Layer: 0
-  m_Name: CobbleModule
+  m_Name: H4Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 3469153765622638566}
-  stringId: CobbleModule
+  stringId: H4Cube
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000

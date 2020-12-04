@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 2738180347802693386}
-  stringId: WindowUpModule
+  stringId: H8WallWindowH4
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1983943652083166031}
   - component: {fileID: -7299787227362938860}
   m_Layer: 0
-  m_Name: CubeMidModule
+  m_Name: H2Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 4793056324907740311}
-  stringId: CubeMidModule
+  stringId: H2Cube
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000

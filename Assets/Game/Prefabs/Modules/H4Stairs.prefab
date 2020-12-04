@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4383504779927040991}
   - component: {fileID: 6638387201422594091}
   m_Layer: 0
-  m_Name: StairsToUp
+  m_Name: H4Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabTag: 0
   prefab: {fileID: 2517100231050893420}
-  stringId: StairsToUp
+  stringId: H4Stairs
   doNotShowInCreatedLevel: 0
   minNb: 0
   maxNb: 1000
