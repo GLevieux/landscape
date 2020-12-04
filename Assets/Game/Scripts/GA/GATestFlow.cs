@@ -1,4 +1,4 @@
-﻿//#define LOGGER
+﻿#define LOGGER
 
 
 using System;
@@ -74,6 +74,64 @@ public class GATestFlow : GAScript
         {
             Logger.CSV("G" + m_ga.GenerationsNumber.ToString(), tempChro[i].Fitness.ToString());
         }
+
+        //On calcule, pour chaque zone de la map(chaque gene) l'entropie
+        Gene[] genes = tempChro[0].GetGenes();
+        float[] counts = new float[UniqueTile.getLastId() + 1];
+        float [] entropies = new float[genes.Length];
+
+        for (int g = 0; g < genes.Length; g++)
+        {
+            for (int i = 0; i < counts.Length; i++)
+                counts[i] = 0;
+
+            for (int c = 0; c < tempChro.Count; c++)
+            {
+                int assetID = Convert.ToInt32(tempChro[c].GetGene(g).Value, CultureInfo.InvariantCulture);
+                counts[assetID]++;  
+            }
+
+            for (int i = 0; i < counts.Length; i++)
+                counts[i] /= (float)tempChro.Count;
+
+            entropies[g] = 0;
+            for (int i = 0; i < counts.Length; i++)
+                if(counts[i] > float.Epsilon)
+                    entropies[g] += -(float)(counts[i] * Math.Log(counts[i], 2));
+                
+            Logger.CSVEntropyZone("G" + m_ga.GenerationsNumber.ToString(), entropies[g].ToString());
+        }
+
+        //On calcule, pour chaque zone de la map(chaque gene) l'entropie
+        Module[,] modulesBase = ((WFCChromosome)tempChro[0]).gridResult;
+        int gridSize = modulesBase.GetUpperBound(0) + 1;
+
+        for (int g = 0; g < modulesBase.Length; g++)
+        {
+            for (int i = 0; i < counts.Length; i++)
+                counts[i] = 0;
+
+            for (int c = 0; c < tempChro.Count; c++)
+            {
+                Module[,] modules = ((WFCChromosome)tempChro[c]).gridResult;
+                if (modules[g % gridSize, g / gridSize] != null)
+                {
+                    int assetID = Convert.ToInt32(modules[g % gridSize, g / gridSize].linkedTile.id, CultureInfo.InvariantCulture);
+                    counts[assetID]++;
+                }
+            }
+                    
+            for (int i = 0; i < counts.Length; i++)
+                counts[i] /= (float)tempChro.Count;
+
+            entropies[g] = 0;
+            for (int i = 0; i < counts.Length; i++)
+                if (counts[i] > float.Epsilon)
+                    entropies[g] += -(float)(counts[i] * Math.Log(counts[i], 2));                  
+            
+            Logger.CSVEntropyModule("G" + m_ga.GenerationsNumber.ToString(), entropies[g].ToString());
+        }
+
 #endif
 
         Debug.Log("----------------------------------------------------------------------");
@@ -219,7 +277,7 @@ public class GATestFlow : GAScript
             wfc.launchWFC();
 
             if (wfc.isWFCFailed())
-                return 0.0f;
+                return -float.MaxValue;
 
             //Sauve le résultat
             Module[,] modules = wfc.getModuleResult(true);
@@ -252,7 +310,7 @@ public class GATestFlow : GAScript
             //Pas de start, c'est nul
             if (xStart < 0)
             {
-                return 0.0f;
+                return -float.MaxValue;
             }
 
             //On part du départ et on voit comme ca avance tout droit

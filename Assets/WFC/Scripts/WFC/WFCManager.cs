@@ -169,12 +169,23 @@ public class WFCManager : MonoBehaviour
                 gaLaunched = false;
             }
 
+            if (Input.GetButtonDown("ShowCurrentGeneration") || ga.getGenerationNumber() % 200 == 0)
+            {
+                ga.PauseGA(true);
+                ga.ShowResult(this.transform.position);
+                StartCoroutine(SendMessageEndOfFrame("LevelGenerated"));
+                saveCurrentGeneration();
+                ga.PauseGA(false);               
+            }
+
             if (ga.gaEnded)
             {
                 gaLaunched = false;
                 ga.gaEnded = false;
                 ga.ShowResult(this.transform.position);
-                
+
+                Logger.FlushToDisk();
+
                 if (zoneGrid)
                 {
                     zoneGrid.setZones(ga.getZonesResult());
@@ -182,7 +193,7 @@ public class WFCManager : MonoBehaviour
 
                 if (autoScreenshot && GetComponent<CameraCapture>())
                 {
-                    GetComponent<CameraCapture>().TakeScreenshot("AutoScreenshot.png", true);
+                    GetComponent<CameraCapture>().TakeScreenshots(true);
                 }
 
                 debugText = ga.debug +  " Time GA: " + Mathf.Round((float)ga.getElapsedTime().TotalMilliseconds / 100.0f) / 10 + "s";
@@ -538,4 +549,18 @@ public class WFCManager : MonoBehaviour
     {
         Debug.Log("Start Generation in " + timeBeforeLaunch);
     }
+
+    /***
+     * LOG
+     */
+    
+    public void saveCurrentGeneration()
+    {
+        CameraCapture c = GetComponent<CameraCapture>();
+        if (c != null)
+            c.TakeScreenshots(true);
+        Logger.FlushToDisk();
+    }
 }
+
+

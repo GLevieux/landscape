@@ -309,6 +309,22 @@ public class RelationGrid : MonoBehaviour
 #endif
     }
 
+    public void UpdateAgentEditor()
+    {
+        if (agent == null)
+            return;
+
+        agent.heightDownBoost = heightDownBoost;
+        agent.heightUpBoost = heightUpBoost;
+        agent.safetyBoost = safetyBoost;
+        agent.noveltyBoost = noveltyBoost;
+       
+        agent.UpdatePerception();
+#if UNITY_EDITOR
+        UnityEditor.SceneView.RepaintAll();
+#endif
+    }
+
     public void KillAgentEditor()
     {
         agent = null;
@@ -320,6 +336,13 @@ public class RelationGrid : MonoBehaviour
     [ReadOnly] public float fitnessLevel = 0.0f;
     public void EvaluateLevelEditor()
     {
+        agent.heightDownBoost = heightDownBoost;
+        agent.heightUpBoost = heightUpBoost;
+        agent.safetyBoost = safetyBoost;
+        agent.noveltyBoost = noveltyBoost;
+
+        BuildAndShowNavEditor();
+
         fitnessLevel = 0;
         float nbSteps = 30000.0f;
         for (int i=0;i< nbSteps; i++)

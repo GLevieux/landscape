@@ -6,6 +6,7 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class RandomSky : MonoBehaviour
 {
+    public bool DoEffects = true;
     public Volume volume;
     public Transform mainDirectionalLight;
     private Quaternion nextSunRotation = Quaternion.identity;
@@ -73,13 +74,18 @@ public class RandomSky : MonoBehaviour
     
     public void LevelGenerated()
     {
-        Blackout(false);
+        if(DoEffects)
+            Blackout(false);
     }
 
     public void PreStartGeneration()
     {
-        Blackout(true);
-        Randomize();
+        if (DoEffects)
+        {
+            Blackout(true);
+            Randomize();
+        }
+        
     }
 
 }

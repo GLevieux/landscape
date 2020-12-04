@@ -1,0 +1,326 @@
+=====Start GA=====
+=====WFC Config=====
+GridSize is 20
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True True True True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 13) are :
+0 is Corner, nbInGrid: 4, NoBigtile
+1 is Wall, nbInGrid: 33, NoBigtile
+2 is Border, nbInGrid: 44, NoBigtile
+3 is Air, nbInGrid: 8316, NoBigtile
+4 is EnemySpawner, nbInGrid: 2, NoBigtile
+5 is Goal, nbInGrid: 1, NoBigtile
+6 is PlayerSpawner, nbInGrid: 1, NoBigtile
+7 is CubeMidModule, nbInGrid: 164, NoBigtile
+8 is WallHighModule, nbInGrid: 260, NoBigtile
+9 is WallHighCorner, nbInGrid: 240, NoBigtile
+10 is CobbleModule, nbInGrid: 280, NoBigtile
+11 is StairsToUp, nbInGrid: 160, NoBigtile
+12 is StairsToMiddle, nbInGrid: 120, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GATestFlow
+Population is (50, 100) 
+nbGeneration is 1000000
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is True
+nbZones is 400
+-------Zone coverage size is 1
+
+=====GA Generations=====
+Generation:1 - Fitness:3.98243021965027
+Generation:2 - Fitness:3.98243021965027
+Generation:3 - Fitness:3.98243021965027
+Generation:4 - Fitness:4.09422969818115
+Generation:5 - Fitness:4.31975078582764
+Generation:6 - Fitness:4.31975078582764
+Generation:7 - Fitness:4.31975078582764
+Generation:8 - Fitness:4.31975078582764
+Generation:9 - Fitness:4.31975078582764
+Generation:10 - Fitness:4.31975078582764
+Generation:11 - Fitness:4.31975078582764
+Generation:12 - Fitness:4.32136726379395
+Generation:13 - Fitness:4.32136726379395
+Generation:14 - Fitness:4.32136726379395
+Generation:15 - Fitness:4.32136726379395
+Generation:16 - Fitness:4.32136726379395
+Generation:17 - Fitness:4.32136726379395
+Generation:18 - Fitness:4.32136726379395
+Generation:19 - Fitness:4.32136726379395
+Generation:20 - Fitness:4.32812356948853
+Generation:21 - Fitness:4.32812356948853
+Generation:22 - Fitness:4.32812356948853
+Generation:23 - Fitness:4.32812356948853
+Generation:24 - Fitness:4.32812356948853
+Generation:25 - Fitness:4.32812356948853
+Generation:26 - Fitness:4.32812356948853
+Generation:27 - Fitness:4.32812356948853
+Generation:28 - Fitness:4.32812356948853
+Generation:29 - Fitness:4.32812356948853
+Generation:30 - Fitness:4.32812356948853
+Generation:31 - Fitness:4.32812356948853
+Generation:32 - Fitness:4.32812356948853
+Generation:33 - Fitness:4.32812356948853
+Generation:34 - Fitness:4.32812356948853
+Generation:35 - Fitness:4.32812356948853
+Generation:36 - Fitness:4.32812356948853
+Generation:37 - Fitness:4.6358585357666
+Generation:38 - Fitness:4.6358585357666
+Generation:39 - Fitness:4.6358585357666
+Generation:40 - Fitness:4.6358585357666
+Generation:41 - Fitness:4.6358585357666
+Generation:42 - Fitness:4.6358585357666
+Generation:43 - Fitness:4.6358585357666
+Generation:44 - Fitness:4.6358585357666
+Generation:45 - Fitness:4.6358585357666
+Generation:46 - Fitness:4.6358585357666
+Generation:47 - Fitness:4.6358585357666
+Generation:48 - Fitness:4.6358585357666
+Generation:49 - Fitness:4.6358585357666
+Generation:50 - Fitness:4.6358585357666
+Generation:51 - Fitness:4.6358585357666
+Generation:52 - Fitness:4.6358585357666
+Generation:53 - Fitness:4.6358585357666
+Generation:54 - Fitness:4.6358585357666
+Generation:55 - Fitness:4.6358585357666
+Generation:56 - Fitness:4.6358585357666
+Generation:57 - Fitness:4.6358585357666
+Generation:58 - Fitness:4.6358585357666
+Generation:59 - Fitness:4.6358585357666
+Generation:60 - Fitness:4.6358585357666
+Generation:61 - Fitness:4.6358585357666
+Generation:62 - Fitness:4.6358585357666
+Generation:63 - Fitness:4.6358585357666
+Generation:64 - Fitness:4.6358585357666
+Generation:65 - Fitness:4.6358585357666
+Generation:66 - Fitness:4.6358585357666
+Generation:67 - Fitness:4.6358585357666
+Generation:68 - Fitness:4.6358585357666
+Generation:69 - Fitness:4.6358585357666
+Generation:70 - Fitness:4.6358585357666
+Generation:71 - Fitness:4.6358585357666
+Generation:72 - Fitness:4.6358585357666
+Generation:73 - Fitness:4.6358585357666
+Generation:74 - Fitness:4.6358585357666
+Generation:75 - Fitness:4.6358585357666
+Generation:76 - Fitness:4.6358585357666
+Generation:77 - Fitness:4.6358585357666
+Generation:78 - Fitness:4.6358585357666
+Generation:79 - Fitness:4.6358585357666
+Generation:80 - Fitness:4.6358585357666
+Generation:81 - Fitness:4.6358585357666
+Generation:82 - Fitness:4.6358585357666
+Generation:83 - Fitness:4.6358585357666
+Generation:84 - Fitness:4.6358585357666
+Generation:85 - Fitness:4.6358585357666
+Generation:86 - Fitness:4.6358585357666
+Generation:87 - Fitness:4.71845388412476
+Generation:88 - Fitness:4.71845388412476
+Generation:89 - Fitness:4.71845388412476
+Generation:90 - Fitness:4.71845388412476
+Generation:91 - Fitness:4.71845388412476
+Generation:92 - Fitness:4.71845388412476
+Generation:93 - Fitness:4.71845388412476
+Generation:94 - Fitness:4.71845388412476
+Generation:95 - Fitness:4.71845388412476
+Generation:96 - Fitness:4.71845388412476
+Generation:97 - Fitness:4.71845388412476
+Generation:98 - Fitness:4.71845388412476
+Generation:99 - Fitness:4.71845388412476
+Generation:100 - Fitness:4.71845388412476
+Generation:101 - Fitness:4.71845388412476
+Generation:102 - Fitness:4.71845388412476
+Generation:103 - Fitness:4.71845388412476
+Generation:104 - Fitness:4.71845388412476
+Generation:105 - Fitness:4.71845388412476
+Generation:106 - Fitness:4.71845388412476
+Generation:107 - Fitness:4.71845388412476
+Generation:108 - Fitness:4.71845388412476
+Generation:109 - Fitness:4.71845388412476
+Generation:110 - Fitness:4.71845388412476
+Generation:111 - Fitness:4.71845388412476
+Generation:112 - Fitness:4.71845388412476
+Generation:113 - Fitness:4.71845388412476
+Generation:114 - Fitness:4.71845388412476
+Generation:115 - Fitness:4.71845388412476
+Generation:116 - Fitness:4.71845388412476
+Generation:117 - Fitness:4.71845388412476
+Generation:118 - Fitness:4.71845388412476
+Generation:119 - Fitness:4.71845388412476
+Generation:120 - Fitness:4.71845388412476
+Generation:121 - Fitness:4.71845388412476
+Generation:122 - Fitness:4.71845388412476
+Generation:123 - Fitness:4.71845388412476
+Generation:124 - Fitness:4.71845388412476
+Generation:125 - Fitness:4.71845388412476
+Generation:126 - Fitness:4.71845388412476
+Generation:127 - Fitness:4.71845388412476
+Generation:128 - Fitness:4.71845388412476
+Generation:129 - Fitness:4.71845388412476
+Generation:130 - Fitness:4.71845388412476
+Generation:131 - Fitness:4.71845388412476
+Generation:132 - Fitness:4.71845388412476
+Generation:133 - Fitness:4.71845388412476
+Generation:134 - Fitness:4.71845388412476
+Generation:135 - Fitness:4.71845388412476
+Generation:136 - Fitness:4.71845388412476
+Generation:137 - Fitness:4.71845388412476
+Generation:138 - Fitness:4.71845388412476
+Generation:139 - Fitness:4.71845388412476
+Generation:140 - Fitness:4.71845388412476
+Generation:141 - Fitness:4.71845388412476
+Generation:142 - Fitness:4.71845388412476
+Generation:143 - Fitness:4.71845388412476
+Generation:144 - Fitness:4.71845388412476
+Generation:145 - Fitness:4.71845388412476
+Generation:146 - Fitness:4.71845388412476
+Generation:147 - Fitness:4.71845388412476
+Generation:148 - Fitness:4.71845388412476
+Generation:149 - Fitness:4.71845388412476
+Generation:150 - Fitness:4.71845388412476
+Generation:151 - Fitness:4.71845388412476
+Generation:152 - Fitness:4.71845388412476
+Generation:153 - Fitness:4.71845388412476
+Generation:154 - Fitness:4.71845388412476
+Generation:155 - Fitness:4.71845388412476
+Generation:156 - Fitness:4.71845388412476
+Generation:157 - Fitness:4.71845388412476
+Generation:158 - Fitness:4.71845388412476
+Generation:159 - Fitness:4.71845388412476
+Generation:160 - Fitness:4.71845388412476
+Generation:161 - Fitness:4.71845388412476
+Generation:162 - Fitness:4.71845388412476
+Generation:163 - Fitness:4.71845388412476
+Generation:164 - Fitness:4.71845388412476
+Generation:165 - Fitness:4.71845388412476
+Generation:166 - Fitness:4.71845388412476
+Generation:167 - Fitness:4.71845388412476
+Generation:168 - Fitness:4.71845388412476
+Generation:169 - Fitness:4.71845388412476
+Generation:170 - Fitness:4.71845388412476
+Generation:171 - Fitness:4.71845388412476
+Generation:172 - Fitness:4.71845388412476
+Generation:173 - Fitness:4.71845388412476
+Generation:174 - Fitness:4.71845388412476
+Generation:175 - Fitness:4.71845388412476
+Generation:176 - Fitness:4.71845388412476
+Generation:177 - Fitness:4.71845388412476
+Generation:178 - Fitness:4.71845388412476
+Generation:179 - Fitness:4.71845388412476
+Generation:180 - Fitness:4.71845388412476
+Generation:181 - Fitness:4.71845388412476
+Generation:182 - Fitness:4.71845388412476
+Generation:183 - Fitness:4.71845388412476
+Generation:184 - Fitness:4.71845388412476
+Generation:185 - Fitness:4.71845388412476
+Generation:186 - Fitness:4.71845388412476
+Generation:187 - Fitness:4.71845388412476
+Generation:188 - Fitness:4.71845388412476
+Generation:189 - Fitness:4.71845388412476
+Generation:190 - Fitness:4.71845388412476
+Generation:191 - Fitness:4.71845388412476
+Generation:192 - Fitness:4.71845388412476
+Generation:193 - Fitness:4.71845388412476
+Generation:194 - Fitness:4.71845388412476
+Generation:195 - Fitness:4.71845388412476
+Generation:196 - Fitness:4.71845388412476
+Generation:197 - Fitness:4.71845388412476
+Generation:198 - Fitness:4.71845388412476
+Generation:199 - Fitness:4.71845388412476
+Generation:200 - Fitness:4.71845388412476
+Generation:201 - Fitness:4.71845388412476
+Generation:202 - Fitness:4.71845388412476
+Generation:203 - Fitness:4.71845388412476
+Generation:204 - Fitness:4.71845388412476
+Generation:205 - Fitness:4.71845388412476
+Generation:206 - Fitness:4.71845388412476
+Generation:207 - Fitness:4.71845388412476
+Generation:208 - Fitness:4.71845388412476
+Generation:209 - Fitness:4.71845388412476
+Generation:210 - Fitness:4.71845388412476
+Generation:211 - Fitness:4.71845388412476
+Generation:212 - Fitness:4.71845388412476
+Generation:213 - Fitness:4.71845388412476
+Generation:214 - Fitness:4.71845388412476
+Generation:215 - Fitness:4.71845388412476
+Generation:216 - Fitness:4.71845388412476
+Generation:217 - Fitness:4.71845388412476
+Generation:218 - Fitness:4.71845388412476
+Generation:219 - Fitness:4.71845388412476
+Generation:220 - Fitness:4.71845388412476
+Generation:221 - Fitness:4.71845388412476
+Generation:222 - Fitness:4.71845388412476
+Generation:223 - Fitness:4.71845388412476
+Generation:224 - Fitness:4.71845388412476
+Generation:225 - Fitness:4.71845388412476
+Generation:226 - Fitness:4.71845388412476
+Generation:227 - Fitness:4.71845388412476
+Generation:228 - Fitness:4.71845388412476
+Generation:229 - Fitness:4.71845388412476
+Generation:230 - Fitness:4.71845388412476
+Generation:231 - Fitness:4.71845388412476
+Generation:232 - Fitness:4.71845388412476
+Generation:233 - Fitness:4.71845388412476
+Generation:234 - Fitness:4.71845388412476
+Generation:235 - Fitness:4.71845388412476
+Generation:236 - Fitness:4.71845388412476
+Generation:237 - Fitness:4.71845388412476
+Generation:238 - Fitness:4.71845388412476
+Generation:239 - Fitness:4.71845388412476
+Generation:240 - Fitness:4.71845388412476
+Generation:241 - Fitness:4.71845388412476
+Generation:242 - Fitness:4.71845388412476
+Generation:243 - Fitness:4.71845388412476
+Generation:244 - Fitness:4.71845388412476
+Generation:245 - Fitness:4.71845388412476
+Generation:246 - Fitness:4.71845388412476
+Generation:247 - Fitness:4.71845388412476
+Generation:248 - Fitness:4.71845388412476
+Generation:249 - Fitness:4.71845388412476
+Generation:250 - Fitness:4.71845388412476
+Generation:251 - Fitness:4.71845388412476
+Generation:252 - Fitness:4.71845388412476
+Generation:253 - Fitness:4.71845388412476
+Generation:254 - Fitness:4.71845388412476
+Generation:255 - Fitness:4.71845388412476
+Generation:256 - Fitness:4.71845388412476
+Generation:257 - Fitness:4.71845388412476
+Generation:258 - Fitness:4.71845388412476
+Generation:259 - Fitness:4.71845388412476
+Generation:260 - Fitness:4.71845388412476
+Generation:261 - Fitness:4.71845388412476
+Generation:262 - Fitness:4.71845388412476
+Generation:263 - Fitness:4.71845388412476
+Generation:264 - Fitness:4.71845388412476
+Generation:265 - Fitness:4.71845388412476
+Generation:266 - Fitness:4.71845388412476
+Generation:267 - Fitness:4.71845388412476
+Generation:268 - Fitness:4.71845388412476
+Generation:269 - Fitness:4.71845388412476
+Generation:270 - Fitness:4.71845388412476
+Generation:271 - Fitness:4.71845388412476
+Generation:272 - Fitness:4.71845388412476
+Generation:273 - Fitness:4.71845388412476
+Generation:274 - Fitness:4.71845388412476
+Generation:275 - Fitness:4.71845388412476
+Generation:276 - Fitness:4.71845388412476
+Generation:277 - Fitness:4.71845388412476
+Generation:278 - Fitness:4.71845388412476
+Generation:279 - Fitness:4.71845388412476
+Generation:280 - Fitness:4.71845388412476
+Generation:281 - Fitness:4.71845388412476
+Generation:282 - Fitness:4.71845388412476
+Generation:283 - Fitness:4.71845388412476
+Generation:284 - Fitness:4.71845388412476
+Generation:285 - Fitness:4.71845388412476

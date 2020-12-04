@@ -37,6 +37,11 @@ public class AgentFlowCurieux
     public float desirabilityN;
     public float desirabilityB;
 
+    public float happinessF;
+    public float happinessP;
+    public float happinessN;
+    public float happinessB;
+
     public float noveltyBoost = 1.0f;
     public float heightUpBoost = 0.8f;
     public float heightDownBoost = -0.2f;
@@ -70,7 +75,7 @@ public class AgentFlowCurieux
     //Retourne un delta de fitness
     public void UpdatePerception()
     {
-        stepNum++;
+        
         nav.Cells[xPos, zPos].lastTimeInside = stepNum;
         height = nav.Cells[xPos, zPos].height;
 
@@ -127,26 +132,26 @@ public class AgentFlowCurieux
         reachabilityB /= 2.0f;
 
         //Est elle nouvelle
-        noveltyF = (stepNum - lastTimeInsideNextF) / 200.0f;
-        noveltyP = (stepNum - lastTimeInsideNextP) / 200.0f;
-        noveltyN = (stepNum - lastTimeInsideNextN) / 200.0f;
-        noveltyB = (stepNum - lastTimeInsideNextB) / 200.0f;
+        noveltyF = Mathf.Clamp((stepNum - lastTimeInsideNextF) / 200.0f, -1, 1);
+        noveltyP = Mathf.Clamp((stepNum - lastTimeInsideNextP) / 200.0f, -1, 1);
+        noveltyN = Mathf.Clamp((stepNum - lastTimeInsideNextN) / 200.0f, -1, 1);
+        noveltyB = Mathf.Clamp((stepNum - lastTimeInsideNextB) / 200.0f, -1, 1);
 
         //Gagne t'on de la hauteur
-        heightGainF = heightCenterNextF - height / gridUnitSize;
-        heightGainP = heightCenterNextP - height / gridUnitSize;
-        heightGainN = heightCenterNextN - height / gridUnitSize;
-        heightGainB = heightCenterNextB - height / gridUnitSize;
+        heightGainF = (heightCenterNextF - height) / gridUnitSize;
+        heightGainP = (heightCenterNextP - height) / gridUnitSize;
+        heightGainN = (heightCenterNextN - height) / gridUnitSize;
+        heightGainB = (heightCenterNextB - height) / gridUnitSize;
 
         float heightUpGainF = Mathf.Max(0, heightGainF);
         float heightUpGainP = Mathf.Max(0, heightGainP);
         float heightUpGainN = Mathf.Max(0, heightGainN);
         float heightUpGainB = Mathf.Max(0, heightGainB);
 
-        float heightDownGainF = Mathf.Min(0, heightGainF);
-        float heightDownGainP = Mathf.Min(0, heightGainP);
-        float heightDownGainN = Mathf.Min(0, heightGainN);
-        float heightDownGainB = Mathf.Min(0, heightGainB);
+        float heightDownGainF = -Mathf.Min(0, heightGainF);
+        float heightDownGainP = -Mathf.Min(0, heightGainP);
+        float heightDownGainN = -Mathf.Min(0, heightGainN);
+        float heightDownGainB = -Mathf.Min(0, heightGainB);
 
         float safetyF = (1 / ((meanDistWallNextF / Mathf.Max(gridSizeX, gridSizeZ)) + 1));
         float safetyP = (1 / ((meanDistWallNextP / Mathf.Max(gridSizeX, gridSizeZ)) + 1));
@@ -165,6 +170,13 @@ public class AgentFlowCurieux
         desirabilityN = reachabilityN * (noveltyN * noveltyBoost + heightUpGainN * heightUpBoost + heightDownGainN * heightDownBoost + safetyGainN * safetyBoost);
         desirabilityB = reachabilityB * (noveltyB * noveltyBoost + heightUpGainB * heightUpBoost + heightDownGainB * heightDownBoost + safetyGainB * safetyBoost);
 
+        //Contentitude : un état peut etre plaisant mais pas désirable car aussi plaisant que l'état actuel.
+        //Ici : diff majeure -> le gain de sureté est désirable mais le plaisir dépend surtout de l'état actuel
+        happinessF = (noveltyF * noveltyBoost + heightUpGainF * heightUpBoost + heightDownGainF * heightDownBoost + safetyF * safetyBoost);
+        happinessP = (noveltyP * noveltyBoost + heightUpGainP * heightUpBoost + heightDownGainP * heightDownBoost + safetyP * safetyBoost);
+        happinessN = (noveltyN * noveltyBoost + heightUpGainN * heightUpBoost + heightDownGainN * heightDownBoost + safetyN * safetyBoost);
+        happinessB = (noveltyB * noveltyBoost + heightUpGainB * heightUpBoost + heightDownGainB * heightDownBoost + safetyB * safetyBoost);
+
         if (reachabilityF < float.Epsilon)
             desirabilityF = -float.MaxValue;
         if (reachabilityP < float.Epsilon)
@@ -180,8 +192,9 @@ public class AgentFlowCurieux
         float fitnessStep = 0;
 
         float desirability = 0;
-        float seuilTourne = 0.05f;
-        float seuilDemitour = 0.1f;
+        float happiness = 0;
+        float seuilTourne = 0.005f;
+        float seuilDemitour = 0.01f;
 
         int directionP = (direction + 1) % 4;
         int directionN = (direction + 3) % 4;
@@ -192,40 +205,46 @@ public class AgentFlowCurieux
             desirabilityB > desirabilityP + seuilDemitour &&
             desirabilityB > desirabilityN + seuilDemitour)
         {
-            accumNoTurn = 0;
+            //accumNoTurn = 0;
             direction = (direction + 2) % 4;
+            desirability = desirabilityB;
+            happiness = happinessB;
         }
         else if (desirabilityF > desirabilityP - seuilTourne &&
                  desirabilityF > desirabilityN - seuilTourne)
         {
             //Aller tout droit
             desirability = desirabilityF;
+            happiness = happinessF;
         }
         else
         {
-            accumNoTurn /= 2;
+            //accumNoTurn /= 2;
 
             if (desirabilityP > desirabilityN)
             {
                 direction = directionP;
                 desirability = desirabilityP;
+                happiness = happinessP;
             }
             else
             {
                 direction = directionN;
                 desirability = desirabilityN;
+                happiness = happinessN;
             }
         }
-
-        accumNoTurn += desirability;
-        fitnessStep = accumNoTurn;
 
         int xPosNext = xPos + xMoves[direction];
         int zPosNext = zPos + zMoves[direction];
 
         //Si ca nous fait sortir ou que c'est nul d'avancer
-        if (desirability == 0 || xPosNext < 0 || xPosNext > gridSizeX - 1 || zPosNext < 0 || zPosNext > gridSizeZ - 1)
-            return fitnessStep;
+        if (desirability < -float.MaxValue/2.0f || xPosNext < 0 || xPosNext > gridSizeX - 1 || zPosNext < 0 || zPosNext > gridSizeZ - 1)
+            return 0;
+
+        //accumNoTurn += happiness;
+
+        fitnessStep = happiness;
 
         xPos = xPosNext;
         zPos = zPosNext;
@@ -236,6 +255,7 @@ public class AgentFlowCurieux
 
     public float Step()
     {
+        stepNum++;
         UpdatePerception();
         return TakeDecision();
     }

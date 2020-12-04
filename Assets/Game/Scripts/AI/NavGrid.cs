@@ -133,7 +133,7 @@ public class NavGrid
         {
             for (int z = 0; z < sizeZ; z++)
             {
-                Cells[x, z].lastTimeInside = 0;
+                Cells[x, z].lastTimeInside = -100000;
                 Cells[x, z].grid = this;
                 Cells[x, z].xPos = x;
                 Cells[x, z].zPos = z;

@@ -44,6 +44,12 @@ public class RelationGridEditor : Editor
             {
                 myScript.StepAgentEditor();
             }
+
+            if (GUILayout.Button("Update agent perception"))
+            {
+                myScript.UpdateAgentEditor();
+            }
+
             if (GUILayout.Button("Kill agent"))
             {
                 myScript.KillAgentEditor();

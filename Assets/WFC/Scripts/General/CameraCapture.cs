@@ -7,13 +7,13 @@ public class CameraCapture : MonoBehaviour
     public KeyCode screenshotKey;
 
     //Custom camera vue top
-    public Camera screenshotCamera;
+    public Camera [] screenshotCameras;
 
-    private Camera currentCamera
+    /*private Camera currentCamera
     {
         get
         {
-            if (!screenshotCamera)
+            if (screenshotCamera == null)
             {
                 return Camera.main;
             }
@@ -22,13 +22,13 @@ public class CameraCapture : MonoBehaviour
                 return screenshotCamera;
             }
         }
-    }
+    }*/
 
     private void LateUpdate()
     {
         if (Input.GetKeyDown(screenshotKey))
         {
-            TakeScreenshot("screenshot.png", true);
+            TakeScreenshots(true);
             //Capture(currentCamera, new Vector2Int(1920, 1080), 2, true);
             //Capture();
         }
@@ -55,29 +55,27 @@ public class CameraCapture : MonoBehaviour
 
     private byte[] screenshotBytes;
 
-    public void TakeScreenshot(string name, bool createDirectory)
+    public void TakeScreenshots(bool createDirectory)
     {
         if(createDirectory)
         {
             DirectoryInfo di = Directory.CreateDirectory(Logger.getPath());
         }
 
-        bool active = currentCamera.gameObject.activeSelf;
         Camera prevMainCam = Camera.main;
-        if (!active)
+        prevMainCam.gameObject.SetActive(false);
+
+        int i = 0;
+        foreach (Camera c in screenshotCameras)
         {
-            prevMainCam.gameObject.SetActive(false);
-            currentCamera.gameObject.SetActive(true);
+            i++;
+            c.gameObject.SetActive(true);
+            Capture(c, new Vector2Int(1920, 1080), 2, true);
+            File.WriteAllBytes(Logger.getPath("ss_"+Mathf.Round(Time.time*1000)+"_cam"+i+".png"), screenshotBytes);
+            c.gameObject.SetActive(false);
         }
 
-        Capture(currentCamera, new Vector2Int(1920, 1080), 2, true);
-        File.WriteAllBytes(Logger.getPath(name), screenshotBytes);
-
-        if (!active)
-        {
-            prevMainCam.gameObject.SetActive(true);
-            currentCamera.gameObject.SetActive(false);
-        }
+        prevMainCam.gameObject.SetActive(true);
     }
 
     private void Capture(Camera camera, Vector2Int resolution, int scale, bool isTransparent)

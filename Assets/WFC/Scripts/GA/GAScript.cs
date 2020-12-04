@@ -1,4 +1,4 @@
-﻿//#define LOGGER
+﻿#define LOGGER
 
 
 using System;
@@ -32,6 +32,8 @@ public abstract class GAScript : MonoBehaviour
     protected bool forceSeed = false;
 
     protected Stopwatch stopwatch;
+
+    protected ManualResetEvent pauseThread = new ManualResetEvent(true);
 
     [System.Serializable]
     public class GAConfig
@@ -117,6 +119,22 @@ public abstract class GAScript : MonoBehaviour
         gaEnded = true;
     }
 
+    public void PauseGA(bool pause)
+    {
+        if (m_ga == null)
+            return;        
+
+        if (pause)
+        {
+            pauseThread.Reset();
+        }            
+        else
+        {
+            pauseThread.Set();
+        }
+            
+    }
+
     public bool isRunning()
     {
         return m_ga.IsRunning;
@@ -174,6 +192,11 @@ public abstract class GAScript : MonoBehaviour
                     continue;
                 }
 
+                if (ut.pi.doNotShowInCreatedLevel)
+                {
+                    continue;
+                }
+
                 GameObject go = GameObject.Instantiate(pi.prefab,
                                                     new Vector3(instanceCoordinates.x + i * gaConfig.gridUnitSize + (float)gaConfig.gridUnitSize / 2, 0, instanceCoordinates.z + j * gaConfig.gridUnitSize + (float)gaConfig.gridUnitSize / 2),
                                                     Quaternion.Euler(0f, 90f * m.rotationY, 0f));
@@ -199,7 +222,7 @@ public abstract class GAScript : MonoBehaviour
 
         // This operators are classic genetic algorithm operators that lead to a good solution on TSP,
         // but you can try others combinations and see what result you get.
-        var crossover = new TwoPointCrossover();
+        var crossover = new MyTwoPointCrossover();
         var mutation = new UniformMutation(gaConfig.allGenesMutable);
         var selection = new EliteSelection();
         
@@ -252,7 +275,8 @@ public abstract class GAScript : MonoBehaviour
         // Everty time a generation ends, we log the best solution.
         m_ga.GenerationRan += delegate
         {
-            generationRan();
+            pauseThread.WaitOne();
+            generationRan();            
         };
 
         // Starts the genetic algorithm in a separate thread.
@@ -293,5 +317,10 @@ public abstract class GAScript : MonoBehaviour
             Logger.Log("Genetic WFC, NbGeneration:" + gaConfig.nbGeneration + " => Time elapsed: " + stopwatch.Elapsed);
 #endif
         };
+    }
+
+    public int getGenerationNumber()
+    {
+        return m_ga.GenerationsNumber;
     }
 }

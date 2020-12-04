@@ -1,0 +1,83 @@
+=====Start GA=====
+=====WFC Config=====
+GridSize is 20
+MaxLoops is 10000
+Number Neighboors is 4
+Take zone is True
+Take initial zones is False
+Take initial assets is False
+Generate borders is True True True True
+
+* InitialZones (count: 0) are :
+
+* InitialAssets (count: 0) are :
+
+* Unique Tiles (count: 13) are :
+0 is Corner, nbInGrid: 4, NoBigtile
+1 is Wall, nbInGrid: 33, NoBigtile
+2 is Border, nbInGrid: 44, NoBigtile
+3 is Air, nbInGrid: 8316, NoBigtile
+4 is EnemySpawner, nbInGrid: 2, NoBigtile
+5 is Goal, nbInGrid: 1, NoBigtile
+6 is PlayerSpawner, nbInGrid: 1, NoBigtile
+7 is CubeMidModule, nbInGrid: 164, NoBigtile
+8 is WallHighModule, nbInGrid: 260, NoBigtile
+9 is WallHighCorner, nbInGrid: 240, NoBigtile
+10 is CobbleModule, nbInGrid: 280, NoBigtile
+11 is StairsToUp, nbInGrid: 160, NoBigtile
+12 is StairsToMiddle, nbInGrid: 120, NoBigtile
+
+
+=====GA Config=====
+Genetic Algorithm: GATestFlow
+Population is (50, 100) 
+nbGeneration is 1000000
+crossProbability is 0.5
+mutationProbability is 0.5
+all genes mutable is True
+nbZones is 400
+-------Zone coverage size is 1
+
+=====GA Generations=====
+Generation:1 - Fitness:3.95288109779358
+Generation:2 - Fitness:4.16670274734497
+Generation:3 - Fitness:4.22905445098877
+Generation:4 - Fitness:4.22905445098877
+Generation:5 - Fitness:4.22905445098877
+Generation:6 - Fitness:4.26739549636841
+Generation:7 - Fitness:4.26739549636841
+Generation:8 - Fitness:4.26739549636841
+Generation:9 - Fitness:4.26739549636841
+Generation:10 - Fitness:4.26739549636841
+Generation:11 - Fitness:4.26739549636841
+Generation:12 - Fitness:4.26739549636841
+Generation:13 - Fitness:4.26739549636841
+Generation:14 - Fitness:4.35668992996216
+Generation:15 - Fitness:4.35668992996216
+Generation:16 - Fitness:4.35668992996216
+Generation:17 - Fitness:4.45213937759399
+Generation:18 - Fitness:4.45213937759399
+Generation:19 - Fitness:4.45213937759399
+Generation:20 - Fitness:4.45213937759399
+Generation:21 - Fitness:4.45213937759399
+Generation:22 - Fitness:4.45213937759399
+Generation:23 - Fitness:4.45213937759399
+Generation:24 - Fitness:4.45213937759399
+Generation:25 - Fitness:4.45213937759399
+Generation:26 - Fitness:4.45213937759399
+Generation:27 - Fitness:4.45213937759399
+Generation:28 - Fitness:4.45213937759399
+Generation:29 - Fitness:4.45213937759399
+Generation:30 - Fitness:4.45213937759399
+Generation:31 - Fitness:4.45213937759399
+Generation:32 - Fitness:4.45213937759399
+Generation:33 - Fitness:4.45213937759399
+Generation:34 - Fitness:4.45213937759399
+Generation:35 - Fitness:4.45213937759399
+Generation:36 - Fitness:4.45213937759399
+Generation:37 - Fitness:4.45213937759399
+Generation:38 - Fitness:4.45213937759399
+Generation:39 - Fitness:4.45213937759399
+Generation:40 - Fitness:4.45213937759399
+Generation:41 - Fitness:4.45213937759399
+Generation:42 - Fitness:4.45213937759399

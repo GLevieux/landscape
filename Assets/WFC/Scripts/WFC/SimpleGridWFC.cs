@@ -162,7 +162,7 @@ public class SimpleGridWFC
     private int nbRestart = 0;
 
     //Renvoie la grille (en excluant les sous tiles des bigtiles excepté le centre)
-    public Module[,] getModuleResult(bool filterBigSubTiles)
+    public Module[,] getModuleResult(bool filterBigSubTiles, bool filterNotShow = false)
     {
         Module[,] gridResult = new Module[config.gridSize, config.gridSize];
 
@@ -181,7 +181,7 @@ public class SimpleGridWFC
                 UniqueTile ut = m.linkedTile;
                 PrefabInstance pi = ut.pi;
 
-                if (!pi.doNotShowInCreatedLevel)
+                if (!(pi.doNotShowInCreatedLevel && filterNotShow))
                 {
                     if (filterBigSubTiles && ut.parent != null && !ut.parent.subpartPos[ut.id].Equals(Vector3Int.zero))
                     {
@@ -552,6 +552,11 @@ public class SimpleGridWFC
                             if (!showDebugBigTile)
                                 continue;
                             isOrigin = false;
+                        }
+
+                        if (ut.pi.doNotShowInCreatedLevel)
+                        {
+                            continue;
                         }
 
                         GameObject go = GameObject.Instantiate(pi.prefab,
