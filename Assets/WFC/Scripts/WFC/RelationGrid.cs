@@ -197,14 +197,26 @@ public class RelationGrid : MonoBehaviour
 
     [Header("Agent flow de test")]
     public AgentFlowCurieux agent = null;
+
+    [Header("Drive")]
     [Range(-1.0f, 1.0f)]
-    public float noveltyBoost = 1.0f;
+    public float noveltyDrive = 1.0f;
     [Range(-1.0f, 1.0f)]
-    public float heightUpBoost = 0.8f;
+    public float heightUpDrive = 0.8f;
     [Range(-1.0f, 1.0f)]
-    public float heightDownBoost = -0.2f;
+    public float heightDownDrive = -0.2f;
     [Range(-1.0f, 1.0f)]
-    public float safetyBoost = 0.5f;
+    public float safetyGainDrive = 0.5f;
+    [Header("Fitness")]
+    [Range(-1.0f, 1.0f)]
+    public float noveltyReward = 1.0f;
+    [Range(-1.0f, 1.0f)]
+    public float heightUpReward = 0.8f;
+    [Range(-1.0f, 1.0f)]
+    public float heightDownReward = -0.2f;
+    [Range(-1.0f, 1.0f)]
+    public float safetyReward = 0.5f;
+
     public float stepHeightDebugNav = 0.05f;
     public float jumpHeightDebugNav = 0.8f;
     public int idPlayerStart = -1;
@@ -281,10 +293,14 @@ public class RelationGrid : MonoBehaviour
 
         agent = new AgentFlowCurieux();
         agent.Init(xStart, zStart, 0 ,dirStart, navGridDebug, gridUnitSize);
-        agent.heightDownBoost = heightDownBoost;
-        agent.heightUpBoost = heightUpBoost;
-        agent.safetyBoost = safetyBoost;
-        agent.noveltyBoost = noveltyBoost;
+        agent.heightDownDrive = heightDownDrive;
+        agent.heightUpDrive = heightUpDrive;
+        agent.safetyGainDrive = safetyGainDrive;
+        agent.noveltyDrive = noveltyDrive;
+        agent.heightDownReward = heightDownReward;
+        agent.heightUpReward = heightUpReward;
+        agent.safetyReward = safetyReward;
+        agent.noveltyReward = noveltyReward;
         agent.UpdatePerception();
 
 #if UNITY_EDITOR
@@ -297,10 +313,14 @@ public class RelationGrid : MonoBehaviour
         if (agent == null)
             return;
 
-        agent.heightDownBoost = heightDownBoost;
-        agent.heightUpBoost = heightUpBoost;
-        agent.safetyBoost = safetyBoost;
-        agent.noveltyBoost = noveltyBoost;
+        agent.heightDownDrive = heightDownDrive;
+        agent.heightUpDrive = heightUpDrive;
+        agent.safetyGainDrive = safetyGainDrive;
+        agent.noveltyDrive = noveltyDrive;
+        agent.heightDownReward = heightDownReward;
+        agent.heightUpReward = heightUpReward;
+        agent.safetyReward = safetyReward;
+        agent.noveltyReward = noveltyReward;
 
         agent.Step();
         agent.UpdatePerception();
@@ -314,11 +334,15 @@ public class RelationGrid : MonoBehaviour
         if (agent == null)
             return;
 
-        agent.heightDownBoost = heightDownBoost;
-        agent.heightUpBoost = heightUpBoost;
-        agent.safetyBoost = safetyBoost;
-        agent.noveltyBoost = noveltyBoost;
-       
+        agent.heightDownDrive = heightDownDrive;
+        agent.heightUpDrive = heightUpDrive;
+        agent.safetyGainDrive = safetyGainDrive;
+        agent.noveltyDrive = noveltyDrive;
+        agent.heightDownReward = heightDownReward;
+        agent.heightUpReward = heightUpReward;
+        agent.safetyReward = safetyReward;
+        agent.noveltyReward = noveltyReward;
+
         agent.UpdatePerception();
 #if UNITY_EDITOR
         UnityEditor.SceneView.RepaintAll();
@@ -336,10 +360,14 @@ public class RelationGrid : MonoBehaviour
     [ReadOnly] public float fitnessLevel = 0.0f;
     public void EvaluateLevelEditor()
     {
-        agent.heightDownBoost = heightDownBoost;
-        agent.heightUpBoost = heightUpBoost;
-        agent.safetyBoost = safetyBoost;
-        agent.noveltyBoost = noveltyBoost;
+        agent.heightDownDrive = heightDownDrive;
+        agent.heightUpDrive = heightUpDrive;
+        agent.safetyGainDrive = safetyGainDrive;
+        agent.noveltyDrive = noveltyDrive;
+        agent.heightDownReward = heightDownReward;
+        agent.heightUpReward = heightUpReward;
+        agent.safetyReward = safetyReward;
+        agent.noveltyReward = noveltyReward;
 
         BuildAndShowNavEditor();
 

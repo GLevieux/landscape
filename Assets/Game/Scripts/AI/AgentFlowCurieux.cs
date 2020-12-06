@@ -42,10 +42,15 @@ public class AgentFlowCurieux
     public float happinessN;
     public float happinessB;
 
-    public float noveltyBoost = 1.0f;
-    public float heightUpBoost = 0.8f;
-    public float heightDownBoost = -0.2f;
-    public float safetyBoost = 0.5f;
+    public float noveltyDrive = 1.0f;
+    public float heightUpDrive = 0.8f;
+    public float heightDownDrive = -0.2f;
+    public float safetyGainDrive = 0.5f;
+
+    public float noveltyReward = 1.0f;
+    public float heightUpReward = 0.8f;
+    public float heightDownReward = -0.2f;
+    public float safetyReward = 0.5f;
 
     public float safetyDistPow = 1.2f;
 
@@ -160,22 +165,22 @@ public class AgentFlowCurieux
 
         //Gagne t'on de la sureté (de l'espace)
         safetyGainF = safetyF - safety;
-        safetyGainP = safetyP - safety;
+        safetyGainP = safetyP - safety; 
         safetyGainN = safetyN - safety;
         safetyGainB = safetyB - safety;
 
         //Synthèse
-        desirabilityF = reachabilityF * (noveltyF * noveltyBoost + heightUpGainF * heightUpBoost + heightDownGainF * heightDownBoost + safetyGainF * safetyBoost);
-        desirabilityP = reachabilityP * (noveltyP * noveltyBoost + heightUpGainP * heightUpBoost + heightDownGainP * heightDownBoost + safetyGainP * safetyBoost);
-        desirabilityN = reachabilityN * (noveltyN * noveltyBoost + heightUpGainN * heightUpBoost + heightDownGainN * heightDownBoost + safetyGainN * safetyBoost);
-        desirabilityB = reachabilityB * (noveltyB * noveltyBoost + heightUpGainB * heightUpBoost + heightDownGainB * heightDownBoost + safetyGainB * safetyBoost);
+        desirabilityF = reachabilityF * (noveltyF * noveltyDrive + heightUpGainF * heightUpDrive + heightDownGainF * heightDownDrive + safetyGainF * safetyGainDrive);
+        desirabilityP = reachabilityP * (noveltyP * noveltyDrive + heightUpGainP * heightUpDrive + heightDownGainP * heightDownDrive + safetyGainP * safetyGainDrive);
+        desirabilityN = reachabilityN * (noveltyN * noveltyDrive + heightUpGainN * heightUpDrive + heightDownGainN * heightDownDrive + safetyGainN * safetyGainDrive);
+        desirabilityB = reachabilityB * (noveltyB * noveltyDrive + heightUpGainB * heightUpDrive + heightDownGainB * heightDownDrive + safetyGainB * safetyGainDrive);
 
         //Contentitude : un état peut etre plaisant mais pas désirable car aussi plaisant que l'état actuel.
         //Ici : diff majeure -> le gain de sureté est désirable mais le plaisir dépend surtout de l'état actuel
-        happinessF = (noveltyF * noveltyBoost + heightUpGainF * heightUpBoost + heightDownGainF * heightDownBoost + safetyF * safetyBoost);
-        happinessP = (noveltyP * noveltyBoost + heightUpGainP * heightUpBoost + heightDownGainP * heightDownBoost + safetyP * safetyBoost);
-        happinessN = (noveltyN * noveltyBoost + heightUpGainN * heightUpBoost + heightDownGainN * heightDownBoost + safetyN * safetyBoost);
-        happinessB = (noveltyB * noveltyBoost + heightUpGainB * heightUpBoost + heightDownGainB * heightDownBoost + safetyB * safetyBoost);
+        happinessF = (noveltyF * noveltyReward + heightUpGainF * heightUpReward + heightDownGainF * heightDownReward + safetyF * safetyReward);
+        happinessP = (noveltyP * noveltyReward + heightUpGainP * heightUpReward + heightDownGainP * heightDownReward + safetyP * safetyReward);
+        happinessN = (noveltyN * noveltyReward + heightUpGainN * heightUpReward + heightDownGainN * heightDownReward + safetyN * safetyReward);
+        happinessB = (noveltyB * noveltyReward + heightUpGainB * heightUpReward + heightDownGainB * heightDownReward + safetyB * safetyReward);
 
         if (reachabilityF < float.Epsilon)
             desirabilityF = -float.MaxValue;
@@ -206,7 +211,7 @@ public class AgentFlowCurieux
             desirabilityB > desirabilityN + seuilDemitour)
         {
             //accumNoTurn = 0;
-            direction = (direction + 2) % 4;
+            direction = directionB;
             desirability = desirabilityB;
             happiness = happinessB;
         }

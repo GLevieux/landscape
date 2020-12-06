@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,6 +35,8 @@ public class CameraCapture : MonoBehaviour
         }
     }
 
+
+
     //public void Capture()
     //{
     //    RenderTexture activeRenderTexture = RenderTexture.active;
@@ -53,9 +56,23 @@ public class CameraCapture : MonoBehaviour
     //    fileCounter++;
     //}
 
+    
+
+    public void TakeScreenshotsAtEndOfFrame(bool createDirectory)
+    {
+        IEnumerator e = TakeScreenshotsCoroutine(createDirectory);
+        StartCoroutine(e);
+    }
+
+    private IEnumerator TakeScreenshotsCoroutine(bool createDirectory)
+    {
+        yield return new WaitForEndOfFrame();
+        TakeScreenshots(createDirectory);
+    }
+
     private byte[] screenshotBytes;
 
-    public void TakeScreenshots(bool createDirectory)
+    private void TakeScreenshots(bool createDirectory)
     {
         if(createDirectory)
         {

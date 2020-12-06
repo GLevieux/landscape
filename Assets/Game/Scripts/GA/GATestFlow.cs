@@ -52,7 +52,7 @@ public class GATestFlow : GAScript
 
     protected override IFitness getFitnessClass()
     {
-        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,noveltyBoost,heightUpBoost, heightDownBoost, safetyBoost);
+        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,noveltyDrive,heightUpDrive, heightDownDrive, safetyGainDrive,noveltyReward,heightUpReward,heightDownReward,safetyReward);
     }
 
     protected override IChromosome getChromosomeClass()
@@ -88,7 +88,7 @@ public class GATestFlow : GAScript
             for (int c = 0; c < tempChro.Count; c++)
             {
                 int assetID = Convert.ToInt32(tempChro[c].GetGene(g).Value, CultureInfo.InvariantCulture);
-                counts[assetID]++;  
+                counts[assetID/4]++;  //CHANGEMENT ASSET ROTATION
             }
 
             for (int i = 0; i < counts.Length; i++)
@@ -102,11 +102,8 @@ public class GATestFlow : GAScript
             Logger.CSVEntropyZone("G" + m_ga.GenerationsNumber.ToString(), entropies[g].ToString());
         }
 
-        //On calcule, pour chaque zone de la map(chaque gene) l'entropie
-        Module[,] modulesBase = ((WFCChromosome)tempChro[0]).gridResult;
-        int gridSize = modulesBase.GetUpperBound(0) + 1;
-
-        for (int g = 0; g < modulesBase.Length; g++)
+        //On calcule, pour chaque module
+        for (int g = 0; g < genes.Length; g++)
         {
             for (int i = 0; i < counts.Length; i++)
                 counts[i] = 0;
@@ -114,10 +111,14 @@ public class GATestFlow : GAScript
             for (int c = 0; c < tempChro.Count; c++)
             {
                 Module[,] modules = ((WFCChromosome)tempChro[c]).gridResult;
-                if (modules[g % gridSize, g / gridSize] != null)
+                if(modules != null)
                 {
-                    int assetID = Convert.ToInt32(modules[g % gridSize, g / gridSize].linkedTile.id, CultureInfo.InvariantCulture);
-                    counts[assetID]++;
+                    int gridSize = modules.GetUpperBound(0) + 1;
+                    if (modules[g % gridSize, g / gridSize] != null)
+                    {
+                        int assetID = Convert.ToInt32(modules[g % gridSize, g / gridSize].linkedTile.id, CultureInfo.InvariantCulture);
+                        counts[assetID]++;
+                    }
                 }
             }
                     
@@ -165,7 +166,7 @@ public class GATestFlow : GAScript
         //Only id asset is controlled by genetic
         public override Gene GenerateGene(int geneIndex)
         {
-            return new Gene(RandomizationProvider.Current.GetInt(0, UniqueTile.getLastId() + 1));
+            return new Gene(RandomizationProvider.Current.GetInt(0, (UniqueTile.getLastId() + 1)*4));
         }
 
         public override IChromosome CreateNew()
@@ -189,14 +190,24 @@ public class GATestFlow : GAScript
 
     public int IdPlayerStart = -1;
 
+    [Header("Drive")]
     [Range(-1.0f, 1.0f)]
-    public float noveltyBoost = 1.0f;
+    public float noveltyDrive = 1.0f;
     [Range(-1.0f, 1.0f)]
-    public float heightUpBoost = 0.8f;
+    public float heightUpDrive = 0.8f;
     [Range(-1.0f, 1.0f)]
-    public float heightDownBoost = -0.2f;
+    public float heightDownDrive = -0.2f;
     [Range(-1.0f, 1.0f)]
-    public float safetyBoost = 0.5f;
+    public float safetyGainDrive = 0.5f;
+    [Header("Fitness")]
+    [Range(-1.0f, 1.0f)]
+    public float noveltyReward = 1.0f;
+    [Range(-1.0f, 1.0f)]
+    public float heightUpReward = 0.8f;
+    [Range(-1.0f, 1.0f)]
+    public float heightDownReward = -0.2f;
+    [Range(-1.0f, 1.0f)]
+    public float safetyReward = 0.5f;
 
     public class WFCFitness : IFitness
     {
@@ -207,14 +218,20 @@ public class GATestFlow : GAScript
         private int m_randomSeed;
         private int m_sizeZone;
         private int idPlayerStart = -1;
-        private float noveltyBoost;
-        private float heightUpBoost;
-        private float heightDownBoost;
-        private float safetyBoost;
 
+        private float noveltyDrive;
+        private float heightUpDrive;
+        private float heightDownDrive;
+        private float safetyGainDrive;
 
+        private float noveltyReward;
+        private float heightUpReward;
+        private float heightDownReward;
+        private float safetyReward;
 
-        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart, float noveltyBoost, float heightUpBoost, float heightDownBoost, float safetyBoost)
+        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart, 
+            float noveltyDrive, float heightUpDrive, float heightDownDrive, float safetyGainDrive,
+            float noveltyReward, float heightUpReward, float heightDownReward, float safetyReward)
         {
             m_generalConfig = config;
             m_numberOfZones = numberOfZones;
@@ -227,10 +244,15 @@ public class GATestFlow : GAScript
 
             idPlayerStart = IdPlayerStart;
 
-            this.noveltyBoost = noveltyBoost;
-            this.heightUpBoost = heightUpBoost;
-            this.heightDownBoost = heightDownBoost;
-            this.safetyBoost = safetyBoost;
+            this.noveltyDrive = noveltyDrive;
+            this.heightUpDrive = heightUpDrive;
+            this.heightDownDrive = heightDownDrive;
+            this.safetyGainDrive = safetyGainDrive;
+
+            this.noveltyReward = noveltyReward;
+            this.heightUpReward = heightUpReward;
+            this.heightDownReward = heightDownReward;
+            this.safetyReward = safetyReward;
         }
 
         public double Evaluate(IChromosome chromosome)
@@ -255,12 +277,15 @@ public class GATestFlow : GAScript
                 float probability = 50000f;
 
                 int assetID = Convert.ToInt32(g.Value, CultureInfo.InvariantCulture);
-                assetID = MathUtility.Clamp(assetID, 0, UniqueTile.getLastId());
+                assetID = MathUtility.Clamp(assetID, 0, UniqueTile.getLastId()*4);
+                int rotationY = assetID % 4;
+                assetID = assetID / 4;
 
                 currentZone.origin = new Vector2Int(originX, originY);
                 currentZone.size = new Vector2Int(sizeX, sizeY);
                 currentZone.probabilityBoost = probability;
                 currentZone.assetID = assetID;
+                currentZone.rotationY = rotationY;
 
                 Zones.Add(currentZone);
             }
@@ -275,8 +300,9 @@ public class GATestFlow : GAScript
             SimpleGridWFC wfc = new SimpleGridWFC(m_generalConfig);
             wfc.setListZones(Zones);
             wfc.launchWFC();
+            bool error = wfc.checkWFCForError();
 
-            if (wfc.isWFCFailed())
+            if (wfc.isWFCFailed() || error)
                 return -float.MaxValue;
 
             //Sauve le résultat
@@ -317,10 +343,15 @@ public class GATestFlow : GAScript
             float fitness = 0.0f;
 
             AgentFlowCurieux agent = new AgentFlowCurieux();
-            agent.noveltyBoost = noveltyBoost;
-            agent.safetyBoost = safetyBoost;
-            agent.heightUpBoost = heightUpBoost;
-            agent.heightDownBoost = heightDownBoost;
+            agent.noveltyDrive = noveltyDrive;
+            agent.safetyGainDrive = safetyGainDrive;
+            agent.heightUpDrive = heightUpDrive;
+            agent.heightDownDrive = heightDownDrive;
+            agent.noveltyReward = noveltyReward;
+            agent.safetyReward = safetyReward;
+            agent.heightUpReward = heightUpReward;
+            agent.heightDownReward = heightDownReward;
+
             agent.Init(xStart, zStart, 0, dirStart, nav, m_generalConfig.gridUnitSize);
 
             for (int i = 0; i < 30000; i++)

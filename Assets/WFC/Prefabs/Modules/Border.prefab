@@ -51,7 +51,7 @@ MonoBehaviour:
   minNb: 0
   maxNb: 1000
   size: {x: 1, y: 1}
-  gridUnitSize: 1
+  gridUnitSize: 2
   NavHeightZPosRot0: 10
   CanReachFromInsideZPos: 0
   NavHeightZNegRot0: 10
@@ -91,8 +91,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7099211714431016202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalScale: {x: 2, y: 8, z: 2}
   m_Children: []
   m_Father: {fileID: 30465704479114319}
   m_RootOrder: 0

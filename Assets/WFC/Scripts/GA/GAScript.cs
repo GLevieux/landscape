@@ -45,6 +45,7 @@ public abstract class GAScript : MonoBehaviour
         public float crossProbability = 0.5f;
         public float mutationProbability = 0.5f;
         public bool allGenesMutable = false;
+        public bool runInSeparateThread = true;
 
         public enum RunType
         {
@@ -279,14 +280,6 @@ public abstract class GAScript : MonoBehaviour
             generationRan();            
         };
 
-        // Starts the genetic algorithm in a separate thread.
-        m_gaThread = new Thread(() => m_ga.Start());
-
-        // Start stopwatch.
-        stopwatch.Start();
-
-        m_gaThread.Start();
-
         m_ga.Stopped += delegate
         {
             Debug.Log("stopped ga");
@@ -317,6 +310,28 @@ public abstract class GAScript : MonoBehaviour
             Logger.Log("Genetic WFC, NbGeneration:" + gaConfig.nbGeneration + " => Time elapsed: " + stopwatch.Elapsed);
 #endif
         };
+
+        if (gaConfig.runInSeparateThread)
+        {
+            // Starts the genetic algorithm in a separate thread.
+            m_gaThread = new Thread(() => m_ga.Start());
+            
+            // Start stopwatch.
+            stopwatch.Start();
+
+            m_gaThread.Start();
+        }
+        else
+        {
+            // Start stopwatch.
+            stopwatch.Start();
+            m_ga.Start();
+        }
+        
+
+        
+
+        
     }
 
     public int getGenerationNumber()

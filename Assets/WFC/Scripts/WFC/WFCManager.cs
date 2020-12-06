@@ -49,6 +49,7 @@ public class WFCManager : MonoBehaviour
 
     [Header("Divers")]
     public bool autoScreenshot = false;
+    public int nbStepsSaveLogs = 100;
 
     [Header("Configuration WFC")]
     public WFCConfig wfcConfig = new WFCConfig();
@@ -169,7 +170,7 @@ public class WFCManager : MonoBehaviour
                 gaLaunched = false;
             }
 
-            if (Input.GetButtonDown("ShowCurrentGeneration") || ga.getGenerationNumber() % 200 == 0)
+            if (Input.GetButtonDown("ShowCurrentGeneration") || (ga.getGenerationNumber() > 0 && ga.getGenerationNumber() % nbStepsSaveLogs == 0))
             {
                 ga.PauseGA(true);
                 ga.ShowResult(this.transform.position);
@@ -193,7 +194,7 @@ public class WFCManager : MonoBehaviour
 
                 if (autoScreenshot && GetComponent<CameraCapture>())
                 {
-                    GetComponent<CameraCapture>().TakeScreenshots(true);
+                    GetComponent<CameraCapture>().TakeScreenshotsAtEndOfFrame(true);
                 }
 
                 debugText = ga.debug +  " Time GA: " + Mathf.Round((float)ga.getElapsedTime().TotalMilliseconds / 100.0f) / 10 + "s";
@@ -558,7 +559,7 @@ public class WFCManager : MonoBehaviour
     {
         CameraCapture c = GetComponent<CameraCapture>();
         if (c != null)
-            c.TakeScreenshots(true);
+            c.TakeScreenshotsAtEndOfFrame(true);
         Logger.FlushToDisk();
     }
 }

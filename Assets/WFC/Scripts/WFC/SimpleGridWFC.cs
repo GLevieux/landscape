@@ -13,6 +13,7 @@ public class SimpleGridWFC
     private WFCConfig config = new WFCConfig();
     private List<Zone> listZones = new List<Zone>();//thread safe for config (eviter de copier la config pour les thread, donc on le change pas)
     private float maxNbInGrid = 0; //Pour savoir quel est le nombre max de présence d'un asset dans la grille
+    private bool hasFailed = false;
 
     [System.Serializable]
     public class WFCConfig
@@ -127,6 +128,7 @@ public class SimpleGridWFC
         public Vector2Int size = Vector2Int.zero;
         public float probabilityBoost = 0.0f;
         public int assetID = -1; //default -1 => no impact (tile id start at 0)
+        public int rotationY = 0;
 
         public PrefabTag prefabTag = PrefabTag.None;//if none => has no impact
 
@@ -161,11 +163,27 @@ public class SimpleGridWFC
     private int nbRestartMax = 10;
     private int nbRestart = 0;
 
+
+    public bool checkWFCForError()
+    {
+        for (int i = 0; i < config.gridSize; i++)
+        {
+            for (int j = 0; j < config.gridSize; j++)
+            {
+                if (grid[i, j].availables.size != 1)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     //Renvoie la grille (en excluant les sous tiles des bigtiles excepté le centre)
     public Module[,] getModuleResult(bool filterBigSubTiles, bool filterNotShow = false)
     {
         Module[,] gridResult = new Module[config.gridSize, config.gridSize];
-
+        
         for (int i = 0; i < config.gridSize; i++)
         {
             for (int j = 0; j < config.gridSize; j++)
@@ -554,11 +572,6 @@ public class SimpleGridWFC
                             isOrigin = false;
                         }
 
-                        if (ut.pi.doNotShowInCreatedLevel)
-                        {
-                            continue;
-                        }
-
                         GameObject go = GameObject.Instantiate(pi.prefab,
                                                             new Vector3(instanceCoordinates.x + i * config.gridUnitSize * config.scaleSize + (float)config.gridUnitSize * config.scaleSize / 2, z, instanceCoordinates.z + j * config.gridUnitSize * config.scaleSize + (float)config.gridUnitSize * config.scaleSize / 2), //+ gridUnitSize * scaleSize / 2 => repositionner au milieu de la case
                                                             Quaternion.Euler(0f, 90f * m.rotationY, 0f));
@@ -849,10 +862,12 @@ public class SimpleGridWFC
             {
                 unqTlProbas[i] = 0;
             }
-            else if (mNbInGenGrid < t.minNb)
+            else if (mNbInGenGrid < t.minNb) 
             {
-                unqTlProbas[i] = Mathf.Lerp(t.nbInBaseGrid / (mNbInGenGrid + 1),
-                    maxNbInGrid, (t.minNb - mNbInGenGrid) / (unqTlNbSlotsAvailable[i] / 4.0f + 1));
+                unqTlProbas[i] = System.Math.Max(0,
+                                    Mathf.Lerp(t.nbInBaseGrid / (mNbInGenGrid + 1),
+                                            maxNbInGrid, 
+                                            (t.minNb - mNbInGenGrid) / (unqTlNbSlotsAvailable[i] / 4.0f + 1)));  
             }
         }
 
@@ -887,7 +902,7 @@ public class SimpleGridWFC
                         {
                             Zone z = tempZones.data[iz];
 
-                            if (z.assetID == m.linkedTile.id || (z.prefabTag != PrefabTag.None && z.prefabTag == m.linkedTile.pi.prefabTag))
+                            if (z.assetID == m.linkedTile.id && z.rotationY == m.rotationY)// || (z.prefabTag != PrefabTag.None && z.prefabTag == m.linkedTile.pi.prefabTag))
                             {
                                 m.probability = z.probabilityBoost; //Mais si plusieurs zones ???
                             }
@@ -898,12 +913,21 @@ public class SimpleGridWFC
                 }
 
                 //Normalisation des probas
-                if (sumProbas > 0)
+                if (sumProbas > float.Epsilon)
                 {
                     for (int k = 0; k < tempAvailables.size; k++)
                     {
                         Module m = tempAvailables.data[k];
                         m.probability /= sumProbas;
+                    }
+                }
+                else //Si tous quasiment à zero, tous equiprobables
+                {
+                    float eqprob = 1.0f / tempAvailables.size;
+                    for (int k = 0; k < tempAvailables.size; k++)
+                    {
+                        Module m = tempAvailables.data[k];
+                        m.probability = eqprob;
                     }
                 }
 
@@ -1250,7 +1274,7 @@ public class SimpleGridWFC
 #endif
         }
 
-        if(counterLoop <= 0)
+        if (counterLoop <= 0)
         {
             Debug.LogWarning("End of loops");
         }
