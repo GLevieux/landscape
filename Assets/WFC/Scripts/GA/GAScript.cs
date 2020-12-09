@@ -201,7 +201,9 @@ public abstract class GAScript : MonoBehaviour
                 GameObject go = GameObject.Instantiate(pi.prefab,
                                                     new Vector3(instanceCoordinates.x + i * gaConfig.gridUnitSize + (float)gaConfig.gridUnitSize / 2, 0, instanceCoordinates.z + j * gaConfig.gridUnitSize + (float)gaConfig.gridUnitSize / 2),
                                                     Quaternion.Euler(0f, 90f * m.rotationY, 0f));
+                go.transform.SetParent(this.transform);
                 tileInstanciated.Add(go);
+
 
                 //yield return new WaitForEndOfFrame();
 
