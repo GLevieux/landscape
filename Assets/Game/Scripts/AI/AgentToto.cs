@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AgentFlowCurieux : LndAgent
-{    
+public class AgentToto : LndAgent
+{
 
     //Calcul a chaque step
     public float reachabilityF;
@@ -40,7 +40,7 @@ public class AgentFlowCurieux : LndAgent
 
     public override void InitParams(ScriptableObject param)
     {
-        ConfigAgentFlowCurieux config = (ConfigAgentFlowCurieux)param;
+        ConfigAgentToto config = (ConfigAgentToto)param;
         heightDownDrive = config.heightDownDrive;
         heightUpDrive = config.heightUpDrive;
         safetyGainDrive = config.safetyGainDrive;
@@ -51,7 +51,6 @@ public class AgentFlowCurieux : LndAgent
         noveltyReward = config.noveltyReward;
     }
 
-    //Retourne un delta de fitness
     public override void UpdatePerception()
     {
 
@@ -239,10 +238,14 @@ public class AgentFlowCurieux : LndAgent
     }
 
     public override void debugGui(Vector3 origin)
-    {
+    {        
+        UnityEditor.Handles.Label((positionF + positionB) / 2 + Vector3.up * 2, "XOXOTOTO");
+
         UnityEditor.Handles.Label(positionF + Vector3.up * 2, "" + Mathf.Round(desirabilityF * 100) / 100);
         UnityEditor.Handles.Label(positionL + Vector3.up * 2, "" + Mathf.Round(desirabilityN * 100) / 100);
         UnityEditor.Handles.Label(positionR + Vector3.up * 2, "" + Mathf.Round(desirabilityP * 100) / 100);
         UnityEditor.Handles.Label(positionB + Vector3.up * 2, "" + Mathf.Round(desirabilityB * 100) / 100);
     }
+
+
 }

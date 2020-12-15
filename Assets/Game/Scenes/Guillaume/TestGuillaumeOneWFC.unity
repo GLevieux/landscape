@@ -862,6 +862,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1825078977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1825078978}
+  m_Layer: 0
+  m_Name: AgentFlowCurieux
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1825078978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825078977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 18.07466, y: 9.976162, z: 14.870603}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1840625636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1376,6 +1406,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: typeAgent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: configAgent
+      value: 
+      objectReference: {fileID: 11400000, guid: cfe143e1d5b2c10479c80e8f32797d5c, type: 2}
+    - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: heightBoost
       value: -0.768
       objectReference: {fileID: 0}
@@ -1393,7 +1431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: safetyReward
-      value: 0.478
+      value: 0.753
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: IdPlayerStart
@@ -1409,11 +1447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: noveltyReward
-      value: 0.5
+      value: 0.599
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: heightUpReward
-      value: 0
+      value: 0.237
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: heightDownBoost
@@ -1437,7 +1475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.gridSize
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: useCustomRandomSeed

@@ -33,7 +33,7 @@ public class GATestFlow : GAScript
     [Header("Zone Coverage")]
     [Tooltip("Genetic Search with Astar: longest path with zone coverage")]
     public int sizeZone = 3;//used to divide grid into zone of this size
-
+    
     public override string ToString()
     {
         return base.ToString()
@@ -52,7 +52,7 @@ public class GATestFlow : GAScript
 
     protected override IFitness getFitnessClass()
     {
-        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,noveltyDrive,heightUpDrive, heightDownDrive, safetyGainDrive,noveltyReward,heightUpReward,heightDownReward,safetyReward);
+        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,typeAgent, configAgent);
     }
 
     protected override IChromosome getChromosomeClass()
@@ -188,26 +188,19 @@ public class GATestFlow : GAScript
         }
     }
 
+    public enum TypeAgent
+    {
+        AGENT_FLOW_CURIEUX,
+        AGENT_TOTO
+    };
+    public TypeAgent typeAgent;
+
+    [Tooltip("Attention au type de config, doit etre compatible avec l'agent")]
+    public ScriptableObject configAgent;
+
     public int IdPlayerStart = -1;
 
-    [Header("Drive")]
-    [Range(-1.0f, 1.0f)]
-    public float noveltyDrive = 1.0f;
-    [Range(-1.0f, 1.0f)]
-    public float heightUpDrive = 0.8f;
-    [Range(-1.0f, 1.0f)]
-    public float heightDownDrive = -0.2f;
-    [Range(-1.0f, 1.0f)]
-    public float safetyGainDrive = 0.5f;
-    [Header("Fitness")]
-    [Range(-1.0f, 1.0f)]
-    public float noveltyReward = 1.0f;
-    [Range(-1.0f, 1.0f)]
-    public float heightUpReward = 0.8f;
-    [Range(-1.0f, 1.0f)]
-    public float heightDownReward = -0.2f;
-    [Range(-1.0f, 1.0f)]
-    public float safetyReward = 0.5f;
+    
 
     public class WFCFitness : IFitness
     {
@@ -219,19 +212,11 @@ public class GATestFlow : GAScript
         private int m_sizeZone;
         private int idPlayerStart = -1;
 
-        private float noveltyDrive;
-        private float heightUpDrive;
-        private float heightDownDrive;
-        private float safetyGainDrive;
+        private ScriptableObject configAgent;
+        private TypeAgent typeAgent;
 
-        private float noveltyReward;
-        private float heightUpReward;
-        private float heightDownReward;
-        private float safetyReward;
-
-        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart, 
-            float noveltyDrive, float heightUpDrive, float heightDownDrive, float safetyGainDrive,
-            float noveltyReward, float heightUpReward, float heightDownReward, float safetyReward)
+        public WFCFitness(WFCConfig config, int numberOfZones, int sizeZone, Vector2Int gridSize, bool forceSeed, int randomSeed, int IdPlayerStart, TypeAgent typeAgent,
+             ScriptableObject configAgent)
         {
             m_generalConfig = config;
             m_numberOfZones = numberOfZones;
@@ -244,15 +229,9 @@ public class GATestFlow : GAScript
 
             idPlayerStart = IdPlayerStart;
 
-            this.noveltyDrive = noveltyDrive;
-            this.heightUpDrive = heightUpDrive;
-            this.heightDownDrive = heightDownDrive;
-            this.safetyGainDrive = safetyGainDrive;
+            this.configAgent = configAgent;
+            this.typeAgent = typeAgent;
 
-            this.noveltyReward = noveltyReward;
-            this.heightUpReward = heightUpReward;
-            this.heightDownReward = heightDownReward;
-            this.safetyReward = safetyReward;
         }
 
         public double Evaluate(IChromosome chromosome)
@@ -342,17 +321,19 @@ public class GATestFlow : GAScript
             //On part du départ et on voit comme ca avance tout droit
             float fitness = 0.0f;
 
-            AgentFlowCurieux agent = new AgentFlowCurieux();
-            agent.noveltyDrive = noveltyDrive;
-            agent.safetyGainDrive = safetyGainDrive;
-            agent.heightUpDrive = heightUpDrive;
-            agent.heightDownDrive = heightDownDrive;
-            agent.noveltyReward = noveltyReward;
-            agent.safetyReward = safetyReward;
-            agent.heightUpReward = heightUpReward;
-            agent.heightDownReward = heightDownReward;
-
+            LndAgent agent = null;
+            switch (typeAgent)
+            {
+                case TypeAgent.AGENT_FLOW_CURIEUX:
+                    agent = new AgentFlowCurieux();
+                    break;
+                case TypeAgent.AGENT_TOTO:
+                    agent = new AgentToto();
+                    break;
+            }
+                        
             agent.Init(xStart, zStart, 0, dirStart, nav, m_generalConfig.gridUnitSize);
+            agent.InitParams(configAgent);
 
             for (int i = 0; i < 30000; i++)
                 fitness += agent.Step()/30000.0f;            

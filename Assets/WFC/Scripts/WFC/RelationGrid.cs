@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GATestFlow;
 using static PrefabInstance;
 
 public class RelationGrid : MonoBehaviour
@@ -196,26 +197,9 @@ public class RelationGrid : MonoBehaviour
     private SimpleGridWFC.Module[,] modules = null;
 
     [Header("Agent flow de test")]
-    public AgentFlowCurieux agent = null;
-
-    [Header("Drive")]
-    [Range(-1.0f, 1.0f)]
-    public float noveltyDrive = 1.0f;
-    [Range(-1.0f, 1.0f)]
-    public float heightUpDrive = 0.8f;
-    [Range(-1.0f, 1.0f)]
-    public float heightDownDrive = -0.2f;
-    [Range(-1.0f, 1.0f)]
-    public float safetyGainDrive = 0.5f;
-    [Header("Fitness")]
-    [Range(-1.0f, 1.0f)]
-    public float noveltyReward = 1.0f;
-    [Range(-1.0f, 1.0f)]
-    public float heightUpReward = 0.8f;
-    [Range(-1.0f, 1.0f)]
-    public float heightDownReward = -0.2f;
-    [Range(-1.0f, 1.0f)]
-    public float safetyReward = 0.5f;
+    public GATestFlow.TypeAgent typeAgent;
+    public LndAgent agent;
+    public ScriptableObject agentConfig;
 
     public float stepHeightDebugNav = 0.05f;
     public float jumpHeightDebugNav = 0.8f;
@@ -291,16 +275,20 @@ public class RelationGrid : MonoBehaviour
         //On part du départ et on voit comme ca avance tout droit
         float fitness = 0.0f;
 
-        agent = new AgentFlowCurieux();
+        agent = null; 
+        
+        switch (typeAgent)
+        {
+            case TypeAgent.AGENT_FLOW_CURIEUX:
+                agent = new AgentFlowCurieux();
+                break;
+            case TypeAgent.AGENT_TOTO:
+                agent = new AgentToto();
+                break;
+        }
+
         agent.Init(xStart, zStart, 0 ,dirStart, navGridDebug, gridUnitSize);
-        agent.heightDownDrive = heightDownDrive;
-        agent.heightUpDrive = heightUpDrive;
-        agent.safetyGainDrive = safetyGainDrive;
-        agent.noveltyDrive = noveltyDrive;
-        agent.heightDownReward = heightDownReward;
-        agent.heightUpReward = heightUpReward;
-        agent.safetyReward = safetyReward;
-        agent.noveltyReward = noveltyReward;
+        agent.InitParams(agentConfig);
         agent.UpdatePerception();
 
 #if UNITY_EDITOR
@@ -313,15 +301,7 @@ public class RelationGrid : MonoBehaviour
         if (agent == null)
             return;
 
-        agent.heightDownDrive = heightDownDrive;
-        agent.heightUpDrive = heightUpDrive;
-        agent.safetyGainDrive = safetyGainDrive;
-        agent.noveltyDrive = noveltyDrive;
-        agent.heightDownReward = heightDownReward;
-        agent.heightUpReward = heightUpReward;
-        agent.safetyReward = safetyReward;
-        agent.noveltyReward = noveltyReward;
-
+        agent.InitParams(agentConfig);
         agent.Step();
         agent.UpdatePerception();
 #if UNITY_EDITOR
@@ -334,14 +314,7 @@ public class RelationGrid : MonoBehaviour
         if (agent == null)
             return;
 
-        agent.heightDownDrive = heightDownDrive;
-        agent.heightUpDrive = heightUpDrive;
-        agent.safetyGainDrive = safetyGainDrive;
-        agent.noveltyDrive = noveltyDrive;
-        agent.heightDownReward = heightDownReward;
-        agent.heightUpReward = heightUpReward;
-        agent.safetyReward = safetyReward;
-        agent.noveltyReward = noveltyReward;
+        agent.InitParams(agentConfig);
 
         agent.UpdatePerception();
 #if UNITY_EDITOR
@@ -360,14 +333,7 @@ public class RelationGrid : MonoBehaviour
     [ReadOnly] public float fitnessLevel = 0.0f;
     public void EvaluateLevelEditor()
     {
-        agent.heightDownDrive = heightDownDrive;
-        agent.heightUpDrive = heightUpDrive;
-        agent.safetyGainDrive = safetyGainDrive;
-        agent.noveltyDrive = noveltyDrive;
-        agent.heightDownReward = heightDownReward;
-        agent.heightUpReward = heightUpReward;
-        agent.safetyReward = safetyReward;
-        agent.noveltyReward = noveltyReward;
+        agent.InitParams(agentConfig);
 
         BuildAndShowNavEditor();
 
@@ -912,6 +878,8 @@ public class RelationGrid : MonoBehaviour
     }
 
 #if UNITY_EDITOR
+      
+
     private void OnDrawGizmos()
     {
         /* VIRE AUTO BORDER
@@ -942,62 +910,7 @@ public class RelationGrid : MonoBehaviour
 
         if (agent != null)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2 + agent.height, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.8f, gridUnitSize * 0.8f, gridUnitSize * 0.8f));
-            Gizmos.color = Color.green;
-            /*switch (agent.direction)
-            {
-                case 0:
-                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f + gridUnitSize * 0.55f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
-                    break;
-                case 1:
-                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f + +gridUnitSize * 0.55f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
-                    break;
-                case 2:
-                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f - +gridUnitSize * 0.55f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
-                    break;
-                case 3:
-                    Gizmos.DrawCube(transform.position + new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f - +gridUnitSize * 0.55f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
-                    break;
-            }*/
-
-            Vector3[] offset =
-            {
-                new Vector3(0,0,1),
-                new Vector3(1,0,0),
-                new Vector3(0,0,-1),
-                new Vector3(-1,0,0)
-            };
-
-            Vector3 positionF = transform.position +
-                new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
-                offset[agent.direction] * gridUnitSize * 0.55f;
-
-            Gizmos.DrawCube(positionF, new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
-
-            positionF = transform.position +
-                new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
-                offset[agent.direction] * gridUnitSize;
-
-            Vector3 positionL = transform.position +
-                new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
-                offset[(agent.direction+3)%4] * gridUnitSize;
-
-            Vector3 positionR = transform.position +
-            new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
-            offset[(agent.direction+1)%4] * gridUnitSize;
-
-            Vector3 positionB = transform.position +
-            new Vector3(agent.xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, agent.zPos * gridUnitSize + gridUnitSize / 2.0f) +
-            offset[(agent.direction + 2) % 4] * gridUnitSize;
-
-            
-
-            UnityEditor.Handles.Label(positionF + Vector3.up * 2, ""+ Mathf.Round(agent.desirabilityF * 100) / 100);
-            UnityEditor.Handles.Label(positionL + Vector3.up * 2, "" + Mathf.Round(agent.desirabilityN * 100) / 100);
-            UnityEditor.Handles.Label(positionR + Vector3.up * 2, "" + Mathf.Round(agent.desirabilityP * 100) / 100);
-            UnityEditor.Handles.Label(positionB + Vector3.up * 2, "" + Mathf.Round(agent.desirabilityB * 100) / 100);
-
+            agent.debugGizmo(transform.position);   
         }
 
         if (navGridDebug != null && showNavGridDebug)

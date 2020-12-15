@@ -7,6 +7,16 @@ using UnityEditor.SceneManagement;
 [CustomEditor(typeof(RelationGrid))]
 public class RelationGridEditor : Editor
 {
+    public void OnSceneGUI()
+    {
+        RelationGrid myScript = (RelationGrid)target;
+
+        if (myScript.agent != null)
+        {
+            myScript.agent.debugGui(myScript.transform.position);
+        }
+    }
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
