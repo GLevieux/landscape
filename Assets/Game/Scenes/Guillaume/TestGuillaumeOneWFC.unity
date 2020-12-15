@@ -1407,12 +1407,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: typeAgent
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: configAgent
       value: 
-      objectReference: {fileID: 11400000, guid: cfe143e1d5b2c10479c80e8f32797d5c, type: 2}
+      objectReference: {fileID: 11400000, guid: 15f8c0f12d1413c43882fe748dd77b49, type: 2}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: heightBoost
       value: -0.768

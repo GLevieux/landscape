@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AgentFlowCurieux : LndAgent
-{    
+{
+    //Reward et drives
+    public float noveltyDrive = 1.0f;
+    public float heightUpDrive = 0.8f;
+    public float heightDownDrive = -0.2f;
+    public float safetyGainDrive = 0.5f;
 
-    //Calcul a chaque step
+    public float noveltyReward = 1.0f;
+    public float heightUpReward = 0.8f;
+    public float heightDownReward = -0.2f;
+    public float safetyReward = 0.5f;
+
     public float reachabilityF;
     public float reachabilityP;
     public float reachabilityN;
@@ -235,7 +244,6 @@ public class AgentFlowCurieux : LndAgent
     public override void debugGizmo(Vector3 origin)
     {
         base.debugGizmo(origin);
-
     }
 
     public override void debugGui(Vector3 origin)
