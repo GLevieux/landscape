@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 490.85474, g: 282.3757, b: 194.00014, a: 1}
+  m_IndirectSpecularColor: {r: 531.5431, g: 325.59326, b: 265.98895, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -465,7 +465,7 @@ PrefabInstance:
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.data[1].relationGrid
       value: 
-      objectReference: {fileID: 6051803017836593869, guid: a9fef53cf1f5718449cb2706981621f3, type: 3}
+      objectReference: {fileID: 6051803017836593869, guid: 5c138c037759fd0468a059cf9ca7a7e4, type: 3}
     - target: {fileID: 8920850587401739166, guid: 1c64b01eddea6e947aa21a6c5f4ddd3a, type: 3}
       propertyPath: relationGrids.Array.data[2].relationGrid
       value: 
@@ -852,8 +852,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gaEnded: 0
   sizeZone: 1
-  typeAgent: 1
-  configAgent: {fileID: 11400000, guid: 3cdeeba31fdfde64f977b24945deb172, type: 2}
+  typeAgent: 0
+  configAgent: {fileID: 11400000, guid: f91e5ec886b65084e9c89406af158d0a, type: 2}
   IdPlayerStart: 13
 --- !u!114 &1560547232
 MonoBehaviour:
