@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 531.5431, g: 325.59326, b: 265.98895, a: 1}
+  m_IndirectSpecularColor: {r: 490.53683, g: 282.27914, b: 194.14589, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -852,8 +852,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gaEnded: 0
   sizeZone: 1
-  typeAgent: 0
-  configAgent: {fileID: 11400000, guid: f91e5ec886b65084e9c89406af158d0a, type: 2}
+  typeAgent: 1
+  configAgent: {fileID: 11400000, guid: 3cdeeba31fdfde64f977b24945deb172, type: 2}
   IdPlayerStart: 13
 --- !u!114 &1560547232
 MonoBehaviour:
