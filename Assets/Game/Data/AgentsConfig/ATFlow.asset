@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800c232ce54bf734881d0a27e3620a9d, type: 3}
   m_Name: ATFlow
   m_EditorClassIdentifier: 
-  noveltyDrive: 1
+  noveltyDrive: 0.5
   heightUpDrive: 1
-  heightDownDrive: -1
-  safetyGainDrive: -1
-  noveltyReward: 1
+  heightDownDrive: 0
+  safetyGainDrive: 0
+  noveltyReward: 0.5
   heightUpReward: 1
   heightDownReward: 0
   safetyReward: 0
