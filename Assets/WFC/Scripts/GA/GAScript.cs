@@ -42,8 +42,9 @@ public abstract class GAScript : MonoBehaviour
         public int populationMin = 40;
         public int populationMax = 60;
         public int nbGeneration = 1000;
+        public float crossSelectProbability = 0.7f;
         public float crossProbability = 0.5f;
-        public float mutationProbability = 0.5f;
+        public float mutationProbability = 0.03f;
         public bool allGenesMutable = false;
         public bool runInSeparateThread = true;
 
@@ -68,6 +69,7 @@ public abstract class GAScript : MonoBehaviour
             return "Genetic Algorithm: " + className + "\n"
                     + "Population is (" + populationMin + ", " + populationMax + ") \n"
                     + "nbGeneration is " + nbGeneration + "\n"
+                    + "crossSeleectProbability is " + crossSelectProbability + "\n"
                     + "crossProbability is " + crossProbability + "\n"
                     + "mutationProbability is " + mutationProbability + "\n"
                     + "all genes mutable is " + allGenesMutable + "\n"
@@ -225,7 +227,7 @@ public abstract class GAScript : MonoBehaviour
 
         // This operators are classic genetic algorithm operators that lead to a good solution on TSP,
         // but you can try others combinations and see what result you get.
-        var crossover = new MyTwoPointCrossover();
+        var crossover = new MyTwoPointCrossover(0,1, gaConfig.crossProbability); //Les deux premiers params sont ensuite remplacés, inutiles dans le constructeur...
         var mutation = new UniformMutation(gaConfig.allGenesMutable);
         var selection = new EliteSelection();
         
@@ -236,7 +238,7 @@ public abstract class GAScript : MonoBehaviour
         m_ga = new GeneticAlgorithm(population, fitness, selection, crossover, mutation);
         m_ga.Termination = new GenerationNumberTermination(gaConfig.nbGeneration);//new TimeEvolvingTermination(System.TimeSpan.FromMinutes(10));
 
-        m_ga.CrossoverProbability = gaConfig.crossProbability;
+        m_ga.CrossoverProbability = gaConfig.crossSelectProbability;
         m_ga.MutationProbability = gaConfig.mutationProbability;
 
 

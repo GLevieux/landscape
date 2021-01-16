@@ -246,13 +246,15 @@ public class AgentToto : LndAgent
     }
 
     public override void debugGui(Vector3 origin)
-    {        
+    {
+#if UNITY_EDITOR
         UnityEditor.Handles.Label((positionF + positionB) / 2 + Vector3.up * 2, "XOXOTOTO");
 
         UnityEditor.Handles.Label(positionF + Vector3.up * 2, "" + Mathf.Round(desirabilityF * 100) / 100);
         UnityEditor.Handles.Label(positionL + Vector3.up * 2, "" + Mathf.Round(desirabilityN * 100) / 100);
         UnityEditor.Handles.Label(positionR + Vector3.up * 2, "" + Mathf.Round(desirabilityP * 100) / 100);
         UnityEditor.Handles.Label(positionB + Vector3.up * 2, "" + Mathf.Round(desirabilityB * 100) / 100);
+#endif
     }
 
 

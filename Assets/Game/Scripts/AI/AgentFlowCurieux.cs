@@ -222,13 +222,13 @@ public class AgentFlowCurieux : LndAgent
                 happiness = happinessN;
             }
         }
-
+         
         int xPosNext = xPos + xMoves[direction];
         int zPosNext = zPos + zMoves[direction];
 
-        //Si ca nous fait sortir ou que c'est nul d'avancer
-        if (desirability < -float.MaxValue / 2.0f || xPosNext < 0 || xPosNext > gridSizeX - 1 || zPosNext < 0 || zPosNext > gridSizeZ - 1)
-            return 0;
+        //Si ca nous fait sortir 
+        if (xPosNext < 0 || xPosNext > gridSizeX - 1 || zPosNext < 0 || zPosNext > gridSizeZ - 1)
+            return -float.MaxValue;
 
         //accumNoTurn += happiness;
 
@@ -248,9 +248,11 @@ public class AgentFlowCurieux : LndAgent
 
     public override void debugGui(Vector3 origin)
     {
+#if UNITY_EDITOR
         UnityEditor.Handles.Label(positionF + Vector3.up * 2, "" + Mathf.Round(desirabilityF * 100) / 100);
         UnityEditor.Handles.Label(positionL + Vector3.up * 2, "" + Mathf.Round(desirabilityN * 100) / 100);
         UnityEditor.Handles.Label(positionR + Vector3.up * 2, "" + Mathf.Round(desirabilityP * 100) / 100);
         UnityEditor.Handles.Label(positionB + Vector3.up * 2, "" + Mathf.Round(desirabilityB * 100) / 100);
+#endif
     }
 }

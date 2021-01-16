@@ -100,9 +100,23 @@ namespace GeneticSharp.Domain.Crossovers
             var firstCutGenesCount = SwapPointOneGeneIndex + 1;
             var secondCutGenesCount = SwapPointTwoGeneIndex + 1;
             var child = leftParent.CreateNew();
-            child.ReplaceGenes(0, leftParent.GetGenes().Take(firstCutGenesCount).ToArray());
-            child.ReplaceGenes(firstCutGenesCount, rightParent.GetGenes().Skip(firstCutGenesCount).Take(secondCutGenesCount - firstCutGenesCount).ToArray());
-            child.ReplaceGenes(secondCutGenesCount, leftParent.GetGenes().Skip(secondCutGenesCount).ToArray());
+
+            float proba = RandomizationProvider.Current.GetFloat();
+            if(proba < CrossoverProbability)
+            {
+                child.ReplaceGenes(0, leftParent.GetGenes().Take(firstCutGenesCount).ToArray());
+                child.ReplaceGenes(firstCutGenesCount, rightParent.GetGenes().Skip(firstCutGenesCount).Take(secondCutGenesCount - firstCutGenesCount).ToArray());
+                child.ReplaceGenes(secondCutGenesCount, leftParent.GetGenes().Skip(secondCutGenesCount).ToArray());
+            }
+            else
+            {
+                proba = RandomizationProvider.Current.GetFloat();
+                if(proba < 0.5)
+                    child.ReplaceGenes(0, leftParent.GetGenes());
+                else
+                    child.ReplaceGenes(0, rightParent.GetGenes());  
+            }
+
 
             return child;
         }

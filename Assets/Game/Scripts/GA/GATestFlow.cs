@@ -336,7 +336,19 @@ public class GATestFlow : GAScript
             agent.InitParams(configAgent);
 
             for (int i = 0; i < 30000; i++)
-                fitness += agent.Step()/30000.0f;            
+                fitness += agent.Step()/30000.0f;
+
+            /*if (fitness > -float.Epsilon && fitness < float.Epsilon)
+            {
+                Debug.Log("What ?");
+
+                agent.Init(xStart, zStart, 0, dirStart, nav, m_generalConfig.gridUnitSize);
+                agent.InitParams(configAgent);
+
+                for (int i = 0; i < 30000; i++)
+                    fitness += agent.Step() / 30000.0f;
+
+            }*/
 
             return fitness;
         }
