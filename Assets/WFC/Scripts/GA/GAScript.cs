@@ -228,7 +228,7 @@ public abstract class GAScript : MonoBehaviour
         // This operators are classic genetic algorithm operators that lead to a good solution on TSP,
         // but you can try others combinations and see what result you get.
         var crossover = new MyTwoPointCrossover(0,1, gaConfig.crossProbability); //Les deux premiers params sont ensuite remplacés, inutiles dans le constructeur...
-        var mutation = new UniformMutation(gaConfig.allGenesMutable);
+        var mutation = new MyUniformMutation(gaConfig.allGenesMutable);
         var selection = new EliteSelection();
         
         var population = new Population(gaConfig.populationMin, gaConfig.populationMax, chromosome);
@@ -240,6 +240,7 @@ public abstract class GAScript : MonoBehaviour
 
         m_ga.CrossoverProbability = gaConfig.crossSelectProbability;
         m_ga.MutationProbability = gaConfig.mutationProbability;
+        
 
 
         switch (gaConfig.runType)

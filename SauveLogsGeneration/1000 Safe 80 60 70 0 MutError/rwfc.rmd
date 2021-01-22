@@ -1,0 +1,262 @@
+---
+title: "RWFC"
+author: "Guillaume"
+date: "03/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+require(data.table)
+library(ggplot2)
+library(magrittr)
+library(matrixStats)
+```
+
+## Fitness evolution
+
+```{r fitness_init, echo=FALSE}
+
+DT <- as.data.table(read.csv("fitness.csv", header = FALSE,sep=";"))
+DTT <- transpose(DT[,V1:=NULL]) 
+mat <- as.matrix(DTT)
+```
+
+Evolution du fitness des `r dim(mat)[1]` chromosomes, sur `r dim(mat)[2]` epoch. 
+
+### Fitness moyen et max
+
+```{r fitness_moy, echo=FALSE}
+#on enleveles -inf on les met à NA
+nbValFail = length(mat[mat < -1000])
+matNA = mat
+matNA[matNA < -1000] <- NA
+max(matNA[1])
+
+
+matColMean = colMeans(matNA,na.rm=TRUE)
+plot(matColMean)
+
+matColMax = colMaxs(matNA)
+plot(matColMax)
+```
+
+Evolution du fitness moyen des `r dim(mat)[1]` chromosomes. Les `r nbValFail` valeurs en échec (-inf), soit `r round(nbValFail*100/length(mat))`% des valeurs, sont à NA et donc sorties de la moyenne.
+
+### Fitness global
+
+```{r fitness_glob, echo=FALSE}
+nbValFail = length(mat[mat < -1000])
+matDraw <- mat
+matDraw[mat < -1000] = min(matDraw[mat > -1000])
+matDraw <- apply(matDraw,2,sort, decreasing=FALSE)
+image(
+    t(matDraw),
+    axes = FALSE,
+    useRaster = TRUE,
+    col = hcl.colors(24, "YlOrRd", rev = TRUE)
+)
+
+```
+
+Evolution du fitness de tous les chromosomes. A chaque epoch, ils sont triés et les NA sont à la valeur de fitness minimale globale. Les `r nbValFail` valeurs en échec (-inf), soit `r round(nbValFail*100/length(mat))`% des valeurs, sont mises à la valeur minimale pour l'affichage graphique.
+
+## Entropie
+
+```{r entropy_load function, echo=FALSE}
+
+loadEntropy <- function(filename){
+  DT <- as.data.table(read.csv(filename, header = FALSE,sep=";"))
+  DTT <- transpose(DT[,V1:=NULL])
+  return(DTT)
+}
+
+```
+
+```{r entropy_moy function, echo=FALSE}
+show_entropy_moy <- function(DT){
+  mat <- as.matrix(DT)
+  matColMean = colMeans(mat)
+  plot(matColMean)
+}
+
+```
+
+
+```{r entropy_detail function, echo=FALSE}
+show_entropy_detail <- function(DT){
+  
+  mat <- as.matrix(DT)
+
+
+  mat <- apply(mat,2,sort, decreasing=FALSE)
+  image(
+      t(mat),
+      axes = FALSE,
+      useRaster = TRUE,
+      col = hcl.colors(24, "YlOrRd", rev = TRUE)
+  );
+}
+
+```
+
+```{r entropy2 function, echo=FALSE}
+show_entropy_map <- function(DT){
+  
+  mat <- as.matrix(DT)
+   
+  size = dim(mat)[1] 
+  sizeX = sqrt(size) #map carrée
+  
+  colNum = ncol(DT)
+  matSum <- matrix(DT[, .(D = rowSums(.SD)), .SDcols = 1:colNum]$D,nrow = sizeX,ncol = sizeX)
+  
+  print("Histogramme de l'entropie moyenne")  
+  
+  matMoy = matSum/colNum
+  hist(matMoy)
+  
+  print("Entropie moyenne projetée sur la carte")
+  
+  image(
+      t(matSum),
+      axes = FALSE,
+      useRaster = TRUE,
+      asp=1,
+      col = hcl.colors(24, "YlOrRd", rev = TRUE),
+      zlim=c(0,max(matSum))
+  );
+  
+  nbSteps = 5
+  step = round(colNum/nbSteps);
+  
+  print(paste(paste("Entropie moyenne projetée sur la carte tous les ", step), " epoch"))
+  
+  #cherche le max pour meme couleurs images
+  maxMatTime = 0
+  iprev = 1;
+  for(i in seq(1+step,colNum,step)){
+    matTime <- matrix(DT[, .(D = rowSums(.SD)), .SDcols = iprev:i]$D,nrow = sizeX,ncol = sizeX)
+    maxMatTime = max(maxMatTime,max(matTime));
+    iprev = i+1
+  }
+  
+  iprev = 1;
+  for(i in seq(1+step,colNum,step)){
+    matTime <- matrix(DT[, .(D = rowSums(.SD)), .SDcols = iprev:i]$D, nrow = sizeX, ncol = sizeX)
+    
+    image(
+        t(matTime),
+        axes = FALSE,
+        useRaster = TRUE,
+        asp=1,
+        zlim=c(0,maxMatTime)
+    )
+    
+    iprev = i+1
+  }
+  
+
+}
+
+```
+
+### Entropie des genes / zones
+
+```{r entropy zones load, echo=FALSE}
+DT = loadEntropy("entropy_zones.csv")
+```
+Affichage de l'entropie des `r dim(DT)[1]` genes / zones. On ne tient pas compte de la rotation, juste du type de module choisi pour la zone. Plus l'entropie est faible pour une zone, plus l'ensemble des chromosome a choisi de forcer le meme module pour cette zone, a cet epoch.
+
+#### Entropie moyenne
+
+```{r entropy zones moy, echo=FALSE}
+show_entropy_moy(DT)
+```
+
+
+#### Entropie globale
+
+```{r entropy zones glob, echo=FALSE}
+show_entropy_detail(DT)
+```
+
+#### Entropie localisée
+
+On peut affiche l'entropie sur une projection de la map, vue de dessus.
+
+```{r entropy zones loc, echo=FALSE}
+show_entropy_map(DT)
+```
+
+### Entropy modules (après WFC)
+
+```{r entropy modules load, echo=FALSE}
+DT = loadEntropy("entropy_modules.csv")
+```
+
+Affichage de l'entropie des `r dim(DT)[1]` modules placés sur chaque zone de la carte. En effet, au dela du choix effecté par le gène, il y'a le WFC qui impose des contraintes et donc le module final n'est pas forcément celui choisi. Si l'entropie est faible pour une zone, c'est que après le WFC, tous les niveaux générés à un epoch on effectivement le même module.
+
+#### Entropie moyenne
+
+```{r entropy modules moy, echo=FALSE}
+show_entropy_moy(DT)
+```
+
+
+#### Entropie globale
+
+```{r entropy modules glob, echo=FALSE}
+show_entropy_detail(DT)
+```
+
+#### Entropie localisée
+
+On peut affiche l'entropie sur une projection de la map, vue de dessus.
+
+```{r entropy modules loc, echo=FALSE}
+show_entropy_map(DT)
+```
+
+```{r entropy modules, echo=FALSE}
+#show_entropy("entropy_modules.csv")
+```
+
+```{r pressure, echo=FALSE}
+# DT <- as.data.table(read.csv("data_moy.csv", header = FALSE,sep=";"))
+# DTT <- transpose(DT[,V1:=NULL])
+# #hist(DTT[[20]])
+# boxplot.matrix(as.matrix(DTT))
+# 
+#   DT <- as.data.table(read.csv("data_big.csv", header = FALSE,sep=";"))
+#   DTT <- transpose(DT[,V1:=NULL])
+#   mat <- as.matrix(DTT)
+#   image(
+#       t(mat),
+#       axes = FALSE,
+#       useRaster = TRUE
+#   )
+# 
+# dt.m = melt(DT)
+# 
+# 
+# ggplot(dt.m, aes(variable, V1,fill=value)) + geom_tile(colour = "white")
+# + scale_fill_gradient(low = "white",
+#      high = "steelblue")
+# 
+# 
+# 
+# oldpar <- par(mar = rep(0.2, 4)) # reducing plot margins
+# image(
+#     t(mat), # image() has some weird opinions about how your matrix will be plotted
+#     axes = TRUE,
+#     useRaster = TRUE,
+#     col = colorRampPalette(c("white", "darkorange", "black"))(30), # our colour palette
+#     breaks = c(seq(0, 3, length.out = 30), 100) # colour-to-value mapping
+#     
+# )
+```
+
+
+
