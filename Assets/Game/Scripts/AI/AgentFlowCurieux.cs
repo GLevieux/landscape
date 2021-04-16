@@ -60,6 +60,8 @@ public class AgentFlowCurieux : LndAgent
         noveltyReward = config.noveltyReward;
     }
 
+    /*
+
     //Retourne un delta de fitness
     public override void UpdatePerception()
     {
@@ -254,5 +256,5 @@ public class AgentFlowCurieux : LndAgent
         UnityEditor.Handles.Label(positionR + Vector3.up * 2, "" + Mathf.Round(desirabilityP * 100) / 100);
         UnityEditor.Handles.Label(positionB + Vector3.up * 2, "" + Mathf.Round(desirabilityB * 100) / 100);
 #endif
-    }
+    }*/
 }

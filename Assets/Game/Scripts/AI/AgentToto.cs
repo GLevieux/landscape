@@ -59,7 +59,7 @@ public class AgentToto : LndAgent
         safetyReward = config.safetyReward;
         noveltyReward = config.noveltyReward;
     }
-
+    /*
     public override void UpdatePerception()
     {
 
@@ -256,6 +256,7 @@ public class AgentToto : LndAgent
         UnityEditor.Handles.Label(positionB + Vector3.up * 2, "" + Mathf.Round(desirabilityB * 100) / 100);
 #endif
     }
-
+    */
+    
 
 }

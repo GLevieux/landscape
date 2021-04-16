@@ -19,4 +19,4 @@ MonoBehaviour:
   noveltyReward: 0.3
   heightUpReward: 0
   heightDownReward: 0
-  safetyReward: -0.5
+  safetyReward: -0.7
