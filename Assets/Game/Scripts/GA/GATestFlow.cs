@@ -33,7 +33,7 @@ public class GATestFlow : GAScript
     [Header("Zone Coverage")]
     [Tooltip("Genetic Search with Astar: longest path with zone coverage")]
     public int sizeZone = 3;//used to divide grid into zone of this size
-    
+
     public override string ToString()
     {
         return base.ToString()
@@ -52,7 +52,7 @@ public class GATestFlow : GAScript
 
     protected override IFitness getFitnessClass()
     {
-        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart,typeAgent, configAgent);
+        return new WFCFitness(wfcConfig, gaConfig.nbZones, sizeZone, gridSize, forceSeed, randomSeed, IdPlayerStart, typeAgent, configAgent);
     }
 
     protected override IChromosome getChromosomeClass()
@@ -78,7 +78,7 @@ public class GATestFlow : GAScript
         //On calcule, pour chaque zone de la map(chaque gene) l'entropie
         Gene[] genes = tempChro[0].GetGenes();
         float[] counts = new float[UniqueTile.getLastId() + 1];
-        float [] entropies = new float[genes.Length];
+        float[] entropies = new float[genes.Length];
 
         for (int g = 0; g < genes.Length; g++)
         {
@@ -88,7 +88,7 @@ public class GATestFlow : GAScript
             for (int c = 0; c < tempChro.Count; c++)
             {
                 int assetID = Convert.ToInt32(tempChro[c].GetGene(g).Value, CultureInfo.InvariantCulture);
-                counts[assetID/4]++;  //CHANGEMENT ASSET ROTATION
+                counts[assetID / 4]++;  //CHANGEMENT ASSET ROTATION
             }
 
             for (int i = 0; i < counts.Length; i++)
@@ -96,9 +96,9 @@ public class GATestFlow : GAScript
 
             entropies[g] = 0;
             for (int i = 0; i < counts.Length; i++)
-                if(counts[i] > float.Epsilon)
+                if (counts[i] > float.Epsilon)
                     entropies[g] += -(float)(counts[i] * Math.Log(counts[i], 2));
-                
+
             Logger.CSVEntropyZone("G" + m_ga.GenerationsNumber.ToString(), entropies[g].ToString());
         }
 
@@ -111,7 +111,7 @@ public class GATestFlow : GAScript
             for (int c = 0; c < tempChro.Count; c++)
             {
                 Module[,] modules = ((WFCChromosome)tempChro[c]).gridResult;
-                if(modules != null)
+                if (modules != null)
                 {
                     int gridSize = modules.GetUpperBound(0) + 1;
                     if (modules[g % gridSize, g / gridSize] != null)
@@ -121,15 +121,15 @@ public class GATestFlow : GAScript
                     }
                 }
             }
-                    
+
             for (int i = 0; i < counts.Length; i++)
                 counts[i] /= (float)tempChro.Count;
 
             entropies[g] = 0;
             for (int i = 0; i < counts.Length; i++)
                 if (counts[i] > float.Epsilon)
-                    entropies[g] += -(float)(counts[i] * Math.Log(counts[i], 2));                  
-            
+                    entropies[g] += -(float)(counts[i] * Math.Log(counts[i], 2));
+
             Logger.CSVEntropyModule("G" + m_ga.GenerationsNumber.ToString(), entropies[g].ToString());
         }
 
@@ -166,7 +166,7 @@ public class GATestFlow : GAScript
         //Only id asset is controlled by genetic
         public override Gene GenerateGene(int geneIndex)
         {
-            return new Gene(RandomizationProvider.Current.GetInt(0, (UniqueTile.getLastId() + 1)*4));
+            return new Gene(RandomizationProvider.Current.GetInt(0, (UniqueTile.getLastId() + 1) * 4));
         }
 
         public override IChromosome CreateNew()
@@ -200,7 +200,7 @@ public class GATestFlow : GAScript
 
     public int IdPlayerStart = -1;
 
-    
+
 
     public class WFCFitness : IFitness
     {
@@ -234,7 +234,7 @@ public class GATestFlow : GAScript
 
         }
 
-        public double Evaluate(IChromosome chromosome)
+        /*public double Evaluate(IChromosome chromosome)
         {
             var genes = chromosome.GetGenes();
 
@@ -256,7 +256,7 @@ public class GATestFlow : GAScript
                 float probability = 50000f;
 
                 int assetID = Convert.ToInt32(g.Value, CultureInfo.InvariantCulture);
-                assetID = MathUtility.Clamp(assetID, 0, UniqueTile.getLastId()*4);
+                assetID = MathUtility.Clamp(assetID, 0, UniqueTile.getLastId() * 4);
                 int rotationY = assetID % 4;
                 assetID = assetID / 4;
 
@@ -331,26 +331,151 @@ public class GATestFlow : GAScript
                     agent = new AgentToto();
                     break;
             }
-                        
+
             agent.Init(xStart, zStart, 0, dirStart, nav, m_generalConfig.gridUnitSize);
             agent.InitParams(configAgent);
 
             for (int i = 0; i < 30000; i++)
-                fitness += agent.Step()/30000.0f;
+                fitness += agent.Step() / 30000.0f;
 
-            /*if (fitness > -float.Epsilon && fitness < float.Epsilon)
-            {
-                Debug.Log("What ?");
 
-                agent.Init(xStart, zStart, 0, dirStart, nav, m_generalConfig.gridUnitSize);
-                agent.InitParams(configAgent);
+            //if (fitness > -float.Epsilon && fitness < float.Epsilon)
+            //{
+            //    Debug.Log("What ?");
 
-                for (int i = 0; i < 30000; i++)
-                    fitness += agent.Step() / 30000.0f;
+            //    agent.Init(xStart, zStart, 0, dirStart, nav, m_generalConfig.gridUnitSize);
+            //    agent.InitParams(configAgent);
 
-            }*/
+            //    for (int i = 0; i < 30000; i++)
+            //        fitness += agent.Step() / 30000.0f;
+
+            //}
 
             return fitness;
+        }*/
+
+
+        public double Evaluate(IChromosome chromosome)
+        {
+            var genes = chromosome.GetGenes();
+
+            List<SimpleGridWFC.Zone> Zones = new List<SimpleGridWFC.Zone>(m_numberOfZones);
+
+            for (int i = 0; i < m_numberOfZones; i++)
+            {
+                Gene g = genes[i];
+
+                SimpleGridWFC.Zone currentZone = new SimpleGridWFC.Zone();
+
+                int originX, originY, sizeX = m_sizeZone, sizeY = m_sizeZone;
+
+                int nbZonesX = Mathf.CeilToInt((float)m_gridSize.x / m_sizeZone);
+
+                originX = (i % nbZonesX) * m_sizeZone;
+                originY = (i / nbZonesX) * m_sizeZone;
+
+                float probability = 50000f;
+
+                int assetID = Convert.ToInt32(g.Value, CultureInfo.InvariantCulture);
+                assetID = MathUtility.Clamp(assetID, 0, UniqueTile.getLastId());
+
+                currentZone.origin = new Vector2Int(originX, originY);
+                currentZone.size = new Vector2Int(sizeX, sizeY);
+                currentZone.probabilityBoost = probability;
+                currentZone.assetID = assetID;
+
+                Zones.Add(currentZone);
+            }
+
+             ((WFCChromosome)chromosome).Zones = new List<SimpleGridWFC.Zone>(Zones);
+
+            if (m_forceSeed)
+            {
+                RandomUtility.setLocalSeed(m_randomSeed);
+            }
+
+            SimpleGridWFC wfc = new SimpleGridWFC(m_generalConfig);
+            wfc.setListZones(Zones);
+            wfc.launchWFC();
+
+            if (wfc.isWFCFailed())
+                return 0.0f;
+
+            //Je veux une entrée et un drapeau ! 
+
+            //SM_Prop_Fence_02 = entry, id 1
+            //id 28 is FlagBlue
+            //id 27 is air
+
+            int entryID = 1;
+            int flagObjectiveID = 0;//28
+            int airID = 5;//27
+            int ennemySpawnId = 2;
+
+            List<int> walkables = new List<int>()
+            {
+                entryID, flagObjectiveID, airID, ennemySpawnId
+            };
+
+            int nbEntry = wfc.GetNbAssetInGrid(entryID);
+            int nbFlag = wfc.GetNbAssetInGrid(flagObjectiveID);
+
+            float fitness = 0.0f;
+
+            /*if (nbEntry > 1)
+            {
+                fitness += 0.05f;
+            }
+
+            if (nbEntry == 1)
+            {
+                fitness += 0.3f;
+            }
+
+            if (nbFlag > 1)
+            {
+                fitness += 0.05f;
+            }
+
+            if (nbFlag == 1)
+            {
+                fitness += 0.3f;
+            }*/
+
+             ((WFCChromosome)chromosome).gridResult = wfc.getModuleResult(true);
+
+            if (wfc.GetNbAssetInGrid(entryID) != 1 || wfc.GetNbAssetInGrid(flagObjectiveID) != 1)
+            {
+                return fitness;
+            }
+
+            Vector2Int entryPos = wfc.GetPositionFirst(entryID);
+            Vector2Int flagPos = wfc.GetPositionFirst(flagObjectiveID);
+
+
+
+            //int[][] map = wfc.getPathGrid();
+            //int[] start = new int[2] { entryPos.x, entryPos.y };
+            //int[] end = new int[2] { flagPos.x, flagPos.y };
+
+            //List<Vector2> pathToObjective = new Astar(map, start, end, "nope").result;
+
+            // create the tiles map
+            bool[,] tilesmap = wfc.getBoolPathGrid(walkables);
+
+            // create a grid
+            NesScripts.Controls.PathFind.Grid grid = new NesScripts.Controls.PathFind.Grid(tilesmap);
+
+            // create source and target points
+            Point _from = new Point(entryPos.x, entryPos.y);
+            Point _to = new Point(flagPos.x, flagPos.y);
+
+            // get path
+            // path will either be a list of Points (x, y), or an empty list if no path is found.
+            List<Point> path = Pathfinding.FindPath(grid, _from, _to, Pathfinding.DistanceType.Manhattan);
+
+
+            return path.Count;
         }
     }
 
