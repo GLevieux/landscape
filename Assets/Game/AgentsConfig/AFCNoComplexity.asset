@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 297fc8259ccae334aad4d8780804c59c, type: 3}
-  m_Name: AFCSafety
+  m_Name: AFCNoComplexity
   m_EditorClassIdentifier: 
   noveltyDrive: 1
   heightUpDrive: 0
   heightDownDrive: 0
   safetyGainDrive: 0
+  complexityGainDrive: 0
   noveltyReward: 0.3
   heightUpReward: 0
   heightDownReward: 0
-  safetyReward: 0.7
+  safetyReward: 0
+  complexityReward: -0.7

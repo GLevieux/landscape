@@ -32,12 +32,60 @@ Evolution du fitness des `r dim(mat)[1]` chromosomes, sur `r dim(mat)[2]` epoch.
 nbValFail = length(mat[mat < -1000])
 matNA = mat
 matNA[matNA < -1000] <- NA
+max(matNA[1])
+
 
 matColMean = colMeans(matNA,na.rm=TRUE)
-plot(matColMean)
+#plot(matColMean)
 
 matColMax = colMaxs(matNA,na.rm=TRUE)
-plot(matColMax)
+#plot(matColMax)
+
+matQuantiles = colQuantiles(matNA,na.rm=TRUE)
+matQuantiles = data.table(matQuantiles)
+
+
+DTLoc = data.table(moyenne=matColMean)
+DTLoc$epoch = seq(1:nrow(DTLoc))
+DTLoc$max = matColMax
+DTLoc$min = colMins(matNA,na.rm=TRUE)
+DTLoc$quart1 = matQuantiles$`25%`
+DTLoc$quart3 = matQuantiles$`75%`
+
+ggplot(DTLoc,aes(x=epoch,y=moyenne)) + 
+  geom_ribbon(aes(ymin = min, ymax = max),fill = "gray75") +
+  geom_ribbon(aes(ymin = quart1, ymax = quart3),fill = "gray50") +
+  geom_point(aes(y = moyenne), color = "red") + 
+geom_line(aes(y = max), color = "black")  
+
+require(plotly)
+library(plotly)
+
+plot_ly(z = volcano, type = "surface")
+volcano
+
+require(akima)
+require(rgl)
+
+tiles = c(9,12,27,27,27)
+size = c(15,15,15,20,30)
+time = c(10,22,110,455,2140)
+
+
+plot_ly(z = s$z, type = "surface")
+
+s = interp(tiles,size,time)
+dim(s$z)
+surface3d(s$x,s$y,s$z)
+s$z
+
+
+x = runif(1000)
+y = runif(1000)
+z = rnorm(1000)
+s = interp(x,y,z)
+
+
 ```
 
 Evolution du fitness moyen des `r dim(mat)[1]` chromosomes. Les `r nbValFail` valeurs en échec (-inf), soit `r round(nbValFail*100/length(mat))`% des valeurs, sont à NA et donc sorties de la moyenne.

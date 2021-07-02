@@ -1250,13 +1250,13 @@ public class SimpleGridWFC
 #if LOGGER
                 Logger.Log("First loop, borders activated, searchEntropy is skipped", Logger.LogType.TITLE);
 #endif
-                Debug.Log("number of first border slots to update " + slotsToUpdate.Count);
+                //Debug.Log("number of first border slots to update " + slotsToUpdate.Count);
             }
             else
             {
                 if (!searchMinEntropy())//A prendre en compte meme pour le 1er choix (y a aura les frequences avec) 
                 {
-                    Debug.Log("Entropy ended");
+                    //Debug.Log("Entropy ended");
                     break;
                 }
             }

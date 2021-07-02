@@ -38,14 +38,15 @@ public class NotificationHUDManager : MonoBehaviour
 
     public void CreateNotification(string text)
     {
-        GameObject notificationInstance = Instantiate(notificationPrefab, notificationPanel);
+        //Marre de voir les notifs (guillaume)
+        /*GameObject notificationInstance = Instantiate(notificationPrefab, notificationPanel);
         notificationInstance.transform.SetSiblingIndex(0);
 
         NotificationToast toast = notificationInstance.GetComponent<NotificationToast>();
         if (toast)
         {
             toast.Initialize(text);
-        }
+        }*/
     }
 
     public void RegisterObjective(Objective objective)

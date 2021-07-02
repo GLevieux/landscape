@@ -51,6 +51,7 @@ public class AgentMoinsBete : LndAgent
         heightDownDrive = config.heightDownDrive;
         heightUpDrive = config.heightUpDrive;
         safetyGainDrive = config.safetyGainDrive;
+        safetyGainDrive = config.complexityGainDrive;
         noveltyDrive = config.noveltyDrive;
         heightDownReward = config.heightDownReward;
         heightUpReward = config.heightUpReward;

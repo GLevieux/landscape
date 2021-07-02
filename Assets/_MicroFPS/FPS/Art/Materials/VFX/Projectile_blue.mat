@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Projectile_blue
   m_Shader: {fileID: 4800000, guid: c4edd00ff2db5b24391a4fcb1762e459, type: 3}
-  m_ShaderKeywords: _BLENDMODE_ADD _SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -51,7 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 766e0c8738dffc646b9ada80a0df14d5, type: 3}
         m_Scale: {x: 1, y: 2}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -77,6 +77,8 @@ Material:
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 1
     - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
+    - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 1
     - _BlendOp: 0
     - _BumpScale: 1
@@ -123,6 +125,7 @@ Material:
     - _Metallic: 0
     - _Mode: 2
     - _OcclusionStrength: 1
+    - _OpaqueCullMode: 2
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
@@ -150,11 +153,11 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 24.753246, g: 78.850235, b: 128, a: 128}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissiveColor: {r: 24.753246, g: 78.850235, b: 128, a: 128}
-    - _EmissiveColorLDR: {r: 0.19338271, g: 0.61601746, b: 1, a: 1}
+    - _EmissiveColor: {r: 24.752974, g: 78.85023, b: 128, a: 128}
+    - _EmissiveColorLDR: {r: 0.47701812, g: 0.80715007, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _UnlitColor: {r: 1, g: 1, b: 1, a: 1}
     - _UnlitColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
@@ -171,4 +174,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 2
+  version: 11

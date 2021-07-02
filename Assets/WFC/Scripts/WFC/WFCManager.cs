@@ -50,6 +50,8 @@ public class WFCManager : MonoBehaviour
     [Header("Divers")]
     public bool autoScreenshot = false;
     public int nbStepsSaveLogs = 100;
+    public bool showBestOfAll = false; //Montre le meilleur, toutes générations confondues
+
 
     [Header("Configuration WFC")]
     public WFCConfig wfcConfig = new WFCConfig();
@@ -173,7 +175,7 @@ public class WFCManager : MonoBehaviour
             if (Input.GetButtonDown("ShowCurrentGeneration") || (ga.getGenerationNumber() > 0 && ga.getGenerationNumber() % nbStepsSaveLogs == 0))
             {
                 ga.PauseGA(true);
-                ga.ShowResult(this.transform.position);
+                ga.ShowResult(this.transform.position,!showBestOfAll);
                 StartCoroutine(SendMessageEndOfFrame("LevelGenerated"));
                 saveCurrentGeneration();
                 ga.PauseGA(false);               
@@ -183,7 +185,7 @@ public class WFCManager : MonoBehaviour
             {
                 gaLaunched = false;
                 ga.gaEnded = false;
-                ga.ShowResult(this.transform.position);
+                ga.ShowResult(this.transform.position,!showBestOfAll);
 
                 Logger.FlushToDisk();
 

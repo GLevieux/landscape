@@ -86,6 +86,8 @@ public abstract class GAScript : MonoBehaviour
 
     public virtual void init(GAConfig gaConfig, WFCConfig wfcConfig, bool forceSeed, int seed)
     {
+        bestFitness = -float.MaxValue;
+
         if (wfcConfig == null)
             this.wfcConfig = new WFCConfig();
         else
@@ -112,12 +114,14 @@ public abstract class GAScript : MonoBehaviour
 
     public void StopGA()
     {
+        Debug.Log("Stop GA Asked");
         if (m_ga == null)
             return;
 
         // When the script is destroyed we stop the genetic algorithm and abort its thread too.
         m_ga.Stop();
-        m_gaThread.Abort();
+        if(m_gaThread != null)
+            m_gaThread.Abort();
 
         gaEnded = true;
     }
@@ -144,6 +148,11 @@ public abstract class GAScript : MonoBehaviour
     }
 
     //Last best result (last generation iteration)
+    protected Module[,] lastBestResult = null;
+    protected double? lastBestFitness = 0;
+    protected List<Zone> lastBestZones;
+
+    //Cest result of all time (last generation iteration)
     protected Module[,] bestResult = null;
     protected double? bestFitness = 0;
     protected List<Zone> bestZones;
@@ -167,9 +176,13 @@ public abstract class GAScript : MonoBehaviour
 
     private List<GameObject> tileInstanciated = new List<GameObject>();
     
-    public void ShowResult(Vector3 instanceCoordinates)
+    public void ShowResult(Vector3 instanceCoordinates, bool showOnlyLastBest)
     {
+        
         Module[,] res = bestResult;
+        if (showOnlyLastBest)
+            res = lastBestResult;
+
         if (res == null)
             return;
 

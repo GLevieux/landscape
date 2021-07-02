@@ -107,6 +107,13 @@ public class GASimpleTest : GAScript
 
         //if (fitnessDebug > bestFitness)
         {
+            lastBestFitness = fitnessDebug;
+            lastBestResult = gridResult;
+            lastBestZones = zonesResult;
+        }
+
+        if (fitnessDebug > bestFitness)
+        {
             bestFitness = fitnessDebug;
             bestResult = gridResult;
             bestZones = zonesResult;

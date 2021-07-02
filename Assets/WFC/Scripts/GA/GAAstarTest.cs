@@ -89,9 +89,16 @@ public class GAAstarTest : GAScript
         Logger.Log(debug);
 #endif
 
-        bestFitness = fitnessDebug;
-        bestResult = gridResult;
-        bestZones = zonesResult;
+        lastBestFitness = fitnessDebug;
+        lastBestResult = gridResult;
+        lastBestZones = zonesResult;
+
+        if (fitnessDebug > bestFitness)
+        {
+            bestFitness = fitnessDebug;
+            bestResult = gridResult;
+            bestZones = zonesResult;
+        }
     }
 
     public class WFCChromosome : ChromosomeBase

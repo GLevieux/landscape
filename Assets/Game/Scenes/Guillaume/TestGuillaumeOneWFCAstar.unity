@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 563.7607, g: 341.50854, b: 261.93036, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -223,7 +223,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  serializedVersion: 2
+  serializedVersion: 3
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 0
@@ -245,7 +245,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
   m_RealtimeResolution: 2
@@ -262,7 +262,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRRussianRouletteStartBounce: 2
+  m_PVRMinBounces: 1
   m_PVREnvironmentMIS: 1
   m_PVRFilteringMode: 1
   m_PVRDenoiserTypeDirect: 1
@@ -353,6 +353,11 @@ MonoBehaviour:
   dithering: 0
   stopNaNs: 0
   taaSharpenStrength: 0.6
+  TAAQuality: 1
+  taaHistorySharpening: 0.35
+  taaAntiFlicker: 0.5
+  taaMotionVectorRejection: 0
+  taaAntiHistoryRinging: 0
   physicalParameters:
     m_Iso: 200
     m_ShutterSpeed: 0.005
@@ -371,6 +376,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hasPersistentHistory: 0
+  exposureTarget: {fileID: 0}
   m_RenderingPathCustomFrameSettings:
     bitDatas:
       data1: 70299890483021
@@ -381,6 +387,9 @@ MonoBehaviour:
     maximumLODLevel: 0
     maximumLODLevelMode: 0
     maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
@@ -561,7 +570,7 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
-  clearColorMode: 0
+  clearColorMode: 1
   backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
   clearDepth: 1
   volumeLayerMask:
@@ -569,10 +578,15 @@ MonoBehaviour:
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 3
-  SMAAQuality: 2
+  SMAAQuality: 1
   dithering: 0
-  stopNaNs: 0
+  stopNaNs: 1
   taaSharpenStrength: 0.6
+  TAAQuality: 1
+  taaHistorySharpening: 0.35
+  taaAntiFlicker: 0.5
+  taaMotionVectorRejection: 0
+  taaAntiHistoryRinging: 0
   physicalParameters:
     m_Iso: 200
     m_ShutterSpeed: 0.005
@@ -591,6 +605,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hasPersistentHistory: 0
+  exposureTarget: {fileID: 0}
   m_RenderingPathCustomFrameSettings:
     bitDatas:
       data1: 70025145712461
@@ -601,10 +616,13 @@ MonoBehaviour:
     maximumLODLevel: 0
     maximumLODLevelMode: 0
     maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
-      data1: 274878988288
+      data1: 274878955520
       data2: 0
   defaultFrameSettings: 0
 --- !u!81 &1257422418
@@ -748,6 +766,11 @@ MonoBehaviour:
   dithering: 0
   stopNaNs: 0
   taaSharpenStrength: 0.6
+  TAAQuality: 1
+  taaHistorySharpening: 0.35
+  taaAntiFlicker: 0.5
+  taaMotionVectorRejection: 0
+  taaAntiHistoryRinging: 0
   physicalParameters:
     m_Iso: 200
     m_ShutterSpeed: 0.005
@@ -766,6 +789,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hasPersistentHistory: 0
+  exposureTarget: {fileID: 0}
   m_RenderingPathCustomFrameSettings:
     bitDatas:
       data1: 70300024700749
@@ -776,6 +800,9 @@ MonoBehaviour:
     maximumLODLevel: 0
     maximumLODLevelMode: 0
     maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
@@ -857,36 +884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1825078977
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1825078978}
-  m_Layer: 0
-  m_Name: AgentFlowCurieux
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1825078978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825078977}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.07466, y: 9.976162, z: 14.870603}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1840625636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1070,6 +1067,11 @@ MonoBehaviour:
   dithering: 0
   stopNaNs: 0
   taaSharpenStrength: 0.6
+  TAAQuality: 1
+  taaHistorySharpening: 0.35
+  taaAntiFlicker: 0.5
+  taaMotionVectorRejection: 0
+  taaAntiHistoryRinging: 0
   physicalParameters:
     m_Iso: 200
     m_ShutterSpeed: 0.005
@@ -1088,6 +1090,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   hasPersistentHistory: 0
+  exposureTarget: {fileID: 0}
   m_RenderingPathCustomFrameSettings:
     bitDatas:
       data1: 70300024700749
@@ -1098,6 +1101,9 @@ MonoBehaviour:
     maximumLODLevel: 0
     maximumLODLevelMode: 0
     maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
@@ -1211,10 +1217,12 @@ MonoBehaviour:
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
+  m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
   m_LightUnit: 2
   m_FadeDistance: 10000
+  m_VolumetricFadeDistance: 10000
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
@@ -1229,6 +1237,9 @@ MonoBehaviour:
   m_ApplyRangeAttenuation: 1
   m_DisplayAreaLightEmissiveMesh: 0
   m_AreaLightCookie: {fileID: 0}
+  m_IESPoint: {fileID: 0}
+  m_IESSpot: {fileID: 0}
+  m_IncludeForRayTracing: 1
   m_AreaLightShadowCone: 120
   m_UseScreenSpaceShadows: 0
   m_InteractsWithSky: 1
@@ -1247,6 +1258,7 @@ MonoBehaviour:
   m_LightShadowRadius: 0.5
   m_SemiTransparentShadow: 0
   m_ColorShadow: 1
+  m_DistanceBasedFiltering: 0
   m_EvsmExponent: 15
   m_EvsmLightLeakBias: 0
   m_EvsmVarianceBias: 0.00001
@@ -1277,8 +1289,13 @@ MonoBehaviour:
   m_NormalBias: 0.75
   m_SlopeBias: 0.5
   m_ShadowUpdateMode: 0
+  m_AlwaysDrawDynamicShadows: 0
+  m_UpdateShadowOnLightMovement: 0
+  m_CachedShadowTranslationThreshold: 0.01
+  m_CachedShadowAngularThreshold: 0.5
   m_BarnDoorAngle: 90
   m_BarnDoorLength: 0.05
+  m_preserveCachedShadow: 0
   m_ShadowCascadeRatios:
   - 0.05
   - 0.2
@@ -1357,6 +1374,7 @@ Light:
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0.53
 --- !u!4 &2075220840
@@ -1412,7 +1430,7 @@ PrefabInstance:
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: configAgent
       value: 
-      objectReference: {fileID: 11400000, guid: f91e5ec886b65084e9c89406af158d0a, type: 2}
+      objectReference: {fileID: 11400000, guid: cd6c058cc67a6ac41862b9e671b7480e, type: 2}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: heightBoost
       value: -0.768
@@ -1435,7 +1453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: IdPlayerStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4843408080584093550, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: heightUpBoost
@@ -1474,12 +1492,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: showBestOfAll
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: nbStepsSaveLogs
-      value: 1500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.gridSize
-      value: 20
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: useCustomRandomSeed
@@ -1495,7 +1517,7 @@ PrefabInstance:
       objectReference: {fileID: 6622444295663265238, guid: 408c224bf313a494b922d664f9f31c0a, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.idBorderTile
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.size
@@ -1551,20 +1573,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.size
-      value: 13
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[0].relationGrid
       value: 
-      objectReference: {fileID: 6051803017836593869, guid: b16876b1f0ae0314ab1b01587e10ed5c, type: 3}
+      objectReference: {fileID: 6051803017836593869, guid: 78d8bdc77677ab44ba5ebaa3be8ca24b, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[1].relationGrid
       value: 
-      objectReference: {fileID: 6051803017836593869, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
+      objectReference: {fileID: 6051803017836593869, guid: 509681e60c88fbd478c5dd99ae820400, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[2].relationGrid
       value: 
-      objectReference: {fileID: 6051803017836593869, guid: 3fed1523c02848e44a0051d33d506ef4, type: 3}
+      objectReference: {fileID: 6051803017836593869, guid: eb3b3a1cb9a25704eb4c4ccd2c7ad11d, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[3].relationGrid
       value: 
@@ -1576,7 +1598,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[0].pi
       value: 
-      objectReference: {fileID: 4328153994932939023, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
+      objectReference: {fileID: 8042557656517893866, guid: 78d8bdc77677ab44ba5ebaa3be8ca24b, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[1].id
       value: 1
@@ -1584,7 +1606,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[1].pi
       value: 
-      objectReference: {fileID: 6130502416116463546, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
+      objectReference: {fileID: 5262457869701283000, guid: 78d8bdc77677ab44ba5ebaa3be8ca24b, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[2].id
       value: 2
@@ -1592,7 +1614,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[2].pi
       value: 
-      objectReference: {fileID: 9101481242983536399, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
+      objectReference: {fileID: 8419091141263761390, guid: 78d8bdc77677ab44ba5ebaa3be8ca24b, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[3].id
       value: 3
@@ -1600,7 +1622,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[3].pi
       value: 
-      objectReference: {fileID: 2353254600815908799, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
+      objectReference: {fileID: 1244384691946381298, guid: 78d8bdc77677ab44ba5ebaa3be8ca24b, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[4].id
       value: 4
@@ -1608,7 +1630,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[4].pi
       value: 
-      objectReference: {fileID: 8855909391878646636, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
+      objectReference: {fileID: 9101481242983536399, guid: 509681e60c88fbd478c5dd99ae820400, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[5].id
       value: 5
@@ -1616,7 +1638,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[5].pi
       value: 
-      objectReference: {fileID: 864910838169686480, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
+      objectReference: {fileID: 6292716616971735528, guid: b16876b1f0ae0314ab1b01587e10ed5c, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[6].id
       value: 6
@@ -1624,7 +1646,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[6].pi
       value: 
-      objectReference: {fileID: 5437618613948840087, guid: a9fef53cf1f5718449cb2706981621f3, type: 3}
+      objectReference: {fileID: 9101481242983536399, guid: f2472cac4fe53644cb6dea2696d6c7ea, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[7].id
       value: 7
@@ -1691,15 +1713,27 @@ PrefabInstance:
       objectReference: {fileID: 1383979855253819451, guid: eb3b3a1cb9a25704eb4c4ccd2c7ad11d, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[0].maxNb
-      value: 1000
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[0].minNb
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[1].maxNb
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[1].minNb
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[2].maxNb
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
+      propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[2].minNb
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[3].maxNb
@@ -1719,11 +1753,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[6].maxNb
-      value: 2
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[6].minNb
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[7].maxNb
@@ -1767,31 +1801,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[0].nbInBaseGrid
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[1].nbInBaseGrid
-      value: 29
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[2].nbInBaseGrid
-      value: 44
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[3].nbInBaseGrid
-      value: 301
+      value: 187
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[4].nbInBaseGrid
-      value: 282
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[5].nbInBaseGrid
-      value: 8220
+      value: 178
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[6].nbInBaseGrid
-      value: 2
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[7].nbInBaseGrid
@@ -1851,19 +1885,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7773194
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.62910056
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.0020941582
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.0016802353
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496439, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1895,15 +1929,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.nbGeneration
-      value: 5000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.populationMax
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.populationMin
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.allGenesMutable
@@ -1911,7 +1945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.crossProbability
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.mutationProbability

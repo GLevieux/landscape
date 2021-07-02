@@ -7,8 +7,8 @@ public class LndAgent
     //Utiles 
     protected NavGrid nav;
 
-    protected int[] xMoves = { 0, 1, 0, -1 }; //Deplacement sur X en fonction de la rotation
-    protected int[] zMoves = { 1, 0, -1, 0 }; //Deplacement sur X en fonction de la rotation
+    protected int[] xMoves = { 0, 1, 1, 1, 0, -1, -1, -1}; //Deplacement sur X en fonction de la rotation
+    protected int[] zMoves = { 1, 1, 0, -1, -1, -1, 0, 1}; //Deplacement sur X en fonction de la rotation
 
     protected float gridSizeX;
     protected float gridSizeZ;
@@ -60,23 +60,18 @@ public class LndAgent
         Gizmos.DrawCube(origin + new Vector3(xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2 + height, zPos * gridUnitSize + gridUnitSize / 2.0f), new Vector3(gridUnitSize * 0.8f, gridUnitSize * 0.8f, gridUnitSize * 0.8f));
         Gizmos.color = Color.green;
 
-        Vector3[] offset =
-        {
-                new Vector3(0,0,1),
-                new Vector3(1,0,0),
-                new Vector3(0,0,-1),
-                new Vector3(-1,0,0)
-        };
 
+        Vector3 offset = new Vector3(xMoves[direction], 0, zMoves[direction]);
+        
         positionF = origin +
             new Vector3(xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, zPos * gridUnitSize + gridUnitSize / 2.0f) +
-            offset[direction] * gridUnitSize * 0.55f;
+            offset * gridUnitSize * 0.55f;
 
         Gizmos.DrawCube(positionF, new Vector3(gridUnitSize * 0.2f, gridUnitSize * 0.2f, gridUnitSize * 0.2f));
                 
-        positionF = origin +
+        /*positionF = origin +
             new Vector3(xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, zPos * gridUnitSize + gridUnitSize / 2.0f) +
-            offset[direction] * gridUnitSize;
+            offset * gridUnitSize;
 
         positionL = origin +
             new Vector3(xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, zPos * gridUnitSize + gridUnitSize / 2.0f) +
@@ -88,7 +83,7 @@ public class LndAgent
 
         positionB = origin +
         new Vector3(xPos * gridUnitSize + gridUnitSize / 2.0f, gridUnitSize / 2, zPos * gridUnitSize + gridUnitSize / 2.0f) +
-        offset[(direction + 2) % 4] * gridUnitSize;
+        offset[(direction + 2) % 4] * gridUnitSize;*/
     }
 
     public virtual void debugGui(Vector3 origin)
