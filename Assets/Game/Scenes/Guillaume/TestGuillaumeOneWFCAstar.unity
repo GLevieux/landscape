@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 565.1859, g: 344.42334, b: 277.9829, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1501,7 +1501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.gridSize
-      value: 16
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: useCustomRandomSeed
@@ -1521,7 +1521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.initWithBordersUp
@@ -1529,19 +1529,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.initWithBordersXN
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.initWithBordersXP
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.initWithBordersZN
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.initWithBordersZP
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.initWithBordersDown
@@ -1573,7 +1573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: relationGrids.Array.data[0].relationGrid
@@ -1622,7 +1622,7 @@ PrefabInstance:
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[3].pi
       value: 
-      objectReference: {fileID: 1244384691946381298, guid: 78d8bdc77677ab44ba5ebaa3be8ca24b, type: 3}
+      objectReference: {fileID: 6633162585358291397, guid: 78d8bdc77677ab44ba5ebaa3be8ca24b, type: 3}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[4].id
       value: 4
@@ -1805,15 +1805,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[1].nbInBaseGrid
-      value: 9
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[2].nbInBaseGrid
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[3].nbInBaseGrid
-      value: 187
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 7300433337243496432, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: wfcConfig.uniqueTilesInGrid.Array.data[4].nbInBaseGrid
@@ -1933,11 +1933,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.populationMax
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.populationMin
-      value: 40
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.allGenesMutable
@@ -1945,7 +1945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.crossProbability
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.mutationProbability
@@ -1957,7 +1957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7908097354556734479, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}
       propertyPath: gaConfig.crossSelectProbability
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7908097354556734476, guid: 3316109fe5e974d49ab0513d5cc6fe68, type: 3}

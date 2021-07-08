@@ -9884,7 +9884,7 @@ MonoBehaviour:
     NavHeightXPosRot0: 0
     NavHeightXNegRot0: 0
   showNavGridDebug: 1
-  showDistanceField: 0
+  showDebugCell: 2
   typeAgent: 0
   agentConfig: {fileID: 11400000, guid: f91e5ec886b65084e9c89406af158d0a, type: 2}
   stepHeightDebugNav: 0.05

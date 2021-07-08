@@ -73,7 +73,7 @@ public class AgentFlowCurieux : LndAgent
     private float[] desirability = new float[] { 0, 0, 0, 0, 0, 0, 0, 0 };
     public unsafe override float TakeDecision()
     {
-        int dirMaxDesirability = 0;
+        int dirMaxDesirability = -1;
         float maxDesirability = -float.MaxValue;
 
         for (int iDirOffset = 0; iDirOffset < 8; iDirOffset++)
@@ -84,30 +84,39 @@ public class AgentFlowCurieux : LndAgent
                 dirMaxDesirability = iDir;
                 maxDesirability = desirability[iDir];
             }
-        }
-
-        
-        direction = dirMaxDesirability;
-        
-        int xPosNext = xPos + xMoves[direction];
-        int zPosNext = zPos + zMoves[direction];
-
-        if (maxDesirability == -float.MaxValue)
-        {
-            xPosNext = xPos;
-            zPosNext = zPos;
-        }
-
-        float fitnessStep = 0;
+        }                
+                
+        int xPosNext = xPos;
+        int zPosNext = zPos;
 
         ref NavGrid.Cell cell = ref nav.Cells[xPos, zPos];
-        bool found = false;
-        ref NavGrid.Cell nextCell = ref cell.getVoisin(direction, out found);
+        
+        float nextCellLastTimeInside = cell.lastTimeInside;
+        float meanVisibility = cell.MeanVisibility;
+        float meanVisibleComplexity = cell.MeanVisibleComplexity;
+
+        bool found = true;
+        ref NavGrid.Cell nextCellInDir = ref cell.getVoisin(dirMaxDesirability, out found);
+
+        if (dirMaxDesirability >= 0)
+        {
+            direction = dirMaxDesirability;
+            xPosNext = xPos + xMoves[direction];
+            zPosNext = zPos + zMoves[direction];
+
+            nextCellLastTimeInside = nextCellInDir.lastTimeInside;
+            meanVisibility = nextCellInDir.MeanVisibility;
+            meanVisibleComplexity = nextCellInDir.MeanVisibleComplexity;
+        }
+              
+
+        float fitnessStep = 0;
+       
         if (found)
         {
-            fitnessStep += noveltyReward * Mathf.Clamp((stepNum - nextCell.lastTimeInside) / 200.0f, -1, 1);
-            fitnessStep += safetyReward * (1.0f - nextCell.MeanVisibility);
-            fitnessStep += complexityReward * nextCell.MeanVisibleComplexity;
+            fitnessStep += noveltyReward * Mathf.Clamp((stepNum - nextCellLastTimeInside) / 200.0f, -1, 1); 
+            fitnessStep += safetyReward * (1.0f - meanVisibility);
+            fitnessStep += complexityReward * meanVisibleComplexity;
 
             xPos = xPosNext;
             zPos = zPosNext;

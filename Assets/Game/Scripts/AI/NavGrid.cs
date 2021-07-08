@@ -193,6 +193,10 @@ public class NavGrid
                             cell.CanGoToNext[i] = System.Math.Min(cell.CanGoToNext[i], nextCornerHeightDiff < stepMax ? cell.CanReachFromInside[i] : 0);
                         }
                     }
+                    else
+                    {
+                        cell.CanGoToNext[i] = 0; 
+                    }
                 }
 
                 
@@ -465,11 +469,12 @@ public class NavGrid
         if (System.Math.Abs(cell.HeightOutDiffNext[6]) > seuilEdge)
             cell.CornerAndEdges[6] = true;
     }
+
     public unsafe float ComputeSimpleComplexity(int xCell, int zCell, float seuilEdge = 0.2f)
     {
         float complexity = 0;
         ref Cell cell = ref Cells[xCell, zCell];
-        
+
         //Pour toutes les dir principales (pas les coins)
         /*for (int iDir = 0; iDir < 4; iDir++)
         {
@@ -494,6 +499,35 @@ public class NavGrid
             }
         }*/
 
+
+
+        for (int iDirEdge = 0; iDirEdge < 4; iDirEdge++)
+        {
+            int iDir = iDirEdge * 2;
+            int iDirNext = ((iDirEdge + 1) * 2) % 8;
+            int iDirCorner = ((iDirEdge * 2) + 1) % 8;
+
+            //Si je suis un edge et le suivant aussi
+            if (cell.CornerAndEdges[iDir] && cell.CornerAndEdges[iDirNext])
+            {
+                cell.CornerAndEdges[iDirCorner] = true;
+
+                //On update les cells dans les bonnes directions, qu'elles aient toutes le coin
+                bool foundIDir = false;
+                bool foundIDirCorner = false;
+                bool foundIDirNext = false;
+                ref Cell cellIDir = ref cell.getVoisin(iDir, out foundIDir);
+                ref Cell cellIDirCorner = ref cell.getVoisin(iDirCorner, out foundIDirCorner);
+                ref Cell cellIDirNext = ref cell.getVoisin(iDirNext, out foundIDirNext);
+
+                if (foundIDir)   cellIDir.CornerAndEdges[(iDirCorner+2)%8] = true;
+                if (foundIDirCorner) cellIDirCorner.CornerAndEdges[(iDirCorner + 4) % 8] = true;
+                if (foundIDirNext) cellIDirNext.CornerAndEdges[(iDirCorner + 6) % 8] = true;
+
+            }
+        }
+
+        /*
         bool foundUp = false;
         bool foundRight = false;
         bool foundDown = false;
@@ -502,6 +536,8 @@ public class NavGrid
         ref Cell cellRight = ref cell.getVoisin(2, out foundRight);
         ref Cell cellDown = ref cell.getVoisin(4, out foundDown);
         ref Cell cellLeft = ref cell.getVoisin(6, out foundLeft);
+
+
 
         //Border du haut vs border haut voisins gauche droite
         bool borderUpCellLeft = (foundLeft && System.Math.Abs(cellLeft.HeightOutDiffNext[0]) > seuilEdge);
@@ -537,7 +573,7 @@ public class NavGrid
         if (cell.CornerAndEdges[6] != borderLeftCellUp)
             cell.CornerAndEdges[7] = true;
         if (cell.CornerAndEdges[6] != borderLeftCellDown)
-            cell.CornerAndEdges[5] = true;
+            cell.CornerAndEdges[5] = true;*/
 
 
         for (int iDir = 0; iDir < 4; iDir++)
@@ -547,6 +583,8 @@ public class NavGrid
 
         return complexity/4.0f;
     }
+
+
 
         /*public unsafe void Build(Module[,] modules, float stepMax = 0.5f)
         {

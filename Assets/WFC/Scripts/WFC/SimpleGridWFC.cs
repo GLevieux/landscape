@@ -1120,8 +1120,24 @@ public class SimpleGridWFC
         //not working thread (ga algorithm)
         //candidateEntropy = candidatesWithMinEntropy[Random.Range(0, candidatesWithMinEntropy.Count)];
 
+        //Debug
+        float sumProba = 0;
+        for (int k = 0; k < candidateEntropy.availables.size; k++)
+        {
+            Module m = candidateEntropy.availables.data[k];
+            sumProba += m.probability;
+        }
+
+        if(sumProba < 0.99f)
+        {
+            Debug.LogError("Proba petee " + sumProba);
+        }
+
         //Choose a module in the slot candidate based on his probability
         Module chosenModule = null;
+
+        if (candidateEntropy.availables.size > 0)
+            chosenModule = candidateEntropy.availables.data[candidateEntropy.availables.size - 1];
 
         //float random = Random.Range(0.0f, 1.0f);
         float random = (float)RandomUtility.NextDouble();
@@ -1131,7 +1147,7 @@ public class SimpleGridWFC
             Module m = candidateEntropy.availables.data[k];
 
             random -= m.probability;
-            if (random <= 0)
+            if (random <= float.Epsilon)
             {
                 chosenModule = m;
                 break;
@@ -1141,6 +1157,12 @@ public class SimpleGridWFC
         if (chosenModule == null)
         {
             Debug.LogError("No chosen module ! we are stuck !");
+
+            for (int k = 0; k < candidateEntropy.availables.size; k++) 
+            {
+                Module m = candidateEntropy.availables.data[k];
+                Debug.Log(k + " " + m.probability);
+            }
             return false;
         }
 

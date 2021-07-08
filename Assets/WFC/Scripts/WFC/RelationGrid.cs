@@ -201,6 +201,7 @@ public class RelationGrid : MonoBehaviour
 
     private NavGrid navGridDebug = null;
     public bool showNavGridDebug = true;
+    public bool showMeanValue = true;
     public CornerDebugView showDebugCell = CornerDebugView.SHOW_NAVIGABILITY;
     private SimpleGridWFC.Module[,] modules = null;
 
@@ -967,23 +968,27 @@ public class RelationGrid : MonoBehaviour
                         }
                     }
 
-                    switch (showDebugCell)
+                    if (showMeanValue)
                     {
-                        case CornerDebugView.SHOW_NAVIGABILITY:
-                            break;
-                        case CornerDebugView.SHOW_VISIBILITY:
-                            Gizmos.color = Color.cyan;
-                            Gizmos.DrawCube(transform.position + new Vector3((x + 0.5f) * gridUnitSize, yCell, (z + 0.5f) * gridUnitSize), new Vector3(0.2f, 0.2f, 0.2f) * cell.MeanVisibility * 5 * gridUnitSize);
-                            break;
-                        case CornerDebugView.SHOW_COMPLEXITY_EDGES:
-                            Gizmos.color = Color.cyan;
-                            Gizmos.DrawCube(transform.position + new Vector3((x + 0.5f) * gridUnitSize, yCell, (z + 0.5f) * gridUnitSize), new Vector3(0.2f, 0.2f, 0.2f) * cell.LocalComplexity * 5 * gridUnitSize);
-                            break;
-                        case CornerDebugView.SHOW_COMPLEXITY_VISION:
-                            Gizmos.color = Color.cyan;
-                            Gizmos.DrawCube(transform.position + new Vector3((x + 0.5f) * gridUnitSize, yCell, (z + 0.5f) * gridUnitSize), new Vector3(0.2f, 0.2f, 0.2f) * cell.MeanVisibleComplexity * 5 * gridUnitSize);
-                            break;
+                        switch (showDebugCell)
+                        {
+                            case CornerDebugView.SHOW_NAVIGABILITY:
+                                break;
+                            case CornerDebugView.SHOW_VISIBILITY:
+                                Gizmos.color = Color.cyan;
+                                Gizmos.DrawCube(transform.position + new Vector3((x + 0.5f) * gridUnitSize, yCell, (z + 0.5f) * gridUnitSize), new Vector3(0.2f, 0.2f, 0.2f) * cell.MeanVisibility * 5 * gridUnitSize);
+                                break;
+                            case CornerDebugView.SHOW_COMPLEXITY_EDGES:
+                                Gizmos.color = Color.cyan;
+                                Gizmos.DrawCube(transform.position + new Vector3((x + 0.5f) * gridUnitSize, yCell, (z + 0.5f) * gridUnitSize), new Vector3(0.2f, 0.2f, 0.2f) * cell.LocalComplexity * 5 * gridUnitSize);
+                                break;
+                            case CornerDebugView.SHOW_COMPLEXITY_VISION:
+                                Gizmos.color = Color.cyan;
+                                Gizmos.DrawCube(transform.position + new Vector3((x + 0.5f) * gridUnitSize, yCell, (z + 0.5f) * gridUnitSize), new Vector3(0.2f, 0.2f, 0.2f) * cell.MeanVisibleComplexity * 5 * gridUnitSize);
+                                break;
+                        }
                     }
+                    
 
                     //Gizmos.color = cell.tempVisibility > 0.5f ? Color.green : Color.red;
 

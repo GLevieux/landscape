@@ -8,7 +8,7 @@ public class LndAgent
     protected NavGrid nav;
 
     protected int[] xMoves = { 0, 1, 1, 1, 0, -1, -1, -1}; //Deplacement sur X en fonction de la rotation
-    protected int[] zMoves = { 1, 1, 0, -1, -1, -1, 0, 1}; //Deplacement sur X en fonction de la rotation
+    protected int[] zMoves = { 1, 1, 0, -1, -1, -1, 0, 1}; //Deplacement sur Z en fonction de la rotation
 
     protected float gridSizeX;
     protected float gridSizeZ;

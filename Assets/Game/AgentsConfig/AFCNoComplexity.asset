@@ -17,8 +17,8 @@ MonoBehaviour:
   heightDownDrive: 0
   safetyGainDrive: 0
   complexityGainDrive: 0
-  noveltyReward: 0.3
+  noveltyReward: -0
   heightUpReward: 0
   heightDownReward: 0
   safetyReward: 0
-  complexityReward: -0.7
+  complexityReward: -1
